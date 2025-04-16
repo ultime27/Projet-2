@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SmartFridge</string>
+    <string name="enter_your_mail_username">Enter your mail/username</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="register">Register</string>
+    <string name="login">login</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="create_an_account">Create an Account</string>
 </resources>
