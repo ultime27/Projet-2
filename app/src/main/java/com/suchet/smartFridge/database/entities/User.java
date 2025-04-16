@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.util.Objects;
 
-//@Entity(tableName = GymLogDatabase.USER_TABLE)
+@Entity(tableName = SmartFridgeDatabase.USER_TABLE)
 public class User {
     @PrimaryKey(autoGenerate = true)
     private int id;

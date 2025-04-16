@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG="DAC_SMARTLOG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
