@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database.entities;
+package com.suchet.smartFridge.database;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.suchet.smartFridge.MainActivity;
+import com.suchet.smartFridge.database.entities.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

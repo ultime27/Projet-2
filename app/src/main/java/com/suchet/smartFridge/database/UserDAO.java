@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database.entities;
+package com.suchet.smartFridge.database;
 
 
 import androidx.lifecycle.LiveData;
@@ -8,8 +8,9 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import java.util.List;
 import com.suchet.smartFridge.database.entities.User;
+
+import java.util.List;
 
 @Dao
 public interface UserDAO {
@@ -19,7 +20,7 @@ public interface UserDAO {
     @Delete
     void delete(User user);
 
-    @Query("SELECT * FROM "+SmartFridgeDatabase.USER_TABLE+ " ORDER BY username")
+    @Query("SELECT * FROM "+ SmartFridgeDatabase.USER_TABLE+ " ORDER BY username")
     LiveData<List<User>> getAllUsers();
 
     @Query("DELETE FROM "+ SmartFridgeDatabase.USER_TABLE)

@@ -2,6 +2,9 @@ package com.suchet.smartFridge.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.suchet.smartFridge.database.SmartFridgeDatabase;
+
 import java.util.Objects;
 
 @Entity(tableName = SmartFridgeDatabase.USER_TABLE)

@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database.entities;
+package com.suchet.smartFridge.database;
 
 import android.app.Application;
 import android.util.Log;
@@ -6,8 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.suchet.smartFridge.MainActivity;
+import com.suchet.smartFridge.database.entities.User;
 
-import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
