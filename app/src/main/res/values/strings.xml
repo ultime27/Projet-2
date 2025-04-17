@@ -8,4 +8,8 @@
     <string name="confirm_your_password">Confirm your password</string>
     <string name="create_an_account">Create an Account</string>
     <string name="not_implemented_yet">NOT IMPLEMENTED YET</string>
+    <string name="log_in">Log In</string>
+    <string name="welcome_to_smartfridge">Welcome to SmartFridge</string>
+    <string name="your_intelligent_food_companion_ncheck_your_fridge_from_anywhere">Your intelligent food companion.\nCheck your fridge from anywhere.</string>
+    <string name="fridge_illustration">Fridge illustration</string>
 </resources>
