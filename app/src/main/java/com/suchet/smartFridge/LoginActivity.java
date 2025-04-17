@@ -26,16 +26,35 @@ public class LoginActivity extends AppCompatActivity {
         repository = SmartFridgeRepository.getRepository(getApplication());
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.SignInButton.setOnClickListener(new View.OnClickListener() {
+
+        SignInButton();
+        CreateAccountButton();
+        LogoutButton();
+
+    }
+
+    private void LogoutButton() {
+        binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                verifyUser();
-            }
+            public void onClick(View v) { startActivity(MainActivity.MainIntentFactory(getApplicationContext()));}
         });
+    }
+
+    private void CreateAccountButton() {
         binding.CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registerActivity();
+            }
+        });
+
+    }
+
+    private void SignInButton() {
+        binding.SignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                verifyUser();
             }
         });
     }

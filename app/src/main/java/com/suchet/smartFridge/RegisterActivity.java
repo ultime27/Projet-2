@@ -22,6 +22,12 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        loginButton();
+        logoutButton();
+    }
+
+    private void loginButton() {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,6 +35,16 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void logoutButton(){
+        binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(MainActivity.MainIntentFactory(getApplicationContext()));
+            }
+        });
+    }
+
     private void loginActivity() {
         startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
@@ -36,4 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
     static Intent RegisterIntentFactory(Context context) {
         return new Intent(context, RegisterActivity.class);
     }
+
+
 }

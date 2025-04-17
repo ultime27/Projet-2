@@ -12,4 +12,5 @@
     <string name="welcome_to_smartfridge">Welcome to SmartFridge</string>
     <string name="your_intelligent_food_companion_ncheck_your_fridge_from_anywhere">Your intelligent food companion.\nCheck your fridge from anywhere.</string>
     <string name="fridge_illustration">Fridge illustration</string>
+    <string name="logout">Logout</string>
 </resources>
