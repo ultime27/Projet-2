@@ -24,15 +24,9 @@ public class  MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        if (isLoggedIn){
-            loginUser();
-        }
-        else {
-            loginButton();
-            SignupButton();
-        }
-
+        MainActivity.MainIntentFactory(getApplicationContext());
+        loginButton();
+        SignupButton();
     }
 
     private void loginButton() {

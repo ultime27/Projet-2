@@ -73,8 +73,8 @@ public class LoginActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             if(user != null){
                 String password = binding.passwordLoginEditText.getText().toString();
-                if(password.equals(user.getPassword())){
-                    startActivity(MainActivity.MainIntentFactory(getApplicationContext()));
+                if(password.equals(user.getPassword()) ){
+                    startActivity(LandingPage.landingIntentFactory(getApplicationContext()));
                 }else {
                     toastMaker("Invalid password");
                     binding.passwordLoginEditText.setSelection(0);
