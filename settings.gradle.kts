@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SmartFridge"
+rootProject.name = "LandingPage"
 include(":app")
  
