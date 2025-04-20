@@ -23,23 +23,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        repository = SmartFridgeRepository.getRepository(getApplication());
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        repository = SmartFridgeRepository.getRepository(getApplication());
+
         SignInButton();
         CreateAccountButton();
-        LogoutButton();
+
 
     }
-
-    private void LogoutButton() {
-        binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { startActivity(MainActivity.MainIntentFactory(getApplicationContext()));}
-        });
-    }
-
     private void CreateAccountButton() {
         binding.CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +66,14 @@ public class LoginActivity extends AppCompatActivity {
         userObserver.observe(this, user -> {
             if(user != null){
                 String password = binding.passwordLoginEditText.getText().toString();
-                if(password.equals(user.getPassword()) ){
-                    startActivity(LandingPage.landingIntentFactory(getApplicationContext()));
+                if(password.equals(user.getPassword())){
+                    startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),user.getId()));
                 }else {
                     toastMaker("Invalid password");
                     binding.passwordLoginEditText.setSelection(0);
                 }
             }else {
-                toastMaker(String.format("%s is not a valid username please register.", username));
+                toastMaker(String.format("%s is not a valid username", username));
                 binding.userNameLoginEditText.setSelection(0);
             }
         });

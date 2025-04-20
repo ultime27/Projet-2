@@ -12,6 +12,8 @@
     <string name="welcome_to_smartfridge">Welcome to SmartFridge</string>
     <string name="your_intelligent_food_companion_ncheck_your_fridge_from_anywhere">Your intelligent food companion.\nCheck your fridge from anywhere.</string>
     <string name="fridge_illustration">Fridge illustration</string>
-    <string name="logout">Back</string>
-    <string name="hello">HELLO</string>
+    <string name="logout">Logout</string>
+    <string name="logged_in">LOGGED IN</string>
+    <string name="preference_file_key">daclinkPreferenceFileNameSmartFridge</string>
+    <string name="preference_userId_key">daclinkPreferenceUserIdKeySmartFridge</string>
 </resources>

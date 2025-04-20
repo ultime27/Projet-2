@@ -5,13 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.suchet.smartFridge.databinding.ActivityLoginBinding;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.suchet.smartFridge.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -24,7 +20,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         loginButton();
-        logoutButton();
     }
 
     private void loginButton() {
@@ -36,14 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void logoutButton(){
-        binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(MainActivity.MainIntentFactory(getApplicationContext()));
-            }
-        });
-    }
+
 
     private void loginActivity() {
         startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
