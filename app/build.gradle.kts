@@ -3,17 +3,21 @@ plugins {
 }
 
 android {
-    namespace = "com.example.landingpage"
+    namespace = "com.cstre.landingpage"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.landingpage"
-        minSdk = 34
+        applicationId = "com.cstre.landingpage"
+        minSdk = 28
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
