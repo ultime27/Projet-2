@@ -18,6 +18,7 @@ public class LandingPage extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private SmartFridgeRepository repository;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +27,8 @@ public class LandingPage extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        String username = "testuser1";
-        LiveData<User> userObserver = repository.getUserByUsername(username);
+	repository = SmartFridgeRepository.getRepository(getApplication());
+	LiveData<User> userObserver = repository.getUserByUsername(username);
 
         binding.isAdminButton.setVisibility(view.INVISIBLE);
         userObserver.observe(this, user -> {
