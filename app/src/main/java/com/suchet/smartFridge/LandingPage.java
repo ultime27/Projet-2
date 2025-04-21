@@ -29,6 +29,8 @@ public class LandingPage extends AppCompatActivity {
     private static final String LANDING_ACTIVITY_USER_ID = "com.suchet.smartFridge.MAIN_ACTIVITY_USER_ID";
 
 
+
+
     private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.suchet.smartFridge.SAVED_INSTANCE_STATE_USERID_KEY";
 
     private SmartFridgeRepository repository;
