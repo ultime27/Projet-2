@@ -24,7 +24,7 @@ import com.suchet.smartFridge.databinding.ActivityMainBinding;
 
 
 public class  MainActivity extends AppCompatActivity {
-    private static final int LOGGED_OUT = -1;
+    public  static final int LOGGED_OUT = -1;
 
     private ActivityMainBinding binding;
     public static final String TAG="SF_SMARTLOG";
@@ -43,10 +43,6 @@ public class  MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
-
-
         repository = SmartFridgeRepository.getRepository(getApplication());
         loginUser(savedInstanceState);
 
@@ -56,7 +52,9 @@ public class  MainActivity extends AppCompatActivity {
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
         }
-
+        else{
+            startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext(),loggedInUserId));
+        }
         updateSharedPreference();
     }
 
