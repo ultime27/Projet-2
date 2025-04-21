@@ -24,7 +24,7 @@ public class LandingPage extends AppCompatActivity {
             binding.isAdminButton.setVisibility(view.INVISIBLE);
         }
         String username = "Pencil";
-        if(username.equals("school")) {
+        if (username.equals("school")) {
             binding.usernameTextView.setVisibility(view.INVISIBLE);
         } else {
             binding.usernameTextView.setVisibility(view.VISIBLE);
@@ -38,17 +38,23 @@ public class LandingPage extends AppCompatActivity {
             }
         });
         binding.logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
                 logout();
             }
         });
     }
+
+    private void registerActivity() {
+        startActivity(RegisterActivity.RegisterIntentFactory(getApplicationContext()));
+    }
+
     private void adminPanel() {
         binding.usernameTextView.setText("ADMIN");
     }
 
     private void logout() {
-        binding.usernameTextView.setText("LOGOUT");
+        startActivity(MainActivity.MainIntentFactory(getApplicationContext()));
     }
 
 }
