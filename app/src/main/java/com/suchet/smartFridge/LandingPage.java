@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -24,7 +25,6 @@ public class LandingPage extends AppCompatActivity {
 
     public  static final int LOGGED_OUT = -1;
 
-    private static final String MAIN_ACTIVITY_USER_ID = "com.suchet.smartFridge.MAIN_ACTIVITY_USER_ID";
 
     private static final String LANDING_ACTIVITY_USER_ID = "com.suchet.smartFridge.MAIN_ACTIVITY_USER_ID";
 
@@ -44,10 +44,10 @@ public class LandingPage extends AppCompatActivity {
 
         repository = SmartFridgeRepository.getRepository(getApplication());
 
-
         loginUser(savedInstanceState);
         updateSharedPreference();
 
+        logoutButton();
 
     }
 
@@ -71,6 +71,7 @@ public class LandingPage extends AppCompatActivity {
             this.user =user;
             if(this.user != null) {
                 invalidateOptionsMenu();
+                showAdminButton();
             }
         });
     }
@@ -98,8 +99,9 @@ public class LandingPage extends AppCompatActivity {
                 }
             });
         }
-        return true; //
+        return true;
     }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState){
         super.onSaveInstanceState(outState);
@@ -134,7 +136,7 @@ public class LandingPage extends AppCompatActivity {
         updateSharedPreference();
 
         getIntent().putExtra(LANDING_ACTIVITY_USER_ID,loggedInUserId);
-        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+        startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),-1));
     }
 
     private void updateSharedPreference() {
@@ -149,5 +151,24 @@ public class LandingPage extends AppCompatActivity {
         Intent intent = new Intent(context, LandingPage.class);
         intent.putExtra(LANDING_ACTIVITY_USER_ID,userId);
         return intent;
+    }
+
+    private void logoutButton(){
+        binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+    }
+
+    private void showAdminButton(){
+        if (user.isAdmin()){
+            binding.ButtonAdmin.setVisibility(View.VISIBLE);
+
+        }
+        else {
+            binding.ButtonAdmin.setVisibility(View.INVISIBLE);
+        }
     }
 }

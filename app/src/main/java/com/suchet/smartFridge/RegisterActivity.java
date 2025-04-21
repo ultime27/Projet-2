@@ -31,6 +31,15 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void logoutButton(){
+        binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),-1));
+            }
+        });
+    }
+
 
 
     private void loginActivity() {
@@ -40,6 +49,4 @@ public class RegisterActivity extends AppCompatActivity {
     static Intent RegisterIntentFactory(Context context) {
         return new Intent(context, RegisterActivity.class);
     }
-
-
 }

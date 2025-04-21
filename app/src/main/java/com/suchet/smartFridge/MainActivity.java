@@ -8,8 +8,7 @@ import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
-
+import android.view.View;
 
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,7 @@ import com.suchet.smartFridge.databinding.ActivityMainBinding;
 
 
 public class  MainActivity extends AppCompatActivity {
-    public  static final int LOGGED_OUT = -1;
+    private static final int LOGGED_OUT = -1;
 
     private ActivityMainBinding binding;
     public static final String TAG="SF_SMARTLOG";
@@ -43,19 +42,22 @@ public class  MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
+
+
         repository = SmartFridgeRepository.getRepository(getApplication());
         loginUser(savedInstanceState);
 
 
         //User is or logged in at this point, go to login screen
-        if(loggedInUserId == LOGGED_OUT){
-            Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
+        if(loggedInUserId != LOGGED_OUT){
+            Intent intent = LandingPage.landingPageActivityIntentFactory(getApplicationContext(),loggedInUserId);
             startActivity(intent);
         }
-        else{
-            startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext(),loggedInUserId));
-        }
         updateSharedPreference();
+        loginButton();
+        SignupButton();
     }
 
     private void loginUser(Bundle savedInstanceState) {
@@ -89,24 +91,7 @@ public class  MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        MenuItem item = menu.findItem(R.id.logoutMenuItem);
-        item.setVisible(true);
-        if (user == null){
-            item.setTitle("chargement...");
-        } else {
-            item.setTitle(user.getUsername());
-            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(@NonNull MenuItem item) {
-                    showLogoutDialog();
-                    return false;
-                }
-            });
-        }
-        return true; //
-    }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState){
         super.onSaveInstanceState(outState);
@@ -158,6 +143,23 @@ public class  MainActivity extends AppCompatActivity {
         SharedPreferences.Editor sharedPrefEditor= sharedPreferences.edit();
         sharedPrefEditor.putInt(getString(R.string.preference_userId_key),loggedInUserId);
         sharedPrefEditor.apply();
+    }
 
+    private void loginButton() {
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+            }
+        });
+    }
+
+    private void SignupButton(){
+        binding.signUpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(RegisterActivity.RegisterIntentFactory(getApplicationContext()));
+            }
+        });
     }
 }

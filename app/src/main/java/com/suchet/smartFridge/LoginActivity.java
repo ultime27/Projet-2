@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SignInButton();
         CreateAccountButton();
-
+        logoutButton();
 
     }
     private void CreateAccountButton() {
@@ -85,5 +85,13 @@ public class LoginActivity extends AppCompatActivity {
 
     static Intent loginIntentFactory(Context context) {
         return new Intent(context, LoginActivity.class);
+    }
+    private void logoutButton(){
+        binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),-1));
+            }
+        });
     }
 }
