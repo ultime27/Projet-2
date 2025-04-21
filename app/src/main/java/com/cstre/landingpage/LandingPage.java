@@ -1,14 +1,23 @@
 package com.cstre.landingpage;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.view.View;
 import com.cstre.landingpage.databinding.ActivityMainBinding;
 
+import com.suchet.smartFridge.LoginActivity;
+import com.suchet.smartFridge.MainActivity;
+import com.suchet.smartFridge.database.SmartFridgeRepository;
+import com.suchet.smartFridge.database.entities.User;
+
 public class LandingPage extends AppCompatActivity {
 
-     private ActivityMainBinding binding;
+    private ActivityMainBinding binding;
+    private SmartFridgeRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,19 +26,16 @@ public class LandingPage extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        boolean isAdmin = true;
-        if (isAdmin) {
-            binding.isAdminButton.setVisibility(view.VISIBLE);
-        } else {
-            binding.isAdminButton.setVisibility(view.INVISIBLE);
-        }
-        String username = "Pencil";
-        if (username.equals("school")) {
-            binding.usernameTextView.setVisibility(view.INVISIBLE);
-        } else {
-            binding.usernameTextView.setVisibility(view.VISIBLE);
-            binding.usernameTextView.setText(username);
-        }
+        String username = "testuser1";
+        LiveData<User> userObserver = repository.getUserByUsername(username);
+
+        userObserver.observe(this, user -> {
+            if(user.isAdmin()){
+                binding.isAdminButton.setVisibility(view.VISIBLE);
+            } else {
+                binding.isAdminButton.setVisibility(view.VISIBLE);
+            }
+        });
 
         binding.isAdminButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,16 +51,17 @@ public class LandingPage extends AppCompatActivity {
         });
     }
 
-    private void registerActivity() {
-        startActivity(RegisterActivity.RegisterIntentFactory(getApplicationContext()));
-    }
-
     private void adminPanel() {
         binding.usernameTextView.setText("ADMIN");
     }
 
     private void logout() {
-        startActivity(MainActivity.MainIntentFactory(getApplicationContext()));
+        binding.usernameTextView.setText("LOGOUT");
+        //startActivity(MainActivity.MainIntentFactory(getApplicationContext()));
+    }
+
+    static Intent LandingPageIntentFactory(Context context) {
+        return new Intent(context, LandingPage.class);
     }
 
 }
