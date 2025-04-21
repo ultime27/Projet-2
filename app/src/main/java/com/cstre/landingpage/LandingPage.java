@@ -29,10 +29,9 @@ public class LandingPage extends AppCompatActivity {
         String username = "testuser1";
         LiveData<User> userObserver = repository.getUserByUsername(username);
 
+        binding.isAdminButton.setVisibility(view.INVISIBLE);
         userObserver.observe(this, user -> {
             if(user.isAdmin()){
-                binding.isAdminButton.setVisibility(view.VISIBLE);
-            } else {
                 binding.isAdminButton.setVisibility(view.VISIBLE);
             }
         });
