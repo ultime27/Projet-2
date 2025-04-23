@@ -2,12 +2,12 @@ package com.suchet.smartFridge.database.entities;
 
 import java.time.LocalDate;
 
-public class Aliment {
+public class Food {
     private String name;
     private LocalDate expirationDate;
     private int quantity;
 
-    public Aliment(String name, LocalDate expirationDate, int quantity) {
+    public Food(String name, LocalDate expirationDate, int quantity) {
         this.name = name;
         this.expirationDate = expirationDate;
         this.quantity = quantity;
