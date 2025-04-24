@@ -65,4 +65,8 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User() {
+        //Empty constructor for Child, Parent, Admin class.
+    }
 }
