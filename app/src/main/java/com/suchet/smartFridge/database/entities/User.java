@@ -47,6 +47,11 @@ public class User {
         isAdmin = admin;
     }
 
+    public void addMeal(Food food) {
+        System.out.println(this + " added " + food + " (" + food.getQuantity() + ").\n[" + food.getExpirationDate() + "]");
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
