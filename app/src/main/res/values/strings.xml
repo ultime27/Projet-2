@@ -22,5 +22,8 @@
     <string name="add_meal">Add meal</string>
     <string name="meal_name">Meal name</string>
     <string name="pick_date">Pick date</string>
+    <string name="start_recipie">Start Recipie</string>
+    <string name="see_more">See more</string>
+    <string name="schedule_recipie">schedule recipie</string>
 
 </resources>
