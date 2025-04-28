@@ -1,0 +1,32 @@
+package com.suchet.smartFridge.database;
+
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import com.suchet.smartFridge.database.entities.Meal;
+
+import java.util.List;
+import java.util.concurrent.Executors;
+
+public class MealViewModel extends AndroidViewModel {
+    private MealDAO mealDao;
+    private LiveData<List<Meal>> allMeals;
+
+    public MealViewModel(@NonNull Application application) {
+        super(application);
+        MealDatabase db = MealDatabase.getDatabase(application);
+        mealDao = db.mealDao();
+        allMeals = mealDao.getAllMeals();
+    }
+
+    public LiveData<List<Meal>> getAllMeals() {
+        return allMeals;
+    }
+
+    public void insert(Meal meal) {
+        Executors.newSingleThreadExecutor().execute(() -> mealDao.insert(meal));
+    }
+}

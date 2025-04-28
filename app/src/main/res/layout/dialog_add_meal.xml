@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <EditText
+        android:id="@+id/input_meal_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Meal name"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/pick_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick date"
+        android:layout_marginTop="16dp" />
+
+    <!-- Zone pour ajouter des ingrédients -->
+    <EditText
+        android:id="@+id/input_ingredient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingredient name"
+        android:inputType="text"
+        android:layout_marginTop="24dp"/>
+
+    <Button
+        android:id="@+id/add_ingredient_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Ingredient"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/ingredients_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredients:"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
