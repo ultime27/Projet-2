@@ -20,15 +20,23 @@ public class Recipe {
     // Room stockera cette map en JSON grâce au converter ci-dessous
     public HashMap<String, Double> ingredientList;
 
+    public Recipe(){
+        name = null;
+        ingredientList= new HashMap<>();
+        description=null;
+        instruction=null;
+    }
     public Recipe(String _name,String _description, String _instruction){
         name = _name;
         ingredientList= new HashMap<>();
         description=_description;
         instruction=_instruction;
     }
-    public Recipe(String _name, HashMap<String, Double> _ingredients){
+    public Recipe(String _name, HashMap<String, Double> _ingredients,String _description, String _instruction){
         name = _name;
         ingredientList=_ingredients;
+        description=_description;
+        instruction=_instruction;
 
     }
 
