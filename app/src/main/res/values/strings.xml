@@ -19,5 +19,8 @@
     <string name="hello">HELLO</string>
     <string name="admin">Admin</string>
     <string name="logout2">Logout</string>
+    <string name="add_meal">Add meal</string>
+    <string name="meal_name">Meal name</string>
+    <string name="pick_date">Pick date</string>
 
 </resources>
