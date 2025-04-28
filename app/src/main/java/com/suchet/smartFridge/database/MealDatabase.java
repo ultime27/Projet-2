@@ -7,4 +7,5 @@ import com.suchet.smartFridge.database.entities.Meal;
 @Database(entities = {Meal.class},version = 1,exportSchema = false)
 
 abstract class MealDatabase {
+
 }
