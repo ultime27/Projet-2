@@ -1,39 +1,25 @@
 package com.suchet.smartFridge;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.suchet.smartFridge.database.MealAdapter;
-import com.suchet.smartFridge.database.MealViewModel;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
-import com.suchet.smartFridge.database.entities.Meal;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityLandingPageBinding;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LandingPage extends AppCompatActivity {
     private ActivityLandingPageBinding binding;
@@ -49,12 +35,8 @@ public class LandingPage extends AppCompatActivity {
     private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.suchet.smartFridge.SAVED_INSTANCE_STATE_USERID_KEY";
 
     private SmartFridgeRepository repository;
-
     private int loggedInUserId = -1;
     private User user;
-
-    private MealViewModel mealViewModel;
-    private MealAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,23 +46,10 @@ public class LandingPage extends AppCompatActivity {
 
         repository = SmartFridgeRepository.getRepository(getApplication());
 
-
-
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        adapter = new MealAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-        mealViewModel = new ViewModelProvider(this).get(MealViewModel.class);
-        mealViewModel.getAllMeals().observe(this, adapter::setMeals);
-
-        FloatingActionButton fab = findViewById(R.id.add_meal_fab);
-        fab.setOnClickListener(v -> showAddMealDialog());
-
         loginUser(savedInstanceState);
         updateSharedPreference();
-
         logoutButton();
+        goToCalendarButton();
     }
 
     private void loginUser(Bundle savedInstanceState) {
@@ -203,33 +172,14 @@ public class LandingPage extends AppCompatActivity {
             binding.ButtonAdmin.setVisibility(View.INVISIBLE);
         }
     }
-    private void showAddMealDialog() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View dialogView = inflater.inflate(R.layout.dialog_add_meal, null);
 
-        EditText nameInput = dialogView.findViewById(R.id.input_meal_name);
-        Button pickDateButton = dialogView.findViewById(R.id.pick_date_button);
-        final LocalDate[] selectedDate = {LocalDate.now()};
-
-        pickDateButton.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
-                selectedDate[0] = LocalDate.of(year, month + 1, dayOfMonth);
-                pickDateButton.setText("Date: " + selectedDate[0].toString());
-            }, selectedDate[0].getYear(), selectedDate[0].getMonthValue() - 1, selectedDate[0].getDayOfMonth());
-            datePickerDialog.show();
+    private void goToCalendarButton(){
+        binding.GoToCalendarActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Calendar_activity.CalendarActivityIntentFactory(getApplicationContext(),loggedInUserId));
+            }
         });
-
-        new AlertDialog.Builder(this)
-                .setTitle("Add Meal")
-                .setView(dialogView)
-                .setPositiveButton("Save", (dialog, which) -> {
-                    String mealName = nameInput.getText().toString().trim();
-                    if (!mealName.isEmpty()) {
-                        Meal newMeal = new Meal(mealName, selectedDate[0]);
-                        mealViewModel.insert(newMeal);
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
     }
+
 }

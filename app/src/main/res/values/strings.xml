@@ -22,5 +22,6 @@
     <string name="add_meal">Add meal</string>
     <string name="meal_name">Meal name</string>
     <string name="pick_date">Pick date</string>
+    <string name="add_a_meal_to_the_calendar">Add a meal to the calendar</string>
 
 </resources>
