@@ -1,8 +1,12 @@
 package com.suchet.smartFridge.database.entities;
 
-import java.time.LocalDate;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.time.LocalDate;
+@Entity
 public class Food {
+    @PrimaryKey(autoGenerate = true)
     private String name;
     private double quantity;
     private LocalDate datePeremption;
@@ -10,7 +14,7 @@ public class Food {
     public Food(String name) {
         this.name = name;
         quantity=0.0;
-
+        datePeremption = LocalDate.now().plusDays(7); // Default to 7 days from now
     }
     public void add(double _quantity){
         quantity+=_quantity;
