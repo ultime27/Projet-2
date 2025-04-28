@@ -8,6 +8,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {

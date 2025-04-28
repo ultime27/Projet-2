@@ -18,13 +18,16 @@ import androidx.lifecycle.LiveData;
 
 
 import com.suchet.smartFridge.database.SmartFridgeRepository;
+import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
 
 
 public class  MainActivity extends AppCompatActivity {
     private static final int LOGGED_OUT = -1;
-
+    public static ArrayList<Food> stock = new ArrayList<>();
     private ActivityMainBinding binding;
     public static final String TAG="SF_SMARTLOG";
     private static final String MAIN_ACTIVITY_USER_ID = "com.suchet.smartFridge.MAIN_ACTIVITY_USER_ID";
