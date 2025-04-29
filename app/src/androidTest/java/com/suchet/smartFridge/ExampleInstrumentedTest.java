@@ -2,13 +2,25 @@ package com.suchet.smartFridge;
 
 import android.content.Context;
 
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+
+import com.suchet.smartFridge.database.SmartFridgeDatabase;
+import com.suchet.smartFridge.database.entities.Food;
+import com.suchet.smartFridge.database.entities.Recipe;
+import com.suchet.smartFridge.database.entities.User;
+
+import junit.framework.TestCase;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,11 +28,42 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class ExampleInstrumentedTest extends TestCase {
+
+    User testUser = new User("testuser2", "testuser2");
+    Recipe testRecipe = new Recipe("Poutine", "Fries with gravy and cheese curds.", "Add all ingredients into a bowl.");
+    Food testFood = new Food("Cake");
+
+    @Before
+    public void setUp() {
+        Context context = ApplicationProvider.getApplicationContext();
+        db = Room.inMemoryDatabaseBuilder(context, SmartFridgeDatabase.class).build();
+        UserDAO = db.UserDAO();
+        RecipeDAO = db.RecipeDAO();
+        FoodDAO = db.FoodDAO();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        testUser = null;
+        testRecipe = null;
+        testFood = null;
+
+        db.close();
+    }
+
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.suchet.smartFridge", appContext.getPackageName());
+    public void testDeleteRecipeByRecipeId(){
+        long testRecipeId = RecipeDAO.insert(testRecipe);
+        assertNotNull(RecipeDAO.getRecipeByRecipeId(testRecipeId));
+        RecipeDAO.deleteRecipeByRecipeId(testRecipeId);
+        assertNull(RecipeDAO.getRecipeByRecipeId(testRecipeId));
+    }
+
+    @Test
+    public void testInsertRecipe() {
+        long testRecipeId = RecipeDAO.insert(testRecipe);
+        //recipeDAO.insert(testRecipe);
+        System.out.println(RecipeDAO.getRecipeByRecipeId(testRecipeId));
     }
 }

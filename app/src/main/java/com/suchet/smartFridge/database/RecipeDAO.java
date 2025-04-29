@@ -1,6 +1,7 @@
 package com.suchet.smartFridge.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -19,5 +20,10 @@ public interface RecipeDAO {
     @Query("DELETE FROM recipe_table")
     void deleteAll();
     //todo: cree les query
-}
 
+    @Query("SELECT * FROM recipe_table WHERE recipeId = :recipeId")
+    Recipe getRecipeByRecipeId(long recipeId);
+
+    @Query("DELETE FROM recipe_table WHERE recipeId = :recipeId")
+    void deleteRecipeByRecipeId(long recipeId);
+}
