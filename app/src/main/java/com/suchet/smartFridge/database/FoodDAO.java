@@ -17,9 +17,12 @@ public interface FoodDAO {
     @Update
     void update(Food food);
 
+    @Query("DELETE FROM "+ StockDatabase.STOCK_TABLE)
+    void deleteAll();
+
     @Delete
     void delete(Food food);
 
-    @Query("SELECT * FROM Food")
+    @Query("SELECT * FROM " + StockDatabase.STOCK_TABLE)
     List<Food> getAllFoods();
 }
