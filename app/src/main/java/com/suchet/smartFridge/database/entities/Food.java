@@ -7,9 +7,18 @@ import java.time.LocalDate;
 @Entity
 public class Food {
     @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private double quantity;
     private LocalDate datePeremption;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Food(String name) {
         this.name = name;

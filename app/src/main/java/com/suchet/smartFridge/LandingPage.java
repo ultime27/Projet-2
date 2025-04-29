@@ -18,6 +18,7 @@ import androidx.lifecycle.LiveData;
 
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
+import com.suchet.smartFridge.database.stocks.StockActivity;
 import com.suchet.smartFridge.databinding.ActivityLandingPageBinding;
 
 
@@ -50,6 +51,7 @@ public class LandingPage extends AppCompatActivity {
         updateSharedPreference();
         logoutButton();
         goToCalendarButton();
+        goToStockButton();
     }
 
     private void loginUser(Bundle savedInstanceState) {
@@ -178,6 +180,15 @@ public class LandingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(Calendar_activity.CalendarActivityIntentFactory(getApplicationContext(),loggedInUserId));
+            }
+        });
+    }
+
+    private void goToStockButton(){
+        binding.GoToStockActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(StockActivity.StockIntentFactory(getApplicationContext()));
             }
         });
     }
