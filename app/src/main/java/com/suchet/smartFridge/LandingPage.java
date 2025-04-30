@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
+import com.suchet.smartFridge.Recipie.SuggestionPageActivity;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityLandingPageBinding;
@@ -75,6 +76,12 @@ public class LandingPage extends AppCompatActivity {
                 showAdminButton();
             }
         });
+
+        binding.testLucasButton.setOnClickListener(view -> changeActivity());
+    }
+
+    private void changeActivity(){
+        startActivity(SuggestionPageActivity.suggestionPageActivityIntentFactory(getApplicationContext()));
     }
 
     @Override
