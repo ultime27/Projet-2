@@ -15,7 +15,11 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+import com.suchet.smartFridge.database.FoodDAO;
+import com.suchet.smartFridge.database.MealDAO;
+import com.suchet.smartFridge.database.RecipeDAO;
 import com.suchet.smartFridge.database.SmartFridgeDatabase;
+import com.suchet.smartFridge.database.UserDAO;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Recipe;
 import com.suchet.smartFridge.database.entities.User;
@@ -34,13 +38,20 @@ public class ExampleInstrumentedTest extends TestCase {
     Recipe testRecipe = new Recipe("Poutine", "Fries with gravy and cheese curds.", "Add all ingredients into a bowl.");
     Food testFood = new Food("Cake");
 
+    SmartFridgeDatabase db;
+    UserDAO userDAO;
+    RecipeDAO recipeDAO;
+    FoodDAO foodDAO;
+    MealDAO mealDAO;
+
     @Before
     public void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, SmartFridgeDatabase.class).build();
-        UserDAO = db.UserDAO();
-        RecipeDAO = db.RecipeDAO();
-        FoodDAO = db.FoodDAO();
+        userDAO = db.userDAO();
+        recipeDAO = db.recipeDAO();
+        foodDAO = db.foodDAO();
+        mealDAO = db.mealDAO();
     }
 
     @After
@@ -54,7 +65,7 @@ public class ExampleInstrumentedTest extends TestCase {
 
     @Test
     public void testDeleteRecipeByRecipeId(){
-        long testRecipeId = RecipeDAO.insert(testRecipe);
+        long testRecipeId = recipeDAO.insert(testRecipe);
         assertNotNull(RecipeDAO.getRecipeByRecipeId(testRecipeId));
         RecipeDAO.deleteRecipeByRecipeId(testRecipeId);
         assertNull(RecipeDAO.getRecipeByRecipeId(testRecipeId));
@@ -62,8 +73,7 @@ public class ExampleInstrumentedTest extends TestCase {
 
     @Test
     public void testInsertRecipe() {
-        long testRecipeId = RecipeDAO.insert(testRecipe);
-        //recipeDAO.insert(testRecipe);
-        System.out.println(RecipeDAO.getRecipeByRecipeId(testRecipeId));
+        recipeDAO.insert(testRecipe);
+        long testRecipeId = recipeDAO.getRecipeByRecipeId(testRecipe.ge)
     }
 }
