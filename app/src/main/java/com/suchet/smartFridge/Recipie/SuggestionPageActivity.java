@@ -3,6 +3,7 @@ package com.suchet.smartFridge.Recipie;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,15 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.database.RecipeDatabase;
-import com.suchet.smartFridge.database.RecipeViewModel;
 import com.suchet.smartFridge.database.entities.Recipe;
 
 import java.util.List;
 
 public class SuggestionPageActivity extends AppCompatActivity {
-
     private RecipeAdapteur adapter;
-
     private RecipeViewModel recipeViewModel;
 
     @Override
@@ -52,7 +50,26 @@ public class SuggestionPageActivity extends AppCompatActivity {
                     .commit();
         });
 
+        SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                observeFilteredResults(query);
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                observeFilteredResults(newText);
+                return true;
+            }
+        });
+
+
+
+    }
+    private void observeFilteredResults(String name) {
+        recipeViewModel.searchRecipes(name).observe(this, adapter::setRecipes);
     }
 
     public static Intent suggestionPageActivityIntentFactory(Context context) {
