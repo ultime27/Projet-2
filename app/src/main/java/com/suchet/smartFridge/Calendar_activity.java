@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,11 +28,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.suchet.smartFridge.database.MealAdapter;
 import com.suchet.smartFridge.database.MealViewModel;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
+import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Meal;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityCalendarBinding;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Calendar_activity extends AppCompatActivity {
 
@@ -101,7 +105,12 @@ public class Calendar_activity extends AppCompatActivity {
 
         EditText nameInput = dialogView.findViewById(R.id.input_meal_name);
         Button pickDateButton = dialogView.findViewById(R.id.pick_date_button);
+        EditText foodInput = dialogView.findViewById(R.id.input_food_name);
+        Button addFoodButton = dialogView.findViewById(R.id.add_food_button);
+        TextView foodListText = dialogView.findViewById(R.id.food_list_text);
+
         final LocalDate[] selectedDate = {LocalDate.now()};
+        final List<Food> foodList = new ArrayList<>();
 
         pickDateButton.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> {
@@ -111,13 +120,28 @@ public class Calendar_activity extends AppCompatActivity {
             datePickerDialog.show();
         });
 
+        addFoodButton.setOnClickListener(v -> {
+            String foodName = foodInput.getText().toString().trim();
+            if (!foodName.isEmpty()) {
+                Food newFood = new Food(foodName);
+                foodList.add(newFood);
+
+                StringBuilder listDisplay = new StringBuilder("Food items:\n");
+                for (Food food : foodList) {
+                    listDisplay.append("- ").append(food.getName()).append("\n");
+                }
+                foodListText.setText(listDisplay.toString());
+                foodInput.setText("");
+            }
+        });
+
         new AlertDialog.Builder(this)
                 .setTitle("Add Meal")
                 .setView(dialogView)
                 .setPositiveButton("Save", (dialog, which) -> {
                     String mealName = nameInput.getText().toString().trim();
                     if (!mealName.isEmpty()) {
-                        Meal newMeal = new Meal(mealName, selectedDate[0]);
+                        Meal newMeal = new Meal(mealName, selectedDate[0], foodList);
                         mealViewModel.insert(newMeal);
                     }
                 })
