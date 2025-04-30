@@ -18,7 +18,6 @@ public class Meal {
     public String name;
 
     @NonNull
-    @TypeConverters
     public LocalDate date;
 
     public Meal(String name, @NonNull LocalDate date) {
