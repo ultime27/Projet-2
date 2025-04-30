@@ -3,6 +3,8 @@ package com.suchet.smartFridge.database.entities;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Meal {
     public String name;
 
     @NonNull
+    @TypeConverters
     public LocalDate date;
 
     public Meal(String name, @NonNull LocalDate date) {
