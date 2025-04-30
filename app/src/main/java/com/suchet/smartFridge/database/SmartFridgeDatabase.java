@@ -56,4 +56,7 @@ public abstract class SmartFridgeDatabase extends RoomDatabase {
         }
     };
     public abstract UserDAO userDAO();
+    public abstract RecipeDAO recipeDAO();
+    public abstract FoodDAO foodDAO();
+    public abstract MealDAO mealDAO();
 }
