@@ -16,6 +16,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.suchet.smartFridge.database.MealAdapter;
+import com.suchet.smartFridge.database.MealViewModel;
+import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityLandingPageBinding;
@@ -43,13 +47,32 @@ public class LandingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLandingPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        RecipeDatabase.getDatabase(getApplicationContext());
 
         repository = SmartFridgeRepository.getRepository(getApplication());
+
+
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        adapter = new MealAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        mealViewModel = new ViewModelProvider(this).get(MealViewModel.class);
+        mealViewModel.getAllMeals().observe(this, adapter::setMeals);
+
+        FloatingActionButton fab = findViewById(R.id.add_meal_fab);
+        fab.setOnClickListener(v -> showAddMealDialog());
+        binding.testLucasButton.setOnClickListener(view -> changeActivity());
 
         loginUser(savedInstanceState);
         updateSharedPreference();
         logoutButton();
         goToCalendarButton();
+    }
+
+    private void changeActivity(){
+        startActivity(SuggestionPageActivity.suggestionPageActivityIntentFactory(getApplicationContext()));
     }
 
     private void loginUser(Bundle savedInstanceState) {
