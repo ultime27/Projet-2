@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.suchet.smartFridge.database.MealAdapter;
 import com.suchet.smartFridge.database.MealViewModel;
+import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.Meal;
 import com.suchet.smartFridge.database.entities.User;
@@ -61,6 +62,7 @@ public class LandingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLandingPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        RecipeDatabase.getDatabase(getApplicationContext());
 
         repository = SmartFridgeRepository.getRepository(getApplication());
 
@@ -76,11 +78,16 @@ public class LandingPage extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.add_meal_fab);
         fab.setOnClickListener(v -> showAddMealDialog());
+        binding.testLucasButton.setOnClickListener(view -> changeActivity());
 
         loginUser(savedInstanceState);
         updateSharedPreference();
 
         logoutButton();
+    }
+
+    private void changeActivity(){
+        startActivity(SuggestionPageActivity.suggestionPageActivityIntentFactory(getApplicationContext()));
     }
 
     private void loginUser(Bundle savedInstanceState) {
