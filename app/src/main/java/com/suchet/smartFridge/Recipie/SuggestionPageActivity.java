@@ -32,7 +32,6 @@ public class SuggestionPageActivity extends AppCompatActivity {
         adapter = new RecipeAdapteur();
         recyclerView.setAdapter(adapter);
 
-        // LiveData + ViewModel
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipeViewModel.getAllRecipes().observe(this, recipes -> {
             adapter.setRecipes(recipes);
@@ -68,8 +67,23 @@ public class SuggestionPageActivity extends AppCompatActivity {
 
 
     }
-    private void observeFilteredResults(String name) {
-        recipeViewModel.searchRecipes(name).observe(this, adapter::setRecipes);
+    private void observeFilteredResults(String query) {
+        if (query.isEmpty()) {
+            recipeViewModel.getAllRecipes().observe(this, adapter::setRecipes);
+            return;
+        }
+
+        recipeViewModel.searchRecipes(query).observe(this, localResults -> {
+            if (localResults != null && !localResults.isEmpty()) {
+                adapter.setRecipes(localResults);
+            } else {
+                searchFromApiAndInsert(query);
+            }
+        });
+    }
+
+    private void searchFromApiAndInsert(String query) {
+        //TODO
     }
 
     public static Intent suggestionPageActivityIntentFactory(Context context) {
