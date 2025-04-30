@@ -29,5 +29,6 @@
     <string name="addStock">add</string>
     <string name="enter_food_s_name">Enter food\'s name</string>
     <string name="enter_the_amount">Enter the amount</string>
+    <string name="back">Back</string>
 
 </resources>

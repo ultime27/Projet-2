@@ -13,10 +13,10 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".database.stocks.AddStockActivity"
+            android:name=".stocks.AddStockActivity"
             android:exported="false" />
         <activity
-            android:name=".database.stocks.StockActivity"
+            android:name=".stocks.StockActivity"
             android:exported="false" />
         <activity
             android:name=".Calendar_activity"
