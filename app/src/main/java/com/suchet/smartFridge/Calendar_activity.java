@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,8 +26,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.suchet.smartFridge.database.MealAdapter;
-import com.suchet.smartFridge.database.MealViewModel;
+import com.suchet.smartFridge.database.Meal.MealAdapter;
+import com.suchet.smartFridge.database.Meal.MealViewModel;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Meal;
@@ -64,7 +65,12 @@ public class Calendar_activity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         mealViewModel = new ViewModelProvider(this).get(MealViewModel.class);
-        mealViewModel.getAllMeals().observe(this, adapter::setMeals);
+        mealViewModel.getMealsForUser(loggedInUserId).observe(this, meals -> {
+            if (meals != null) {
+                Log.d("MealActivity", "Meals for user: " + meals.size());  // Log pour vérifier les repas récupérés
+                adapter.setMeals(meals);  // Mettre à jour l'adaptateur
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.add_meal_fab);
         fab.setOnClickListener(v -> showAddMealDialog());
@@ -89,6 +95,8 @@ public class Calendar_activity extends AppCompatActivity {
         if(loggedInUserId == LOGGED_OUT){
             return;
         }
+        Log.d("MealActivity", "Logged in user ID: " + loggedInUserId);  // Vérifier que l'ID de l'utilisateur est correct
+
         LiveData<User> userObserver = repository.getUserByUserId(loggedInUserId);
         userObserver.observe(this,user -> {
             this.user =user;
@@ -141,8 +149,9 @@ public class Calendar_activity extends AppCompatActivity {
                 .setPositiveButton("Save", (dialog, which) -> {
                     String mealName = nameInput.getText().toString().trim();
                     if (!mealName.isEmpty()) {
-                        Meal newMeal = new Meal(mealName, selectedDate[0], foodList);
+                        Meal newMeal = new Meal(mealName, selectedDate[0], foodList, loggedInUserId);
                         mealViewModel.insert(newMeal);
+                        Log.d("MealActivity", "Meal added: " + mealName);
                     }
                 })
                 .setNegativeButton("Cancel", null)

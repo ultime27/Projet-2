@@ -1,6 +1,5 @@
 package com.suchet.smartFridge;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

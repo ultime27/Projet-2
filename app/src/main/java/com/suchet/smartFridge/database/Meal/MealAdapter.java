@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database;
+package com.suchet.smartFridge.database.Meal;
 
 import android.view.LayoutInflater;
 import android.view.View;

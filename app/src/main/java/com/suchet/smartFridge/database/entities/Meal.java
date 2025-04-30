@@ -1,7 +1,9 @@
 package com.suchet.smartFridge.database.entities;
 
 import androidx.annotation.NonNull;
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
@@ -11,28 +13,33 @@ import java.util.List;
 
 @Entity(tableName = "meal_table")
 public class Meal {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String name;
-
-    @NonNull
     private LocalDate date;
 
     private List<Food> foodList;
 
-    public Meal(String name, @NonNull LocalDate date,List<Food> foods) {
+    private int userId;
+
+
+    public Meal(String name, LocalDate date, List<Food> foodList, int userId) {
         this.name = name;
         this.date = date;
-        this.foodList = foods;
+        this.foodList = foodList;
+        this.userId = userId;
     }
-
+    @Ignore
     public Meal(){
-        name = null;
-        date = LocalDate.now();
+        this.name = "c";
+        this.date = LocalDate.now();
         foodList = new ArrayList<>();
+        this.userId =-1;
     }
 
+    // Getters et setters
     public int getId() {
         return id;
     }
@@ -49,12 +56,11 @@ public class Meal {
         this.name = name;
     }
 
-    @NonNull
     public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(@NonNull LocalDate date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -64,5 +70,13 @@ public class Meal {
 
     public void setFoodList(List<Food> foodList) {
         this.foodList = foodList;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
