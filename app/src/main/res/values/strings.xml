@@ -23,5 +23,8 @@
     <string name="meal_name">Meal name</string>
     <string name="pick_date">Pick date</string>
     <string name="add_a_meal_to_the_calendar">Add a meal to the calendar</string>
+    <string name="foodlist">FoodList</string>
+    <string name="date">Date</string>
+    <string name="meal_s_name">Meal\'s name</string>
 
 </resources>

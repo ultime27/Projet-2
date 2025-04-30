@@ -8,12 +8,13 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.suchet.smartFridge.database.TypeConverter.ListConverter;
+import com.suchet.smartFridge.database.TypeConverter.ListFoodConverter;
 import com.suchet.smartFridge.database.TypeConverter.TypeLocalDateConverter;
 import com.suchet.smartFridge.database.entities.Meal;
 
 
-@Database(entities = {Meal.class}, version = 1)
-@TypeConverters({TypeLocalDateConverter.class})
+@Database(entities = {Meal.class}, version = 3)
+@TypeConverters({TypeLocalDateConverter.class, ListFoodConverter.class})
 public abstract class MealDatabase extends RoomDatabase {
     private static volatile MealDatabase INSTANCE;
 
@@ -24,7 +25,8 @@ public abstract class MealDatabase extends RoomDatabase {
             synchronized (MealDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            MealDatabase.class, "meal_db").build();
+                            MealDatabase.class, "meal_db")
+                            .build();
                 }
             }
         }
