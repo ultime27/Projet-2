@@ -1,21 +1,17 @@
-package com.suchet.smartFridge;
+package com.suchet.smartFridge.Recipie;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.suchet.smartFridge.database.RecipeAdapteur;
+import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.RecipeViewModel;
 import com.suchet.smartFridge.database.entities.Recipe;
@@ -43,6 +39,20 @@ public class SuggestionPageActivity extends AppCompatActivity {
         recipeViewModel.getAllRecipes().observe(this, recipes -> {
             adapter.setRecipes(recipes);
         });
+        adapter.setOnRecipeClickListener(recipe -> {
+            Toast.makeText(this, "Clicked: " + recipe.getName(), Toast.LENGTH_SHORT).show();
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, RecipeFragment.newInstance(
+                            recipe.getName(),
+                            recipe.getDescription(),
+                            recipe.instruction
+                    ))
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+
     }
 
     public static Intent suggestionPageActivityIntentFactory(Context context) {

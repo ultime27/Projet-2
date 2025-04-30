@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -24,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.suchet.smartFridge.Recipie.SuggestionPageActivity;
 import com.suchet.smartFridge.database.MealAdapter;
 import com.suchet.smartFridge.database.MealViewModel;
 import com.suchet.smartFridge.database.RecipeDatabase;
@@ -33,8 +33,6 @@ import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityLandingPageBinding;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LandingPage extends AppCompatActivity {
     private ActivityLandingPageBinding binding;
