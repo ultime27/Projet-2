@@ -86,6 +86,8 @@ public class SuggestionPageActivity extends AppCompatActivity {
         //TODO
     }
 
+
+
     public static Intent suggestionPageActivityIntentFactory(Context context) {
         return new Intent(context, SuggestionPageActivity.class);
     }
