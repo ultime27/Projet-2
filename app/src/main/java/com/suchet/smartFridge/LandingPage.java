@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityLandingPageBinding;
 
+import java.time.LocalDate;
 
 public class LandingPage extends AppCompatActivity {
     private ActivityLandingPageBinding binding;
