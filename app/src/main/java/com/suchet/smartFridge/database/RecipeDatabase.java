@@ -145,6 +145,7 @@ public abstract class RecipeDatabase extends RoomDatabase {
     public static ExecutorService getExecutor() {
         return databaseWriteExecutor;
     }
+    public abstract RecipeDAO recipeDao();
 
 }
 

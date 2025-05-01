@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <EditText
+        android:id="@+id/ingredient_name_EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:inputType="text"
+        android:hint="@string/ingredient"
+        app:layout_constraintStart_toEndOf=""
+        app:layout_constraintTop_toBottomOf=""
+        tools:ignore="TextFields" />
+
+    <EditText
+        android:id="@+id/ingredient_quantity_EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/quantity"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/ingredient_name_EditText"
+        app:layout_constraintTop_toTopOf="@id/ingredient_name_EditText"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

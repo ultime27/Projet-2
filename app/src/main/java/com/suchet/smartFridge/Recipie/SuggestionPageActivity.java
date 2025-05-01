@@ -66,6 +66,7 @@ public class SuggestionPageActivity extends AppCompatActivity {
 
 
 
+
     }
     private void observeFilteredResults(String query) {
         if (query.isEmpty()) {
