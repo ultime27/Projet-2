@@ -17,12 +17,12 @@ public interface FoodDAO {
     @Update
     void update(Food food);
 
-    @Query("DELETE FROM "+ StockDatabase.STOCK_TABLE)
+    @Query("DELETE FROM "+ SmartFridgeDatabase.FOOD_TABLE)
     void deleteAll();
 
     @Delete
     void delete(Food food);
 
-    @Query("SELECT * FROM " + StockDatabase.STOCK_TABLE)
+    @Query("SELECT * FROM " +  SmartFridgeDatabase.FOOD_TABLE)
     List<Food> getAllFoods();
 }

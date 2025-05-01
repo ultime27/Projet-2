@@ -7,11 +7,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.suchet.smartFridge.LandingPage;
-import com.suchet.smartFridge.database.StockDatabase;
+import com.suchet.smartFridge.database.SmartFridgeDatabase;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.databinding.ActivityStockBinding;
 
@@ -48,7 +47,7 @@ public class StockActivity extends AppCompatActivity {
 
     private void displayStock() {
         new Thread(() -> {
-            StockDatabase stockDatabase = StockDatabase.getDatabase(getApplicationContext());
+            SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
             List<Food> foodList = stockDatabase.foodDAO().getAllFoods();
 
             runOnUiThread(() -> stockAdapter.updateStockList(foodList));
@@ -65,13 +64,13 @@ public class StockActivity extends AppCompatActivity {
 
     public static void addFoodToStock(Context context, Food food) {
         new Thread(() -> {
-            StockDatabase stockDatabase = StockDatabase.getDatabase(context);
+            SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
             stockDatabase.foodDAO().insert(food);
         }).start();
     }
 
     public static void deleteFoodToStock(Context context, Food food) {
-        StockDatabase stockDatabase = StockDatabase.getDatabase(context);
+        SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
         stockDatabase.foodDAO().delete(food);
     }
     public static Intent StockIntentFactory(Context context) {

@@ -4,10 +4,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.suchet.smartFridge.database.SmartFridgeDatabase;
-import com.suchet.smartFridge.database.StockDatabase;
 
 import java.time.LocalDate;
-@Entity(tableName = StockDatabase.STOCK_TABLE)
+@Entity(tableName = SmartFridgeDatabase.FOOD_TABLE)
 public class Food {
     @PrimaryKey(autoGenerate = true)
     private int id;
