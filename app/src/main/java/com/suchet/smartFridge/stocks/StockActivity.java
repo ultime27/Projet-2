@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.suchet.smartFridge.LandingPage;
 import com.suchet.smartFridge.database.StockDatabase;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.databinding.ActivityStockBinding;
@@ -33,6 +34,16 @@ public class StockActivity extends AppCompatActivity {
         binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
         displayStock();
         GoToAddStockActivity();
+        backToLanding();
+    }
+
+    private void backToLanding() {
+        binding.backToLandingFromStockStockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext()));
+            }
+        });
     }
 
     private void displayStock() {

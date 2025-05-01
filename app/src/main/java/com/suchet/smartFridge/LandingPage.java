@@ -150,9 +150,14 @@ public class LandingPage extends AppCompatActivity {
         sharedPrefEditor.apply();
     }
 
-    static Intent landingPageActivityIntentFactory(Context context, int userId){
+    public static Intent landingPageActivityIntentFactory(Context context, int userId){
         Intent intent = new Intent(context, LandingPage.class);
         intent.putExtra(LANDING_ACTIVITY_USER_ID,userId);
+        return intent;
+    }
+
+    public static Intent landingPageActivityIntentFactory(Context context){
+        Intent intent = new Intent(context, LandingPage.class);
         return intent;
     }
 
