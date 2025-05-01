@@ -13,7 +13,15 @@ public class Food {
     private String name;
     private double quantity;
     private LocalDate datePeremption;
+    private int userId;
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
     public int getId() {
         return id;
     }

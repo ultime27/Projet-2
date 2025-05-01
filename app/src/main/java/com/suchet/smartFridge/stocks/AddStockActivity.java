@@ -51,6 +51,8 @@ public class AddStockActivity extends AppCompatActivity {
                 food.setQuantity(count);
 
                 StockActivity.addFoodToStock(getApplicationContext(), food);
+                startActivity(StockActivity.StockIntentFactory(getApplicationContext()));
+                finish();
             }
         });
     }

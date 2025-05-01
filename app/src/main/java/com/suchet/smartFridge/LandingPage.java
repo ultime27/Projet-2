@@ -73,6 +73,11 @@ public class LandingPage extends AppCompatActivity {
         userObserver.observe(this,user -> {
             this.user =user;
             if(this.user != null) {
+                SharedPreferences userPrefs = getSharedPreferences("user_session", MODE_PRIVATE);
+                SharedPreferences.Editor editor = userPrefs.edit();
+                editor.putString("current_username", user.getUsername());  // 👈👈👈 AJOUT IMPORTANT
+                editor.apply();
+
                 invalidateOptionsMenu();
                 showAdminButton();
             }
