@@ -3,15 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <EditText
         android:id="@+id/recipe_name_EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
+        android:layout_marginTop="75dp"
         android:hint="@string/name_of_the_recipie"
-        app:layout_constraintStart_toEndOf=""
-        app:layout_constraintTop_toBottomOf=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="Autofill" />
 
     <EditText
@@ -20,7 +22,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/description"
         android:inputType="text"
-        app:layout_constraintStart_toEndOf="@id/recipe_name_EditText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recipe_name_EditText"
         tools:ignore="Autofill" />
 
@@ -30,7 +32,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/instruction"
         android:inputType="text"
-        app:layout_constraintStart_toEndOf="@id/recipe_description_EditText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recipe_description_EditText"
         tools:ignore="Autofill" />
 
@@ -39,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_an_ingredient"
-        app:layout_constraintStart_toEndOf="@id/recipe_instruction_EditText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recipe_instruction_EditText"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -47,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@id/add_ingredient_button"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_ingredient_button"/>
 
     <Button
@@ -55,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/save_recipie"
-        app:layout_constraintStart_toEndOf="@id/ingredients_recyclerView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ingredients_recyclerView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

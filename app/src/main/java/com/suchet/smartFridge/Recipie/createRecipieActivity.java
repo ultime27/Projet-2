@@ -57,12 +57,13 @@ public class createRecipieActivity extends AppCompatActivity {
         Recipe recipe = new Recipe(name, ingredientMap, description, instruction);
 
         new Thread(() -> RecipeDatabase.getDatabase(getApplicationContext())
-                .recipeDao()
+                .recipeDAO()
                 .insert(recipe)).start();
+
 
     }
 
-    public static Intent AddRecipieIntentFactory(Context context) {
+    public static Intent createRecipieActivityIntentFactory(Context context) {
         return new Intent(context, createRecipieActivity.class);
     }
 
