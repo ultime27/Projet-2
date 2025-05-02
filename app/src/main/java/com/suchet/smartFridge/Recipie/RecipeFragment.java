@@ -1,9 +1,11 @@
 package com.suchet.smartFridge.Recipie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,9 +17,11 @@ import com.suchet.smartFridge.R;
 
 public class RecipeFragment extends Fragment {
 
+
         private static final String ARG_NAME = "name";
         private static final String ARG_DESC = "description";
         private static final String ARG_INSTRUCTION = "instruction";
+
 
         public static RecipeFragment newInstance(String name, String description, String instruction) {
             RecipeFragment fragment = new RecipeFragment();
@@ -33,7 +37,19 @@ public class RecipeFragment extends Fragment {
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                                  @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_recipe, container, false);
+            View view =inflater.inflate(R.layout.fragment_recipe, container, false);
+
+
+            Button StartButton = view.findViewById(R.id.start_recipie_button);
+            StartButton.setOnClickListener(v -> {
+                Intent intent = StartRecipieActivity.StartRecipieActivityFactory(requireContext(), getArguments() != null ? getArguments().getString(ARG_NAME) : null);
+                startActivity(intent);
+
+
+            });
+            return view;
+
+
         }
 
         @Override
@@ -48,6 +64,7 @@ public class RecipeFragment extends Fragment {
                 desc.setText(args.getString(ARG_DESC));
                 instruction.setText(args.getString(ARG_INSTRUCTION));
             }
+
 
         }
     }

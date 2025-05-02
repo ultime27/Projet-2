@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_marginTop="75dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/recipieNameTextView"
+        android:hint="@string/recipy_name"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/recipieDescriptionTextView"
+        android:hint="@string/descriptiontext"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/ingredients"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        android:id="@+id/recipieIngredientTextView"
+        android:hint="@string/ingredient_list"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/instruction_Static"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
+        android:id="@+id/recipieInstructionTextView"
+        android:hint="@string/instruction_text"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/finishedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/finished_recipe"/>
+</LinearLayout>
+
+
+

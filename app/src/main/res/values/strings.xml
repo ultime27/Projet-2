@@ -47,5 +47,13 @@
     <string name="quantity">Quantity (g or ml)</string>
     <string name="ingredient">Ingredient</string>
     <string name="create_recipie">Create Recipie</string>
+    <string name="recipy_name">recipy Name</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="instruction_Static">Instruction:</string>
+    <string name="finished_recipe">Finished Recipe</string>
+    <string name="instruction_text">Instruction</string>
+    <string name="ingredient_list">Ingredient list</string>
+    <string name="descriptiontext">DescriptionText</string>
+    <string name="unknow_recipe">Unknow Recipe</string>
 
 </resources>
