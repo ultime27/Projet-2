@@ -13,12 +13,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.suchet.smartFridge.MainActivity;
 import com.suchet.smartFridge.database.TypeConverter.TypeLocalDateConverter;
 import com.suchet.smartFridge.database.entities.Food;
+import com.suchet.smartFridge.database.entities.ShoppingItem;
 import com.suchet.smartFridge.database.entities.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Food.class},version = 1,exportSchema = false)
+@Database(entities = {User.class, Food.class, ShoppingItem.class},version = 1,exportSchema = false)
 @TypeConverters(TypeLocalDateConverter.class)
 public abstract class SmartFridgeDatabase extends RoomDatabase {
     public static final String USER_TABLE = "user_table";
@@ -62,4 +63,6 @@ public abstract class SmartFridgeDatabase extends RoomDatabase {
     };
     public abstract UserDAO userDAO();
     public abstract FoodDAO foodDAO();
+    public abstract com.suchet.smartFridge.database.daos.ShoppingItemDAO shoppingItemDAO();
+
 }
