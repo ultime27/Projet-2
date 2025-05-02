@@ -21,18 +21,18 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         notifyDataSetChanged();
     }
     public static class MealViewHolder extends RecyclerView.ViewHolder {
-        TextView nameView;
-        TextView quantityView;
 
+        TextView mealName;
+        TextView mealDate;
         public MealViewHolder(View itemView) {
             super(itemView);
-            nameView = itemView.findViewById(R.id.foodName);
-            quantityView = itemView.findViewById(R.id.foodQuantity);
+            mealName = itemView.findViewById(R.id.mealNameTextView);
+             mealDate = itemView.findViewById(R.id.mealDateTextView);
         }
 
         public void bind(Meal meal) {
-            nameView.setText(meal.getName());
-            quantityView.setText(String.valueOf(meal.getDate()));
+            mealName.setText(meal.getName());
+            mealDate.setText(String.valueOf(meal.getDate()));
 
         }
     }
@@ -45,7 +45,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
     @Override
     public MealViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_food, parent, false);
+                .inflate(R.layout.item_meal, parent, false);
         return new MealViewHolder(itemView);
     }
 

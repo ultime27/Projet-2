@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:layout_marginBottom="8dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_margin="8dp"
+    android:elevation="4dp">
 
-    <!-- Nom du repas -->
-    <TextView
-        android:id="@+id/mealName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nom du repas"
-        android:textSize="18sp"
-        android:layout_weight="1" />
+        android:padding="16dp"
+        android:orientation="vertical">
 
-    <!-- Date du repas -->
-    <TextView
-        android:id="@+id/mealDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textSize="16sp"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/mealNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nom du repas"
+            android:textStyle="bold"
+            android:textSize="18sp" />
 
-    <!-- Bouton supprimer -->
-    <Button
-        android:id="@+id/deleteMealButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Supprimer"
-        android:layout_marginLeft="8dp" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/mealDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date du repas"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
