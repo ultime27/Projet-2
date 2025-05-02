@@ -84,10 +84,11 @@ public class Recipe {
         return Objects.hash(name, ingredientList, description);
     }
 
-    public String ToString(){
+    public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("(the quantity are in ml for liquid and g for solid)\n\n");
         for (String elm: ingredientList.keySet()) {
-            stringBuilder.append(elm).append(" : ").append(ingredientList.get(elm)).append(" g or ml\n");
+            stringBuilder.append(elm).append(" : ").append(ingredientList.get(elm)).append("  (g or ml)\n");
         }
         return stringBuilder.toString();
     }

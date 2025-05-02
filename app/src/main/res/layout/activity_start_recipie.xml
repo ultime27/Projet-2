@@ -31,6 +31,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
         android:id="@+id/recipieIngredientTextView"
         android:hint="@string/ingredient_list"
         android:textSize="16sp"
