@@ -37,7 +37,19 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp" />
 
+    <!-- Bouton Admin (invisible par défaut) -->
+
     <!-- Bouton Logout -->
+    <Button
+        android:id="@+id/test_lucas_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/test_lucas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/LogoutButton"
         android:layout_width="wrap_content"

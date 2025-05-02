@@ -49,6 +49,7 @@ public class  MainActivity extends AppCompatActivity {
 
 
 
+
         repository = SmartFridgeRepository.getRepository(getApplication());
         loginUser(savedInstanceState);
 

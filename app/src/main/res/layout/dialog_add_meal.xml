@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/input_meal_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/meal_name"
-        android:inputType="text" />
+        android:hint="Meal name" />
 
     <Button
         android:id="@+id/pick_date_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pick_date"
-        android:layout_marginTop="16dp" />
+        android:text="Pick a date" />
+
+    <EditText
+        android:id="@+id/input_food_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Add food item" />
+
+    <Button
+        android:id="@+id/add_food_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Food" />
+
+    <TextView
+        android:id="@+id/food_list_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Food items:"
+        android:textStyle="bold"
+        android:paddingTop="8dp" />
+
 </LinearLayout>
