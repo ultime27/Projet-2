@@ -38,6 +38,7 @@ public class StockActivity extends AppCompatActivity {
         displayStock();
         GoToAddStockActivity();
         backToLanding();
+        GoToDeleteStockActivity();
     }
 
     private void backToLanding() {
@@ -73,7 +74,14 @@ public class StockActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void GoToDeleteStockActivity() {
+        binding.deleteFoodInStockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(DeleteStockActivity.DeleteStockIntentFactory(getApplicationContext()));
+            }
+        });
+    }
     public static void addFoodToStock(Context context, Food food) {
         Log.d("STOCK", "Food 1 : appelle dans stockactivity " + food.getName());
         new Thread(() -> {

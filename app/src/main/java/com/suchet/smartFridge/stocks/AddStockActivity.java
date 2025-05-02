@@ -57,7 +57,7 @@ public class AddStockActivity extends AppCompatActivity {
         });
     }
 
-    static Intent AddToStockIntentFactory(Context context) {
+    public static Intent AddToStockIntentFactory(Context context) {
         return new Intent(context, AddStockActivity.class);
     }
 

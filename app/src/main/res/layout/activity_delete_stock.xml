@@ -5,6 +5,35 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".database.TypeConverter.DeleteStockActivity">
+    tools:context=".stocks.DeleteStockActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/displayStock"
+        android:layout_width="412dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="168dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/deleteFoodInDeleteButton"
+        android:layout_width="140dp"
+        android:layout_height="54dp"
+        android:text="@string/deleteStock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displayStock" />
+
+    <Button
+        android:id="@+id/backToStockButton"
+        android:layout_width="140dp"
+        android:layout_height="54dp"
+        android:text="@string/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteFoodInDeleteButton" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
