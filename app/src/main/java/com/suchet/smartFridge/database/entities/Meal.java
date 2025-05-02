@@ -3,14 +3,18 @@ package com.suchet.smartFridge.database.entities;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.ForeignKey;
+
+import com.suchet.smartFridge.database.SmartFridgeDatabase;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Entity(tableName = "meal_table")
+@Entity(tableName = SmartFridgeDatabase.MEAL_TABLE)
 public class Meal {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -19,19 +23,28 @@ public class Meal {
     @NonNull
     private LocalDate date;
 
+    @ColumnInfo(name = "userId") // Ajout de la colonne userId pour relier au User
+    private int userId;
+
     private List<Food> foodList;
 
-    public Meal(String name, @NonNull LocalDate date,List<Food> foods) {
+    // Constructeur principal
+    public Meal(String name, @NonNull LocalDate date, List<Food> foods, int userId) {
         this.name = name;
         this.date = date;
         this.foodList = foods;
+        this.userId = userId;
     }
 
-    public Meal(){
+    // Constructeur par défaut
+    public Meal() {
         name = null;
         date = LocalDate.now();
         foodList = new ArrayList<>();
+        userId = -1; // Valeur par défaut, à initialiser ensuite
     }
+
+    // Getters et setters
 
     public int getId() {
         return id;
@@ -56,6 +69,14 @@ public class Meal {
 
     public void setDate(@NonNull LocalDate date) {
         this.date = date;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public List<Food> getFoodList() {

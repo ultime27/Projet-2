@@ -11,14 +11,17 @@ import com.suchet.smartFridge.database.TypeConverter.ListConverter;
 import com.suchet.smartFridge.database.TypeConverter.ListFoodConverter;
 import com.suchet.smartFridge.database.TypeConverter.TypeLocalDateConverter;
 import com.suchet.smartFridge.database.entities.Meal;
+import com.suchet.smartFridge.database.entities.User;
 
 
-@Database(entities = {Meal.class}, version = 4)
+@Database(entities = {Meal.class, User.class}, version = 4)
 @TypeConverters({TypeLocalDateConverter.class, ListFoodConverter.class})
 public abstract class MealDatabase extends RoomDatabase {
     private static volatile MealDatabase INSTANCE;
 
     public abstract MealDAO mealDao();
+
+    public abstract UserDAO userDAO();
 
     public static MealDatabase getDatabase(Context context) {
         if (INSTANCE == null) {

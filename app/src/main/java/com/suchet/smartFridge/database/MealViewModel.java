@@ -19,7 +19,7 @@ public class MealViewModel extends AndroidViewModel {
         super(application);
         MealDatabase db = MealDatabase.getDatabase(application);
         mealDao = db.mealDao();
-        allMeals = mealDao.getAllMeals();
+
     }
 
     public LiveData<List<Meal>> getAllMeals() {

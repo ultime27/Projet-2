@@ -15,11 +15,14 @@ import java.util.concurrent.Future;
 public class SmartFridgeRepository {
     private UserDAO userDAO;
     private FoodDAO foodDAO;
+
+    private MealDAO mealDAO;
     private static SmartFridgeRepository repository;
     private  SmartFridgeRepository(Application application){
         SmartFridgeDatabase db= SmartFridgeDatabase.getDatabase(application);
         this.userDAO = db.userDAO();
         this.foodDAO = db.foodDAO();
+        this.mealDAO = db.mealDAO();
     }
 
     public static SmartFridgeRepository getRepository(Application application){
