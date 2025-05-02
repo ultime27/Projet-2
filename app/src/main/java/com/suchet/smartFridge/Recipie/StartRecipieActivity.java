@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,7 @@ public class StartRecipieActivity extends AppCompatActivity {
         binding = ActivityStartRecipieBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         String recipeName = getIntent().getStringExtra("recipeName");
+        Toast.makeText(this, "toastpass: "+recipeName, Toast.LENGTH_SHORT).show();
         new Thread(() -> {
             Recipe recipe = RecipeDatabase.getDatabase(getApplicationContext()).recipeDAO().searchByName(recipeName);
 
@@ -33,8 +35,9 @@ public class StartRecipieActivity extends AppCompatActivity {
                     binding.recipieDescriptionTextView.setText(recipe.description);
                     binding.recipieIngredientTextView.setText(recipe.toString());
                     binding.recipieInstructionTextView.setText(recipe.instruction);
+
                 } else {
-                    binding.recipieNameTextView.setText("Unknow Recipe");
+                    binding.recipieNameTextView.setText("Unknown Recipe");
                 }
             });
         }).start();
@@ -49,7 +52,7 @@ public class StartRecipieActivity extends AppCompatActivity {
     }
     public static Intent StartRecipieActivityFactory(Context context, String recipieName) {
         Intent intent = new Intent(context, StartRecipieActivity.class);
-        intent.putExtra("recipieName", recipieName);
+        intent.putExtra("recipeName", recipieName);
         return intent;
     }
 }
