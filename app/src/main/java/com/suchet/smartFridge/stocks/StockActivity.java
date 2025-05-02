@@ -93,9 +93,17 @@ public class StockActivity extends AppCompatActivity {
 
             User user = stockDatabase.userDAO().getUserByUsernameSync(username);
             Log.d("STOCK", "Food 4 : bon user ? " + user.getUsername());
+            List<Food> list = stockDatabase.foodDAO().getFoodByUser(user.getId());
+            for(Food f : list){
+                if(f.getName().equals(food.getName())){
+                    Log.d("STOCK", "Food 5 : " + food.getName() + " existe déjà, on incrémente la quantité");
+                    f.setQuantity(f.getQuantity() + food.getQuantity());
+                    stockDatabase.foodDAO().update(f);
+                    return;
+                }
 
+            }
             food.setUserId(user.getId());
-            food.setDatePeremption(LocalDate.now().plusDays(1));
             stockDatabase.foodDAO().insert(food);
         }).start();
 
@@ -109,8 +117,22 @@ public class StockActivity extends AppCompatActivity {
     }
 
     public static void deleteFoodToStock(Context context, Food food) {
-        SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
-        stockDatabase.foodDAO().delete(food);
+        Log.d("STOCK", "Food 1 : appelle dans stockactivity " + food.getName());
+        new Thread(() -> {
+            SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
+            Log.d("STOCK", "Food 2 : rentre dans thread");
+            String username = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
+                    .getString("current_username", null);
+            Log.d("STOCK", "Food 3 : username ? " + username);
+            if (username == null) return;
+
+            User user = stockDatabase.userDAO().getUserByUsernameSync(username);
+            Log.d("STOCK", "Food 4 : bon user ? " + user.getUsername());
+
+            food.setUserId(user.getId());
+            stockDatabase.foodDAO().delete(food);
+        }).start();
+
     }
     public static Intent StockIntentFactory(Context context) {
         Intent intent = new Intent(context, StockActivity.class);
