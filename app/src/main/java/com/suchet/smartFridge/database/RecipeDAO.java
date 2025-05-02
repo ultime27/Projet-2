@@ -15,8 +15,7 @@ public interface RecipeDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Recipe recipe);
 
-    @Query("SELECT * FROM recipe_table")
-    List<Recipe> getAllRecipes();
+
 
     @Query("DELETE FROM recipe_table")
     void deleteAll();
@@ -26,6 +25,7 @@ public interface RecipeDAO {
 
     @Query("SELECT * FROM recipe_table WHERE name LIKE '%' || :name || '%'")
     LiveData<List<Recipe>> searchByNameLive(String name);
+
 
 }
 
