@@ -23,7 +23,6 @@ import java.util.List;
 public class StockActivity extends AppCompatActivity {
     private ActivityStockBinding binding;
 
-
     private StockAdapter stockAdapter;
 
     @Override
@@ -37,8 +36,8 @@ public class StockActivity extends AppCompatActivity {
         binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
         displayStock();
         GoToAddStockActivity();
-        backToLanding();
         GoToDeleteStockActivity();
+        backToLanding();
     }
 
     private void backToLanding() {
@@ -106,7 +105,7 @@ public class StockActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        displayStock(); // refresh la liste à chaque fois qu’on revient sur l’activité
+        displayStock();
     }
 
     public static void deleteFoodToStock(Context context, Food food) {
