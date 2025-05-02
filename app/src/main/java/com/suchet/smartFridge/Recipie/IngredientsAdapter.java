@@ -25,6 +25,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             ingredientName = itemView.findViewById(R.id.ingredient_name_EditText);
+
             ingredientQuantity = itemView.findViewById(R.id.ingredient_quantity_EditText);
         }
     }
@@ -38,8 +39,8 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.ingredientName.setText(ingredientNames.get(position));
-        holder.ingredientQuantity.setText(String.valueOf(ingredientQuantities.get(position)));
+        holder.ingredientName.setText("");
+        holder.ingredientQuantity.setText("");
 
         holder.ingredientName.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus)

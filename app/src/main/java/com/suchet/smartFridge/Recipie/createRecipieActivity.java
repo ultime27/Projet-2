@@ -35,8 +35,9 @@ public class createRecipieActivity extends AppCompatActivity {
 
 
         binding.addIngredientButton.setOnClickListener(v -> {
-            ingredientNames.add("Nouvel ingrédient");
-            ingredientQuantities.add(0.0);
+            ingredientNames.add(null);
+            ingredientQuantities.add(null);
+
             ingredientsAdapter.notifyItemInserted(ingredientNames.size() - 1);
         });
 
@@ -45,23 +46,17 @@ public class createRecipieActivity extends AppCompatActivity {
     }
 
     private void saveRecipe() {
-        String name = binding.recipeNameEditText.getText().toString();
-        String description = binding.recipeDescriptionEditText.getText().toString();
-        String instruction = binding.recipeInstructionEditText.getText().toString();
-
         HashMap<String, Double> ingredientMap = new HashMap<>();
         for (int i = 0; i < ingredientNames.size(); i++) {
             ingredientMap.put(ingredientNames.get(i), ingredientQuantities.get(i));
         }
 
-        Recipe recipe = new Recipe(name, ingredientMap, description, instruction);
+        Recipe recipe = new Recipe(binding.recipeNameEditText.getText().toString(), ingredientMap, binding.recipeDescriptionEditText.getText().toString(), binding.recipeInstructionEditText.getText().toString());
 
         new Thread(() -> RecipeDatabase.getDatabase(getApplicationContext())
                 .recipeDAO()
                 .insert(recipe)).start();
         startActivity(SuggestionPageActivity.suggestionPageActivityIntentFactory(this));
-
-
 
     }
 
