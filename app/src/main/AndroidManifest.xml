@@ -13,15 +13,17 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
         <activity
-
+            android:name=".database.TypeConverter.DeleteStockActivity"
+            android:exported="false" />
+        <activity
             android:name=".stocks.AddStockActivity"
             android:exported="false" />
         <activity
             android:name=".stocks.StockActivity"
             android:exported="false" />
-      <activity
-                android:name=".Recipie.SuggestionPageActivity"
-                android:exported="false" />
+        <activity
+            android:name=".Recipie.SuggestionPageActivity"
+            android:exported="false" />
         <activity
             android:name=".Calendar_activity"
             android:exported="false" />
