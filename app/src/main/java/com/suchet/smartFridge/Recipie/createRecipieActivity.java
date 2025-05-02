@@ -59,6 +59,8 @@ public class createRecipieActivity extends AppCompatActivity {
         new Thread(() -> RecipeDatabase.getDatabase(getApplicationContext())
                 .recipeDAO()
                 .insert(recipe)).start();
+        startActivity(SuggestionPageActivity.suggestionPageActivityIntentFactory(this));
+
 
 
     }

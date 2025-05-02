@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -107,15 +108,12 @@ public class SuggestionPageActivity extends AppCompatActivity {
 
 
     private void loadRecipes() {
-        RecipeDatabase.getExecutor().execute(() -> {
-            List<Recipe> filteredRecipes = RecipeDatabase
-                    .getDatabase(getApplicationContext())
-                    .recipeDAO()
-                    .getAllRecipes();
-
-
-            runOnUiThread(() -> adapter.setRecipes(filteredRecipes));
-        });
+        RecipeDatabase.getDatabase(getApplicationContext())
+                .recipeDAO()
+                .getAllRecipesLive()
+                .observe(this, recipes -> {
+                    adapter.setRecipes(recipes);
+                });
     }
 }
 
