@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database;
+package com.suchet.smartFridge.database.daos;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -24,6 +24,4 @@ public interface ShoppingItemDAO {
 
     @Query("SELECT * FROM shopping_items WHERE userId = :userId")
     List<ShoppingItem> getAllForUser(int userId);
-
-
 }

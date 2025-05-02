@@ -19,7 +19,7 @@ public class ShoppingItem {
         this.checked = false;
     }
 
-
+    // Getters
     public int getId() {
         return id;
     }
@@ -40,7 +40,7 @@ public class ShoppingItem {
         return userId;
     }
 
-
+    // Setters
     public void setId(int id) {
         this.id = id;
     }
