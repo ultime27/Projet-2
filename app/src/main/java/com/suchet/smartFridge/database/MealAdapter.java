@@ -26,8 +26,8 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
 
         public MealViewHolder(View itemView) {
             super(itemView);
-            mealName = itemView.findViewById(R.id.foodName);
-            mealDate = itemView.findViewById(R.id.foodQuantity);
+            mealName = itemView.findViewById(R.id.mealNameTextView);
+            mealDate = itemView.findViewById(R.id.mealDateTextView);
         }
 
         public void bind(Meal meal) {
