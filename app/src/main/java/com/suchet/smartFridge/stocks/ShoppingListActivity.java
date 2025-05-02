@@ -7,12 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.suchet.smartFridge.database.SmartFridgeDatabase;
-import com.suchet.smartFridge.database.entities.Food;
-import com.suchet.smartFridge.database.entities.ShoppingItem;
-import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityShoppingListBinding;
 
 import java.util.ArrayList;
