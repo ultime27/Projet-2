@@ -38,6 +38,7 @@ public class StockActivity extends AppCompatActivity {
         GoToAddStockActivity();
         GoToDeleteStockActivity();
         backToLanding();
+        GoToShoppingListActivity();
     }
 
     private void backToLanding() {
@@ -78,6 +79,15 @@ public class StockActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(DeleteStockActivity.DeleteStockIntentFactory(getApplicationContext()));
+            }
+        });
+    }
+
+    private void GoToShoppingListActivity() {
+        binding.ShoppingListStockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(ShoppingListActivity.ShoppingListIntentFactory(getApplicationContext()));
             }
         });
     }

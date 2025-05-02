@@ -1,5 +1,7 @@
 package com.suchet.smartFridge.stocks;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -19,5 +21,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityShoppingListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+    }
+
+    public static Intent ShoppingListIntentFactory(Context context) {
+        Intent intent = new Intent(context, ShoppingListActivity.class);
+        return intent;
     }
 }
