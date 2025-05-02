@@ -17,9 +17,16 @@ public interface FoodDAO {
     @Update
     void update(Food food);
 
+    @Query("DELETE FROM "+ SmartFridgeDatabase.FOOD_TABLE)
+    void deleteAll();
+
     @Delete
     void delete(Food food);
 
-    @Query("SELECT * FROM Food")
+    @Query("SELECT * FROM " +  SmartFridgeDatabase.FOOD_TABLE)
     List<Food> getAllFoods();
+
+    @Query("SELECT * FROM " + SmartFridgeDatabase.FOOD_TABLE + " WHERE userId = :userId")
+    List<Food> getFoodByUser(int userId);
+
 }

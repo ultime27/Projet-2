@@ -19,6 +19,7 @@ import androidx.lifecycle.LiveData;
 import com.suchet.smartFridge.Recipie.SuggestionPageActivity;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
+import com.suchet.smartFridge.stocks.StockActivity;
 import com.suchet.smartFridge.databinding.ActivityLandingPageBinding;
 
 
@@ -51,6 +52,7 @@ public class LandingPage extends AppCompatActivity {
         updateSharedPreference();
         logoutButton();
         goToCalendarButton();
+        goToStockButton();
     }
 
     private void loginUser(Bundle savedInstanceState) {
@@ -72,6 +74,11 @@ public class LandingPage extends AppCompatActivity {
         userObserver.observe(this,user -> {
             this.user =user;
             if(this.user != null) {
+                SharedPreferences userPrefs = getSharedPreferences("user_session", MODE_PRIVATE);
+                SharedPreferences.Editor editor = userPrefs.edit();
+                editor.putString("current_username", user.getUsername());  // 👈👈👈 AJOUT IMPORTANT
+                editor.apply();
+
                 invalidateOptionsMenu();
                 showAdminButton();
             }
@@ -155,9 +162,14 @@ public class LandingPage extends AppCompatActivity {
         sharedPrefEditor.apply();
     }
 
-    static Intent landingPageActivityIntentFactory(Context context, int userId){
+    public static Intent landingPageActivityIntentFactory(Context context, int userId){
         Intent intent = new Intent(context, LandingPage.class);
         intent.putExtra(LANDING_ACTIVITY_USER_ID,userId);
+        return intent;
+    }
+
+    public static Intent landingPageActivityIntentFactory(Context context){
+        Intent intent = new Intent(context, LandingPage.class);
         return intent;
     }
 
@@ -185,6 +197,15 @@ public class LandingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(Calendar_activity.CalendarActivityIntentFactory(getApplicationContext(),loggedInUserId));
+            }
+        });
+    }
+
+    private void goToStockButton(){
+        binding.GoToStockActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(StockActivity.StockIntentFactory(getApplicationContext()));
             }
         });
     }
