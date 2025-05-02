@@ -48,6 +48,7 @@ public class RecipeFragment extends Fragment {
                 desc.setText(args.getString(ARG_DESC));
                 instruction.setText(args.getString(ARG_INSTRUCTION));
             }
+
         }
     }
 

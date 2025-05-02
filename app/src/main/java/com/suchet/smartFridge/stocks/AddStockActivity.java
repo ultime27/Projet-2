@@ -49,15 +49,14 @@ public class AddStockActivity extends AppCompatActivity {
                 count = Integer.parseInt(countStr);
                 Food food = new Food(name);
                 food.setQuantity(count);
-
                 StockActivity.addFoodToStock(getApplicationContext(), food);
-                startActivity(StockActivity.StockIntentFactory(getApplicationContext()));
-                finish();
+                binding.foodNameEditText.setText("");
+                binding.foodAmountEditText.setText("");
             }
         });
     }
 
-    static Intent AddToStockIntentFactory(Context context) {
+    public static Intent AddToStockIntentFactory(Context context) {
         return new Intent(context, AddStockActivity.class);
     }
 

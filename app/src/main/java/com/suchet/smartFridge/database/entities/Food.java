@@ -33,7 +33,7 @@ public class Food {
     public Food(String name) {
         this.name = name;
         quantity=0.0;
-        datePeremption = LocalDate.now().plusDays(7); // Default to 7 days from now
+        datePeremption = LocalDate.now().plusDays(7);
     }
     public void add(double _quantity){
         quantity+=_quantity;

@@ -54,7 +54,6 @@ public class  MainActivity extends AppCompatActivity {
         loginUser(savedInstanceState);
 
 
-        //User is or logged in at this point, go to login screen
         if(loggedInUserId != LOGGED_OUT){
             Intent intent = LandingPage.landingPageActivityIntentFactory(getApplicationContext(),loggedInUserId);
             startActivity(intent);

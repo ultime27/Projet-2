@@ -39,5 +39,13 @@
     <string name="date">Date</string>
     <string name="meal_s_name">Meal\'s name</string>
 
+    <string name="add_an_ingredient">Add an Ingredient</string>
+    <string name="instruction">Instruction</string>
+    <string name="description">Description</string>
+    <string name="name_of_the_recipie">Name of the Recipie</string>
+    <string name="save_recipie">Save Recipie</string>
+    <string name="quantity">Quantity (g or ml)</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="create_recipie">Create Recipie</string>
 
 </resources>
