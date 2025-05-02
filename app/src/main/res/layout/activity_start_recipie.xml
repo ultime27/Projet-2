@@ -6,6 +6,7 @@
     android:padding="16dp">
 
     <TextView
+        android:layout_marginTop="75dp"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/recipieNameTextView"
@@ -16,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/recipieDescriptionTextView"
-        android:hint="DescriptionText"
+        android:hint="@string/descriptiontext"
         android:layout_marginTop="12dp"
         android:textSize="16sp"
         android:layout_height="wrap_content"/>
@@ -31,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="8dp"
         android:id="@+id/recipieIngredientTextView"
-        android:hint="Ingredient list"
+        android:hint="@string/ingredient_list"
         android:textSize="16sp"
         android:layout_height="wrap_content"/>
     <TextView
@@ -48,6 +49,7 @@
         android:textSize="16sp"
         android:layout_height="wrap_content"/>
     <Button
+        android:id="@+id/finishedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
