@@ -3,11 +3,13 @@ package com.suchet.smartFridge.Recipie;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.entities.Recipe;
+import com.suchet.smartFridge.databinding.ActivitySuggestionPageBinding;
 
 import java.util.List;
 
@@ -22,15 +25,17 @@ public class SuggestionPageActivity extends AppCompatActivity {
     private RecipeAdapteur adapter;
     private RecipeViewModel recipeViewModel;
 
+    private ActivitySuggestionPageBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_suggestion_page);
+        binding=ActivitySuggestionPageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        RecyclerView recyclerView = findViewById(R.id.recipies_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recipiesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RecipeAdapteur();
-        recyclerView.setAdapter(adapter);
+        binding.recipiesRecyclerView.setAdapter(adapter);
 
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipeViewModel.getAllRecipes().observe(this, recipes -> {
@@ -64,6 +69,14 @@ public class SuggestionPageActivity extends AppCompatActivity {
             }
         });
 
+        binding.CreateRecipieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(createRecipieActivity.createRecipieActivityIntentFactory(getApplicationContext()));
+            }
+        });
+
+
 
 
     }
@@ -95,15 +108,12 @@ public class SuggestionPageActivity extends AppCompatActivity {
 
 
     private void loadRecipes() {
-        RecipeDatabase.getExecutor().execute(() -> {
-            List<Recipe> filteredRecipes = RecipeDatabase
-                    .getDatabase(getApplicationContext())
-                    .recipeDAO()
-                    .getAllRecipes();
-
-
-            runOnUiThread(() -> adapter.setRecipes(filteredRecipes));
-        });
+        RecipeDatabase.getDatabase(getApplicationContext())
+                .recipeDAO()
+                .getAllRecipesLive()
+                .observe(this, recipes -> {
+                    adapter.setRecipes(recipes);
+                });
     }
 }
 

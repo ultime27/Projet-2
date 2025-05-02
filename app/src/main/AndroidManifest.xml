@@ -15,6 +15,9 @@
         <activity
             android:name=".stocks.DeleteStockActivity"
             android:exported="false" />
+      <activity
+            android:name=".Recipie.createRecipieActivity"
+            android:exported="false" />
         <activity
             android:name=".stocks.AddStockActivity"
             android:exported="false" />
@@ -24,6 +27,7 @@
         <activity
             android:name=".Recipie.SuggestionPageActivity"
             android:exported="false" />
+
         <activity
             android:name=".Calendar_activity"
             android:exported="false" />
