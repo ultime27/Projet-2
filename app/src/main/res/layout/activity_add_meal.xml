@@ -8,6 +8,7 @@
     android:padding="24dp"
     android:background="#FFFFFF">
 
+    <!-- Champ pour le nom du repas -->
     <EditText
         android:id="@+id/mealNameEditText"
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
         android:inputType="textPersonName"
         android:layout_marginBottom="16dp" />
 
+    <!-- Affichage de la date sélectionnée -->
     <TextView
         android:id="@+id/selectedDateTextView"
         android:layout_width="wrap_content"
@@ -23,6 +25,7 @@
         android:text="Date du repas : Non sélectionnée"
         android:layout_marginBottom="8dp" />
 
+    <!-- Bouton pour choisir la date -->
     <Button
         android:id="@+id/selectDateButton"
         android:layout_width="wrap_content"
@@ -30,6 +33,40 @@
         android:text="Choisir la date"
         android:layout_marginBottom="16dp" />
 
+    <!-- Champ pour ajouter un ingrédient -->
+    <EditText
+        android:id="@+id/ingredientNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nom de l'ingrédient"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Champ pour ajouter la quantité d'un ingrédient -->
+    <EditText
+        android:id="@+id/ingredient_quantity_EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quantité de l'ingrédient"
+        android:inputType="number"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Bouton pour ajouter un ingrédient -->
+    <Button
+        android:id="@+id/addIngredientButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajouter l'ingrédient"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Liste des ingrédients ajoutés -->
+    <TextView
+        android:id="@+id/ingredientsListTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingrédients ajoutés :"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Bouton pour ajouter le repas -->
     <Button
         android:id="@+id/addMealButton"
         android:layout_width="wrap_content"
@@ -37,6 +74,7 @@
         android:text="Ajouter le repas"
         android:layout_marginBottom="16dp" />
 
+    <!-- Bouton pour revenir à la page précédente -->
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
