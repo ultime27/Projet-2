@@ -82,21 +82,16 @@ public class StockActivity extends AppCompatActivity {
         });
     }
     public static void addFoodToStock(Context context, Food food) {
-        Log.d("STOCK", "Food 1 : appelle dans stockactivity " + food.getName());
         new Thread(() -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
-            Log.d("STOCK", "Food 2 : rentre dans thread");
             String username = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
                     .getString("current_username", null);
-            Log.d("STOCK", "Food 3 : username ? " + username);
             if (username == null) return;
 
             User user = stockDatabase.userDAO().getUserByUsernameSync(username);
-            Log.d("STOCK", "Food 4 : bon user ? " + user.getUsername());
             List<Food> list = stockDatabase.foodDAO().getFoodByUser(user.getId());
             for(Food f : list){
                 if(f.getName().equals(food.getName())){
-                    Log.d("STOCK", "Food 5 : " + food.getName() + " existe déjà, on incrémente la quantité");
                     f.setQuantity(f.getQuantity() + food.getQuantity());
                     stockDatabase.foodDAO().update(f);
                     return;
@@ -117,17 +112,13 @@ public class StockActivity extends AppCompatActivity {
     }
 
     public static void deleteFoodToStock(Context context, Food food) {
-        Log.d("STOCK", "Food 1 : appelle dans stockactivity " + food.getName());
         new Thread(() -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
-            Log.d("STOCK", "Food 2 : rentre dans thread");
             String username = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
                     .getString("current_username", null);
-            Log.d("STOCK", "Food 3 : username ? " + username);
             if (username == null) return;
 
             User user = stockDatabase.userDAO().getUserByUsernameSync(username);
-            Log.d("STOCK", "Food 4 : bon user ? " + user.getUsername());
 
             food.setUserId(user.getId());
             stockDatabase.foodDAO().delete(food);
@@ -143,19 +134,15 @@ public class StockActivity extends AppCompatActivity {
         List<Food> foodForTomorrow = new ArrayList<>();
         new Thread(() -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
-            Log.d("STOCK", "Food 1 : rentre dans thread pour getFoodForTomorrow");
             String username = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
                     .getString("current_username", null);
-            Log.d("STOCK", "Food 2 : username ? " + username);
             if (username == null) return;
 
             User user = stockDatabase.userDAO().getUserByUsernameSync(username);
-            Log.d("STOCK", "Food 3 : bon user ? " + user.getUsername());
             List<Food> foodList = stockDatabase.foodDAO().getFoodByUser(user.getId());
             for (Food food : foodList) {
                 if(food.getDatePeremption() != null && food.getDatePeremption().isEqual(java.time.LocalDate.now().plusDays(1))){
                     foodForTomorrow.add(food);
-                    Log.d("STOCK", "Food 4 : ajout de " + food.getName() + " dans la liste pour demain" + food.getDatePeremption());
                 }
 
             }

@@ -41,9 +41,9 @@ public class DeleteStockAdapter extends RecyclerView.Adapter<DeleteStockAdapter.
         holder.foodName.setText(food.getName());
         holder.foodQuantity.setText(String.valueOf(food.getQuantity()));
 
-        holder.checkboxSelect.setOnCheckedChangeListener(null); // clear previous listener
+        holder.checkboxSelect.setOnCheckedChangeListener(null);
 
-        holder.checkboxSelect.setChecked(deleteList.contains(food)); // set checkbox state
+        holder.checkboxSelect.setChecked(deleteList.contains(food));
 
         holder.checkboxSelect.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {

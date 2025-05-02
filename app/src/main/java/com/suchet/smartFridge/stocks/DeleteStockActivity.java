@@ -69,7 +69,6 @@ public class DeleteStockActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for(Food food : deleteList) {
-                    Log.d("DELETE", "deleteList food: " + food.getName());
                     StockActivity.deleteFoodToStock(getApplicationContext(), food);
                 }
 
