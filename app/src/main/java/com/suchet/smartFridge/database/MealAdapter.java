@@ -15,31 +15,43 @@ import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
     private List<Meal> mealList;
+
     public void updateMealList(List<Meal> newList) {
         this.mealList.clear();
         this.mealList.addAll(newList);
         notifyDataSetChanged();
     }
+
+    public MealAdapter(List<Meal> mealList) {
+        this.mealList = mealList;
+    }
+
     public static class MealViewHolder extends RecyclerView.ViewHolder {
 
         TextView mealName;
         TextView mealDate;
+        TextView ingredientsTextView;
+
         public MealViewHolder(View itemView) {
             super(itemView);
             mealName = itemView.findViewById(R.id.mealNameTextView);
-             mealDate = itemView.findViewById(R.id.mealDateTextView);
+            mealDate = itemView.findViewById(R.id.mealDateTextView);
+            ingredientsTextView = itemView.findViewById(R.id.ingredientsTextView); // Assure-toi qu’il est dans le layout
         }
 
         public void bind(Meal meal) {
             mealName.setText(meal.getName());
             mealDate.setText(String.valueOf(meal.getDate()));
 
+            // Affichage des ingrédients
+            StringBuilder builder = new StringBuilder("Ingrédients :\n");
+            for (Food food : meal.getFoodList()) {
+                builder.append("- ").append(food.getName())
+                        .append(" : ").append(food.getQuantity())
+                        .append("\n");
+            }
+            ingredientsTextView.setText(builder.toString());
         }
-    }
-
-
-    public MealAdapter(List<Meal> mealList) {
-            this.mealList = mealList;
     }
 
     @Override

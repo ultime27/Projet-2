@@ -44,7 +44,7 @@ public class MealActivity extends AppCompatActivity {
     }
 
     private void backToLanding() {
-        binding.backToLandingFromStockStockButton.setOnClickListener(new View.OnClickListener() {
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext()));

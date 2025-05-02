@@ -28,9 +28,6 @@
                 android:name=".Recipie.SuggestionPageActivity"
                 android:exported="false" />
         <activity
-            android:name=".Calendar_activity"
-            android:exported="false" />
-        <activity
             android:name=".LandingPage"
             android:exported="false" />
         <activity

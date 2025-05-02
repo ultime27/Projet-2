@@ -23,12 +23,10 @@ public class Meal {
     @NonNull
     private LocalDate date;
 
-    @ColumnInfo(name = "userId") // Ajout de la colonne userId pour relier au User
     private int userId;
 
     private List<Food> foodList;
 
-    // Constructeur principal
     public Meal(String name, @NonNull LocalDate date, List<Food> foods, int userId) {
         this.name = name;
         this.date = date;
@@ -36,15 +34,13 @@ public class Meal {
         this.userId = userId;
     }
 
-    // Constructeur par défaut
     public Meal() {
         name = null;
         date = LocalDate.now();
         foodList = new ArrayList<>();
-        userId = -1; // Valeur par défaut, à initialiser ensuite
+        userId = -1;
     }
 
-    // Getters et setters
 
     public int getId() {
         return id;

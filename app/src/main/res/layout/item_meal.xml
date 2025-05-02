@@ -26,5 +26,14 @@
             android:text="Date du repas"
             android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/ingredientsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingrédients :"
+            android:paddingTop="8dp"
+            android:textColor="#555555"
+            />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
