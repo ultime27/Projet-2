@@ -13,9 +13,12 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".stocks.ShoppingListActivity"
+            android:exported="false" />
+        <activity
             android:name=".stocks.DeleteStockActivity"
             android:exported="false" />
-      <activity
+        <activity
             android:name=".Recipie.createRecipieActivity"
             android:exported="false" />
         <activity
@@ -27,7 +30,6 @@
         <activity
             android:name=".Recipie.SuggestionPageActivity"
             android:exported="false" />
-
         <activity
             android:name=".Calendar_activity"
             android:exported="false" />
