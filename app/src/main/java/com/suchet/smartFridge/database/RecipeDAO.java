@@ -25,6 +25,8 @@ public interface RecipeDAO {
 
     @Query("SELECT * FROM recipe_table WHERE name LIKE '%' || :name || '%'")
     LiveData<List<Recipe>> searchByNameLive(String name);
+    @Query("SELECT * FROM recipe_table WHERE name = :name")
+    Recipe searchByName(String name);
 
 
 }

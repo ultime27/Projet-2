@@ -54,6 +54,8 @@ public class SuggestionPageActivity extends AppCompatActivity {
                     .commit();
         });
 
+
+
         SearchView searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

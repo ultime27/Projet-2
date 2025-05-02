@@ -50,5 +50,7 @@
     <string name="recipy_name">recipy Name</string>
     <string name="ingredients">Ingredients:</string>
     <string name="instruction_Static">Instruction:</string>
+    <string name="finished_recipe">Finished Recipe</string>
+    <string name="instruction_text">Instruction</string>
 
 </resources>
