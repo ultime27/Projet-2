@@ -5,67 +5,74 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Meal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
-    private List<Meal> meals = new ArrayList<>();
+    private List<Meal> mealList;
 
-    public void setMeals(List<Meal> meals) {
-        this.meals = meals;
+    public void updateMealList(List<Meal> newList) {
+        this.mealList.clear();
+        this.mealList.addAll(newList);
         notifyDataSetChanged();
     }
 
-    @NonNull
+    public MealAdapter(List<Meal> mealList) {
+        this.mealList = mealList;
+    }
+
+    public static class MealViewHolder extends RecyclerView.ViewHolder {
+
+        TextView mealName;
+        TextView mealDate;
+        TextView ingredientsTextView;
+
+        public MealViewHolder(View itemView) {
+            super(itemView);
+            mealName = itemView.findViewById(R.id.mealNameTextView);
+            mealDate = itemView.findViewById(R.id.mealDateTextView);
+            ingredientsTextView = itemView.findViewById(R.id.ingredientsTextView); // Assure-toi qu’il est dans le layout
+        }
+
+        public void bind(Meal meal) {
+            mealName.setText(meal.getName());
+            mealDate.setText(String.valueOf(meal.getDate()));
+
+            // Affichage des ingrédients
+            StringBuilder builder = new StringBuilder("Ingrédients :\n");
+            for (Food food : meal.getFoodList()) {
+                builder.append("- ").append(food.getName())
+                        .append(" : ").append(food.getQuantity())
+                        .append("\n");
+            }
+            ingredientsTextView.setText(builder.toString());
+        }
+    }
+
     @Override
-    public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meal, parent, false);
+    public MealViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_meal, parent, false);
         return new MealViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
-        Meal currentMeal = meals.get(position);
-        holder.nameText.setText(currentMeal.getName());
-        holder.dateText.setText(currentMeal.getDate().toString());
-
-        // Transformer la liste de Food en une string lisible
-        List<Food> foodList = currentMeal.getFoodList();
-        StringBuilder foodText = new StringBuilder("Ingrédients : ");
-        for (Food food : foodList) {
-            foodText.append(food.getName()).append(", ");
-        }
-
-        if (!foodList.isEmpty()) {
-            // Supprimer la dernière virgule
-            foodText.setLength(foodText.length() - 2);
-        } else {
-            foodText.append("aucun");
-        }
-
-        holder.foodText.setText(foodText.toString());
+    public void onBindViewHolder(MealViewHolder holder, int position) {
+        holder.bind(mealList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return meals.size();
+        return mealList.size();
     }
 
-    static class MealViewHolder extends RecyclerView.ViewHolder {
-        TextView nameText, dateText, foodText;
-
-        public MealViewHolder(View itemView) {
-            super(itemView);
-            nameText = itemView.findViewById(R.id.meal_name_text);
-            dateText = itemView.findViewById(R.id.meal_date_text);
-            foodText = itemView.findViewById(R.id.food_list_text);
-        }
+    public void updateData(List<Meal> newMeal) {
+        mealList = newMeal;
+        notifyDataSetChanged();
     }
 }

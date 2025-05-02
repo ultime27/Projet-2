@@ -19,6 +19,7 @@ import androidx.lifecycle.LiveData;
 import com.suchet.smartFridge.Recipie.SuggestionPageActivity;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
+import com.suchet.smartFridge.MealActivity;
 import com.suchet.smartFridge.stocks.StockActivity;
 import com.suchet.smartFridge.databinding.ActivityLandingPageBinding;
 
@@ -91,31 +92,9 @@ public class LandingPage extends AppCompatActivity {
         startActivity(SuggestionPageActivity.suggestionPageActivityIntentFactory(getApplicationContext()));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.logout_menu,menu);
-        return true;
-    }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        MenuItem item = menu.findItem(R.id.logoutMenuItem);
-        item.setVisible(true);
-        if (user == null){
-            item.setTitle("charging...");
-        } else {
-            item.setTitle(user.getUsername());
-            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(@NonNull MenuItem item) {
-                    showLogoutDialog();
-                    return false;
-                }
-            });
-        }
-        return true;
-    }
+
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState){
@@ -196,7 +175,7 @@ public class LandingPage extends AppCompatActivity {
         binding.GoToCalendarActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(Calendar_activity.CalendarActivityIntentFactory(getApplicationContext(),loggedInUserId));
+                startActivity(MealActivity.MealIntentFactory(getApplicationContext()));
             }
         });
     }

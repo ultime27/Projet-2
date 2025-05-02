@@ -3,39 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:elevation="4dp"
-    android:padding="8dp">
+    android:elevation="4dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
 
-        <!-- Nom du repas -->
         <TextView
-            android:id="@+id/meal_name_text"
+            android:id="@+id/mealNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/meal_s_name"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:text="Nom du repas"
+            android:textStyle="bold"
+            android:textSize="18sp" />
 
-        <!-- Date -->
         <TextView
-            android:id="@+id/meal_date_text"
+            android:id="@+id/mealDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/date"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"/>
+            android:text="Date du repas"
+            android:textSize="14sp" />
 
-        <!-- Liste des aliments -->
         <TextView
-            android:id="@+id/food_list_text"
-            android:layout_width="wrap_content"
+            android:id="@+id/ingredientsTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/foodlist"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"/>
+            android:text="Ingrédients :"
+            android:paddingTop="8dp"
+            android:textColor="#555555"
+            />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

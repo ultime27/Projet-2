@@ -1,10 +1,12 @@
 package com.suchet.smartFridge.database;
 
-import androidx.lifecycle.LiveData;
+
 import androidx.room.Dao;
+
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
+
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.suchet.smartFridge.database.entities.Meal;
 
@@ -12,10 +14,12 @@ import java.util.List;
 
 @Dao
 public interface MealDAO {
-    @Query("SELECT * FROM meal_table ORDER BY date ASC")
-    LiveData<List<Meal>> getAllMeals();
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     void insert(Meal meal);
+
+    @Update
+    void update(Meal meal);
+    @Query("SELECT * FROM " + SmartFridgeDatabase.MEAL_TABLE + " WHERE userId = :userId ORDER BY date")
+    List<Meal> getMealsByUser(int userId);
 }
 

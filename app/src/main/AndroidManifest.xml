@@ -17,10 +17,13 @@
             android:name=".Recipie.StartRecipieActivity"
             android:exported="false" />
         <activity
-            android:name=".stocks.DeleteStockActivity"
+            android:name=".MealActivity"
             android:exported="false" />
         <activity
             android:name=".Recipie.createRecipieActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddMealActivity"
             android:exported="false" />
         <activity
             android:name=".stocks.AddStockActivity"
@@ -28,12 +31,14 @@
         <activity
             android:name=".stocks.StockActivity"
             android:exported="false" />
+
         <activity
             android:name=".Recipie.SuggestionPageActivity"
             android:exported="false" />
         <activity
             android:name=".Calendar_activity"
             android:exported="false" />
+
         <activity
             android:name=".LandingPage"
             android:exported="false" />
