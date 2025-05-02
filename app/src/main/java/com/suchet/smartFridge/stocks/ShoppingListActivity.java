@@ -157,4 +157,9 @@ public class ShoppingListActivity extends AppCompatActivity {
         Intent intent = new Intent(context, ShoppingListActivity.class);
         return intent;
     }
+
+    public static Intent ShoppingListIntentFactory(Context context) {
+        Intent intent = new Intent(context, ShoppingListActivity.class);
+        return intent;
+    }
 }

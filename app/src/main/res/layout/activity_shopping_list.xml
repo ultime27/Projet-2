@@ -12,7 +12,7 @@
         android:id="@+id/shoppingList_title"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:text="@string/welcome_to_the_shopping_list"
+        android:text="@string/welcome_to_the_stock"
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/shoppingListRecyclerView"
+        android:id="@+id/displayStock"
         android:layout_width="412dp"
         android:layout_height="450dp"
         android:layout_marginTop="210dp"
@@ -60,18 +60,8 @@
         android:layout_height="wrap_content"
         android:text="@string/back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/shoppingListRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/shoppingListRecyclerView"
+        app:layout_constraintStart_toStartOf="@id/displayStock"
+        app:layout_constraintTop_toBottomOf="@+id/displayStock"
        />
-
-    <Button
-        android:id="@+id/BoughtToStockButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bought"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/BackToStockButton"
-        app:layout_constraintTop_toBottomOf="@+id/shoppingListRecyclerView"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

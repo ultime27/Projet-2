@@ -47,6 +47,7 @@
     <string name="quantity">Quantity (g or ml)</string>
     <string name="ingredient">Ingredient</string>
     <string name="create_recipie">Create Recipie</string>
+    <string name="shopping_list">Shopping List</string>
 
     <string name="recipy_name">Nom de la recette</string>
     <string name="descriptiontext">DescriptionText</string>
