@@ -3,13 +3,32 @@ package com.suchet.smartFridge.database.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.suchet.smartFridge.database.SmartFridgeDatabase;
+
 import java.time.LocalDate;
-@Entity
+@Entity(tableName = SmartFridgeDatabase.FOOD_TABLE)
 public class Food {
     @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private double quantity;
     private LocalDate datePeremption;
+    private int userId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Food(String name) {
         this.name = name;

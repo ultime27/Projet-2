@@ -23,6 +23,13 @@
     <string name="meal_name">Meal name</string>
     <string name="pick_date">Pick date</string>
     <string name="add_a_meal_to_the_calendar">Add a meal to the calendar</string>
+    <string name="welcome_to_the_stock">Welcome to the Stock</string>
+    <string name="generate_a_list">generate a list</string>
+    <string name="deleteStock">delete</string>
+    <string name="addStock">add</string>
+    <string name="enter_food_s_name">Enter food\'s name</string>
+    <string name="enter_the_amount">Enter the amount</string>
+    <string name="back">Back</string>
 
     <string name="start_recipie">Start Recipie</string>
     <string name="see_more">See more</string>

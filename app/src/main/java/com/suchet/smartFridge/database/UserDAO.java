@@ -31,4 +31,10 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE id == :userId")
     LiveData<User> getUserByUserId(int userId);
+
+    @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE username == :username LIMIT 1")
+    User getUserByUsernameSync(String username);
+    @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE id == :userId LIMIT 1")
+    User getUserByUserIdSync(int userId);
+
 }
