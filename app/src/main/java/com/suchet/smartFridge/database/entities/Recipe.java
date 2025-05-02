@@ -17,7 +17,7 @@ public class Recipe {
     public String description;
     public String instruction;
 
-    // Room stockera cette map en JSON grâce au converter ci-dessous
+
     public HashMap<String, Double> ingredientList;
 
     public Recipe(){
@@ -85,6 +85,10 @@ public class Recipe {
     }
 
     public String ToString(){
-        return description;
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String elm: ingredientList.keySet()) {
+            stringBuilder.append(elm).append(" : ").append(ingredientList.get(elm)).append(" g or ml\n");
+        }
+        return stringBuilder.toString();
     }
 }
