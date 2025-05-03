@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".stocks.ShoppingListActivity">
+
+
+    <TextView
+        android:id="@+id/shoppingList_title"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="@string/welcome_to_the_stock"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <EditText
+        android:id="@+id/foodNameSLEditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:hint="@string/enter_food_s_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/foodQuantitySLEditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:inputType="number"
+        android:hint="@string/enter_the_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/foodNameSLEditText"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/displayStock"
+        android:layout_width="412dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="210dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addToTheSLButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addStock"
+        app:layout_constraintStart_toEndOf="@+id/foodQuantitySLEditText"
+        app:layout_constraintTop_toBottomOf="@+id/foodNameSLEditText"
+        />
+
+    <Button
+        android:id="@+id/BackToStockButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/displayStock"
+        app:layout_constraintTop_toBottomOf="@+id/displayStock"
+       />
+
+    <Button
+        android:id="@+id/BoughtToStockButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bought"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/BackToStockButton"
+        app:layout_constraintTop_toBottomOf="@+id/displayStock"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
