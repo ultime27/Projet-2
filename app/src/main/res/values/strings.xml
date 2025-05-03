@@ -48,4 +48,15 @@
     <string name="ingredient">Ingredient</string>
     <string name="create_recipie">Create Recipie</string>
 
+    <string name="recipy_name">Nom de la recette</string>
+    <string name="descriptiontext">DescriptionText</string>
+    <string name="ingredients">Ingrédients</string>
+    <string name="ingredient_list">Liste des ingrédients</string>
+    <string name="instruction_Static">Instructions</string>
+    <string name="instruction_text">Texte de l’instruction</string>
+    <string name="finished_recipe">Recette terminée</string>
+    <string name="shopping_list">Shopping list</string>
+    <string name="bought">bought</string>
+    <string name="welcome_to_the_shopping_list">welcome to the shopping list</string>
+
 </resources>

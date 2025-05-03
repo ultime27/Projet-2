@@ -15,17 +15,19 @@ import com.suchet.smartFridge.database.TypeConverter.ListFoodConverter;
 import com.suchet.smartFridge.database.TypeConverter.TypeLocalDateConverter;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Meal;
+import com.suchet.smartFridge.database.entities.ShoppingItem;
 import com.suchet.smartFridge.database.entities.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Food.class, Meal.class},version = 2,exportSchema = false)
+@Database(entities = {User.class, Food.class, Meal.class, ShoppingItem.class},version = 1,exportSchema = false)
 @TypeConverters({TypeLocalDateConverter.class, ListFoodConverter.class})
 public abstract class SmartFridgeDatabase extends RoomDatabase {
     public static final String USER_TABLE = "user_table";
     public static final String FOOD_TABLE = "food_table";
 
+    public static final String SHOPPING_ITEM_TABLE = "shopping_item_table";
     public static final String MEAL_TABLE = "meal_table";
 
     private static final String DATABASE_NAME="SmartFridge_Database";
@@ -67,6 +69,6 @@ public abstract class SmartFridgeDatabase extends RoomDatabase {
     };
     public abstract UserDAO userDAO();
     public abstract FoodDAO foodDAO();
-
+    public abstract ShoppingItemDAO shoppingItemDAO();
     public abstract MealDAO mealDAO();
 }
