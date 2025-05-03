@@ -31,9 +31,9 @@
     <string name="enter_the_amount">Enter the amount</string>
     <string name="back">Back</string>
 
-    <string name="start_recipie">Start Recipe</string>
+    <string name="start_recipie">Start Recipie</string>
     <string name="see_more">See more</string>
-    <string name="schedule_recipie">schedule recipe</string>
+    <string name="schedule_recipie">schedule recipie</string>
     <string name="test_lucas">test Lucas</string>
     <string name="foodlist">FoodList</string>
     <string name="date">Date</string>
@@ -42,11 +42,11 @@
     <string name="add_an_ingredient">Add an Ingredient</string>
     <string name="instruction">Instruction</string>
     <string name="description">Description</string>
-    <string name="name_of_the_recipie">Name of the Recipe</string>
-    <string name="save_recipie">Save Recipe</string>
+    <string name="name_of_the_recipie">Name of the Recipie</string>
+    <string name="save_recipie">Save Recipie</string>
     <string name="quantity">Quantity (g or ml)</string>
     <string name="ingredient">Ingredient</string>
-    <string name="create_recipie">Create Recipe</string>
+    <string name="create_recipie">Create Recipie</string>
 
     <string name="recipy_name">Nom de la recette</string>
     <string name="descriptiontext">DescriptionText</string>
@@ -62,15 +62,5 @@
 
     <string name="unknow_recipe">Unknow Recipe</string>
     <string name="api_search">Api Search</string>
-    <string name="default_web_client_id">72900674551-qd17uv0p0fu8ujttig5m7243nd4p0oae.apps.googleusercontent.com</string>
-    <string name="switch_to_dark_mode">switch to dark mode</string>
-    <string name="switch_to_light_mode">switch to light mode</string>
-    <string name="change_password">Change Password</string>
-    <string name="settings">Settings</string>
-    <string name="delete_account">Delete Account</string>
-    <string name="new_password">New Password</string>
-    <string name="confirm_new_password">Confirm new password</string>
-    <string name="confirm">Confirm</string>
-
 
 </resources>
