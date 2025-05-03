@@ -26,6 +26,7 @@ import com.suchet.smartFridge.database.RecipeDAO;
 import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.entities.Recipe;
 import com.suchet.smartFridge.databinding.ActivitySuggestionPageBinding;
+import com.suchet.smartFridge.stocks.StockActivity;
 
 import java.util.List;
 
@@ -45,8 +46,13 @@ public class SuggestionPageActivity extends AppCompatActivity {
         binding=ActivitySuggestionPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         binding.recipiesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RecipeAdapteur();
+        new Thread(() -> {
+            List<String> foodForTomorrow = StockActivity.getFoodForTomorrow(getApplicationContext());
+            runOnUiThread(() -> adapter.setFoodForTomorrow(foodForTomorrow));
+        }).start();
         binding.recipiesRecyclerView.setAdapter(adapter);
 
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
