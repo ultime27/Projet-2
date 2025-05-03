@@ -20,6 +20,9 @@ public interface RecipeDAO {
     @Query("DELETE FROM recipe_table")
     void deleteAll();
 
+    @Query("DELETE FROM recipe_table WHERE name = :name")
+    void deletebyName(String name);
+
     @Query("SELECT * FROM recipe_table")
     LiveData<List<Recipe>> getAllRecipesLive();
 
