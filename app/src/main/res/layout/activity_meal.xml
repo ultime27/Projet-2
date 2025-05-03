@@ -5,15 +5,15 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Bouton retour à la page d'accueil -->
+
     <Button
         android:id="@+id/backToLandingFromStockStockButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Retour à la page d'accueil"
+        android:text="Back to Home Page"
         android:layout_marginBottom="16dp" />
 
-    <!-- Liste des repas -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/displayStock"
         android:layout_width="match_parent"
@@ -21,19 +21,19 @@
         android:layout_weight="1"
         android:layout_marginTop="16dp"/>
 
-    <!-- Bouton pour ajouter un repas -->
+
     <Button
         android:id="@+id/addFoodInStockButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ajouter un repas"
+        android:text="Add Meal"
         android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Retour"
+        android:text="Back to Home Page"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"/>
 </LinearLayout>

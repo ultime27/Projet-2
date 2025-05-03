@@ -29,4 +29,7 @@ public interface FoodDAO {
     @Query("SELECT * FROM " + SmartFridgeDatabase.FOOD_TABLE + " WHERE userId = :userId")
     List<Food> getFoodByUser(int userId);
 
+    @Query("SELECT * FROM " + SmartFridgeDatabase.FOOD_TABLE + " WHERE name = :name AND userId = :userId LIMIT 1")
+    Food getFoodByName(String name, int userId);
+
 }

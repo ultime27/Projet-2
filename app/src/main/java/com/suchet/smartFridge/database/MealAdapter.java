@@ -3,6 +3,7 @@ package com.suchet.smartFridge.database;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,16 @@ import java.util.List;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
     private List<Meal> mealList;
+    private OnMealDeletedListener onMealDeletedListener;
+
+    public interface OnMealDeletedListener {
+        void onMealDeleted(Meal meal);
+    }
+
+    public MealAdapter(List<Meal> mealList, OnMealDeletedListener listener) {
+        this.mealList = mealList;
+        this.onMealDeletedListener = listener;
+    }
 
     public void updateMealList(List<Meal> newList) {
         this.mealList.clear();
@@ -22,24 +33,22 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         notifyDataSetChanged();
     }
 
-    public MealAdapter(List<Meal> mealList) {
-        this.mealList = mealList;
-    }
-
     public static class MealViewHolder extends RecyclerView.ViewHolder {
 
         TextView mealName;
         TextView mealDate;
         TextView ingredientsTextView;
+        Button deleteMealButton;
 
         public MealViewHolder(View itemView) {
             super(itemView);
             mealName = itemView.findViewById(R.id.mealNameTextView);
             mealDate = itemView.findViewById(R.id.mealDateTextView);
-            ingredientsTextView = itemView.findViewById(R.id.ingredientsTextView); // Assure-toi qu’il est dans le layout
+            ingredientsTextView = itemView.findViewById(R.id.ingredientsTextView);
+            deleteMealButton = itemView.findViewById(R.id.deleteMealButton);
         }
 
-        public void bind(Meal meal) {
+        public void bind(Meal meal, OnMealDeletedListener listener) {
             mealName.setText(meal.getName());
             mealDate.setText(String.valueOf(meal.getDate()));
 
@@ -51,6 +60,11 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
                         .append("\n");
             }
             ingredientsTextView.setText(builder.toString());
+
+            // Gestion du bouton de suppression
+            deleteMealButton.setOnClickListener(v -> {
+                listener.onMealDeleted(meal);
+            });
         }
     }
 
@@ -63,7 +77,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
 
     @Override
     public void onBindViewHolder(MealViewHolder holder, int position) {
-        holder.bind(mealList.get(position));
+        holder.bind(mealList.get(position), onMealDeletedListener); // Passer le listener ici
     }
 
     @Override
