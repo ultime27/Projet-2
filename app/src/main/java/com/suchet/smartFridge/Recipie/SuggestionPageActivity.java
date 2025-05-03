@@ -78,6 +78,20 @@ public class SuggestionPageActivity extends AppCompatActivity {
             }
         });
 
+        binding.ApiSearchRecipieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String recipieName = binding.searchView.toString();
+                boolean res = searchFromApiAndInsert(recipieName);
+                if (res){
+                    Toast.makeText(SuggestionPageActivity.this, "Recipe added to the database", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SuggestionPageActivity.this, "Sorry we didn't find recipe for "+recipieName+" but you can create it!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
 
 
 
@@ -97,8 +111,9 @@ public class SuggestionPageActivity extends AppCompatActivity {
         });
     }
 
-    private void searchFromApiAndInsert(String query) {
+    private boolean searchFromApiAndInsert(String query) {
         //TODO
+        return true;
     }
 
 

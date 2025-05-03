@@ -7,13 +7,22 @@
     <SearchView
         android:layout_marginTop="75dp"
         android:id="@+id/search_view"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:queryHint="Search..."
         android:iconifiedByDefault="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/ApiSearchRecipieButton"/>
+    <Button
+        android:id="@+id/ApiSearchRecipieButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd ="8dp"
+        android:paddingStart="8dp"
+        android:text="@string/api_search"
+        app:layout_constraintTop_toTopOf="@id/search_view"
+        app:layout_constraintStart_toEndOf="@id/search_view"/>
     <Button
         android:id="@+id/CreateRecipieButton"
         android:layout_width="match_parent"
