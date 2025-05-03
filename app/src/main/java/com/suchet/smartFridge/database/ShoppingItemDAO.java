@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database.daos;
+package com.suchet.smartFridge.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

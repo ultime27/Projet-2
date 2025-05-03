@@ -53,12 +53,13 @@ public class ShoppingListActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         shoppingItems.remove(item);
                         shoppingListAdapter.notifyDataSetChanged();
+                        displayStock();
                     });
                 }).start();
             }
         });
-        binding.shoppingListRecyclerView.setAdapter(shoppingListAdapter);
-        binding.shoppingListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.displayStock.setAdapter(shoppingListAdapter);
+        binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
         addToSL();
         displayStock();
         backToStock();
@@ -95,9 +96,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
             stockDatabase.shoppingItemDAO().delete(food);
             Log.d("ShoppingListActivity", "ShoppingList 5: c delete");
-            runOnUiThread(() -> {
-                shoppingListAdapter.notifyDataSetChanged();
-            });
+            runOnUiThread(() -> displayStock());
         }).start();
         displayStock();
     }
@@ -115,7 +114,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             List<ShoppingItem> foodList = stockDatabase.shoppingItemDAO().getAllForUser(user.getId());
             runOnUiThread(() -> {
                 shoppingListAdapter.setItems(foodList);
-                binding.shoppingListRecyclerView.setAdapter(shoppingListAdapter);
+                binding.displayStock.setAdapter(shoppingListAdapter);
             });
         }).start();
     }
@@ -146,12 +145,11 @@ public class ShoppingListActivity extends AppCompatActivity {
                     stockDatabase.shoppingItemDAO().insert(food);
                     Log.d("ShoppingListActivity", "ShoppingList 2.3: c insere");
                     runOnUiThread(() -> {
-                        shoppingItems.add(food);
-                        shoppingListAdapter.notifyDataSetChanged();
+                        displayStock();
                     });
                 }).start();
 
-                displayStock();
+
                 binding.foodNameSLEditText.setText("");
                 binding.foodQuantitySLEditText.setText("");
             }

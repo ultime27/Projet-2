@@ -22,6 +22,7 @@
         android:id="@+id/foodAmountEditText"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:inputType="number"
         android:hint="@string/enter_the_amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
