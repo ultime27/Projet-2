@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private SmartFridgeRepository repository;
+    private GoogleSignInActivity googleSignInActivity;
 
     //    private GoogleSignInActivity googleSignInActivity;
     FirebaseAuth mAuth;
