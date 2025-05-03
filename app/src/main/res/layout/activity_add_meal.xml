@@ -66,6 +66,14 @@
         android:text="Ingrédients ajoutés :"
         android:layout_marginBottom="16dp" />
 
+    <!-- RecyclerView pour afficher les suggestions de recettes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipiesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp" />
+
     <!-- Bouton pour ajouter le repas -->
     <Button
         android:id="@+id/addMealButton"
