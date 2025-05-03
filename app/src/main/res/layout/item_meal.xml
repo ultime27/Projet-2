@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:elevation="4dp">
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical">
 
     <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="start"
+        android:paddingEnd="8dp">
+    <!-- Affichage du nom du repas -->
+    <TextView
+        android:id="@+id/mealNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:orientation="vertical">
+        android:text="Meal's name"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/mealNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nom du repas"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+    <!-- Affichage de la date du repas -->
+    <TextView
+        android:id="@+id/mealDateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date : 12/12/2023"
+        android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/mealDateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date du repas"
-            android:textSize="14sp" />
+    <!-- Affichage des ingrédients -->
+    <TextView
+        android:id="@+id/ingredientsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredients : "
+        android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/ingredientsTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ingrédients :"
-            android:paddingTop="8dp"
-            android:textColor="#555555"
-            />
+        </LinearLayout>
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    <!-- Bouton de suppression -->
+    <Button
+        android:id="@+id/deleteMealButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

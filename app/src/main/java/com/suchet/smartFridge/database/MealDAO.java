@@ -3,6 +3,7 @@ package com.suchet.smartFridge.database;
 
 import androidx.room.Dao;
 
+import androidx.room.Delete;
 import androidx.room.Insert;
 
 import androidx.room.Query;
@@ -21,5 +22,8 @@ public interface MealDAO {
     void update(Meal meal);
     @Query("SELECT * FROM " + SmartFridgeDatabase.MEAL_TABLE + " WHERE userId = :userId ORDER BY date")
     List<Meal> getMealsByUser(int userId);
+
+    @Delete
+    void delete(Meal meal);
 }
 

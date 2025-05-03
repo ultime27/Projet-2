@@ -23,10 +23,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealActivity extends AppCompatActivity {
+public class MealActivity extends AppCompatActivity implements MealAdapter.OnMealDeletedListener {
     private ActivityMealBinding binding;
-
-
     private MealAdapter mealAdapter;
 
     @Override
@@ -35,12 +33,46 @@ public class MealActivity extends AppCompatActivity {
         binding = ActivityMealBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mealAdapter = new MealAdapter(new ArrayList<>());
+        mealAdapter = new MealAdapter(new ArrayList<>(), this);
         binding.displayStock.setAdapter(mealAdapter);
         binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
         displayStock();
         GoToAddStockActivity();
         backToLanding();
+    }
+
+    @Override
+    public void onMealDeleted(Meal meal) {
+        new Thread(() -> {
+            SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
+            db.mealDAO().delete(meal);
+
+
+            List<Meal> meals = db.mealDAO().getMealsByUser(meal.getUserId());
+
+            runOnUiThread(() -> {
+                mealAdapter.updateMealList(meals);
+            });
+        }).start();
+    }
+
+    private void getMeals() {
+        new Thread(() -> {
+            SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
+            String username = getSharedPreferences("user_session", MODE_PRIVATE)
+                    .getString("current_username", null);
+
+            if (username == null) return;
+
+            User user = db.userDAO().getUserByUsernameSync(username);
+            if (user == null) return;
+
+            List<Meal> meals = db.mealDAO().getMealsByUser(user.getId());
+
+            runOnUiThread(() -> {
+                mealAdapter.updateMealList(meals);
+            });
+        }).start();
     }
 
     private void backToLanding() {
@@ -72,36 +104,14 @@ public class MealActivity extends AppCompatActivity {
         binding.addFoodInStockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(AddMealActivity.AddToMealActivity(getApplicationContext()));
-            }
+                startActivity(AddMealActivity.AddMealIntentFactory(getApplicationContext()));
+             }
         });
     }
-
-    public static void addFoodToStock(Context context, Food food) {
-        Log.d("STOCK", "Food 1 : appelle dans stockactivity " + food.getName());
-        new Thread(() -> {
-            SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
-            Log.d("STOCK", "Food 2 : rentre dans thread");
-            String username = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
-                    .getString("current_username", null);
-            Log.d("STOCK", "Food 3 : username ? " + username);
-            if (username == null) return;
-
-            User user = stockDatabase.userDAO().getUserByUsernameSync(username);
-            Log.d("STOCK", "Food 4 : bon user ? " + user.getUsername());
-
-            food.setUserId(user.getId());
-            food.setDatePeremption(LocalDate.now().plusDays(1));
-            stockDatabase.foodDAO().insert(food);
-        }).start();
-
-
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        displayStock(); // refresh la liste à chaque fois qu’on revient sur l’activité
+        displayStock();
     }
 
     public static Intent MealIntentFactory(Context context) {
