@@ -5,4 +5,5 @@ public class Ingredient {
     public double quantity;
     public String measure;
     public String food;
+    public double weight;
 }

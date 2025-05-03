@@ -158,8 +158,10 @@ public class SuggestionPageActivity extends AppCompatActivity {
 
     private void addRecipieToDatabase(RecipeFromApi recipeApi) {
         Recipe recipe = new Recipe(recipeApi.label,"from API", recipeApi.url);
+
         for (Ingredient ingredient: recipeApi.ingredients) {
-            recipe.ingredientList.put(ingredient.food, ingredient.quantity);
+            recipe.ingredientList.put(ingredient.food, ingredient.weight);
+            Log.d("API_RESPONSE_TEST",  ingredient.food +" , "+ ingredient.quantity+" , "+ingredient.measure+" , "+ingredient.weight);
 
         }
         new Thread(() -> RecipeDatabase.getDatabase(getApplicationContext())
