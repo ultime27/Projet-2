@@ -35,9 +35,12 @@ public class ShoppingListActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(ShoppingItem item, boolean isChecked) {
                 item.setChecked(isChecked);
-                new Thread(() -> SmartFridgeDatabase.getDatabase(getApplicationContext())
-                        .shoppingItemDAO()
-                        .update(item)).start();
+                if(isChecked){
+                    shoppingItems.add(item);
+                }else {
+                    shoppingItems.remove(item);
+                }
+
             }
 
             @Override
@@ -82,6 +85,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                     Log.d("ShoppingListActivity", "ShoppingList 4: vadelete");
                     deleteFromSL(item);
                 }
+                shoppingItems.clear();
                 displayStock();
             }
         });
@@ -89,19 +93,13 @@ public class ShoppingListActivity extends AppCompatActivity {
     private void deleteFromSL(ShoppingItem food) {
         new Thread(() -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
-            String username = getApplicationContext().getSharedPreferences("user_session", Context.MODE_PRIVATE)
-                    .getString("current_username", null);
-            if (username == null) return;
-
-            User user = stockDatabase.userDAO().getUserByUsernameSync(username);
-            food.setUserId(user.getId());
             stockDatabase.shoppingItemDAO().delete(food);
             Log.d("ShoppingListActivity", "ShoppingList 5: c delete");
             runOnUiThread(() -> {
-                shoppingItems.remove(food);
                 shoppingListAdapter.notifyDataSetChanged();
             });
         }).start();
+        displayStock();
     }
     private void displayStock() {
         new Thread(() -> {
@@ -116,9 +114,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             List<ShoppingItem> foodList = stockDatabase.shoppingItemDAO().getAllForUser(user.getId());
             runOnUiThread(() -> {
-                shoppingItems.clear();
-                shoppingItems.addAll(foodList);
-                shoppingListAdapter.setItems(shoppingItems);
+                shoppingListAdapter.setItems(foodList);
                 binding.shoppingListRecyclerView.setAdapter(shoppingListAdapter);
             });
         }).start();
@@ -155,7 +151,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                     });
                 }).start();
 
-
+                displayStock();
                 binding.foodNameSLEditText.setText("");
                 binding.foodQuantitySLEditText.setText("");
             }
