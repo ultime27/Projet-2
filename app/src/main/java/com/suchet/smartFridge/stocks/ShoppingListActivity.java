@@ -65,6 +65,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         backToStock();
         addToTheStock();
     }
+
     private void backToStock() {
         binding.BackToStockButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +74,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
     }
+
     private void addToTheStock() {
         Log.d("ShoppingListActivity", "ShoppingList 4: addToTheStock");
         binding.BoughtToStockButton.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +93,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
     }
+
     private void deleteFromSL(ShoppingItem food) {
         new Thread(() -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
@@ -100,6 +103,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         }).start();
         displayStock();
     }
+
     private void displayStock() {
         new Thread(() -> {
             Log.d("ShoppingListActivity", "ShoppingList 3: display");
@@ -118,6 +122,7 @@ public class ShoppingListActivity extends AppCompatActivity {
             });
         }).start();
     }
+
     private void addToSL() {
         Log.d("ShoppingListActivity", "ShoppingList 2.0: add");
         binding.addToTheSLButton.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +161,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
 
     }
+
     public static Intent ShoppingListIntentFactory(Context context) {
         Intent intent = new Intent(context, ShoppingListActivity.class);
         return intent;

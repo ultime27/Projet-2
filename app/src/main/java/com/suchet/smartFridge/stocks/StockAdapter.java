@@ -19,6 +19,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHol
         this.stockList.addAll(newList);
         notifyDataSetChanged();
     }
+
     public static class StockViewHolder extends RecyclerView.ViewHolder {
         TextView nameView;
         TextView quantityView;

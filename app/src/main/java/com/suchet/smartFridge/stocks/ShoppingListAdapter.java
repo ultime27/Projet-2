@@ -50,12 +50,10 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         holder.quantityText.setText("x" + item.getQuantity());
         holder.checkBox.setChecked(item.isChecked());
 
-        // Gestion de la checkbox
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             listener.onCheckedChanged(item, isChecked);
         });
 
-        // Gestion du bouton suppression
         holder.deleteButton.setOnClickListener(v -> {
             listener.onDelete(item);
         });

@@ -74,6 +74,7 @@ public class StockActivity extends AppCompatActivity {
             }
         });
     }
+
     private void GoToDeleteStockActivity() {
         binding.deleteFoodInStockButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +92,7 @@ public class StockActivity extends AppCompatActivity {
             }
         });
     }
+
     public static void addFoodToStock(Context context, Food food) {
         new Thread(() -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
@@ -135,6 +137,7 @@ public class StockActivity extends AppCompatActivity {
         }).start();
 
     }
+
     public static Intent StockIntentFactory(Context context) {
         Intent intent = new Intent(context, StockActivity.class);
         return intent;
