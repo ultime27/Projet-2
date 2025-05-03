@@ -105,7 +105,7 @@ public class MealActivity extends AppCompatActivity implements MealAdapter.OnMea
             @Override
             public void onClick(View v) {
                 startActivity(AddMealActivity.AddMealIntentFactory(getApplicationContext()));
-            }
+             }
         });
     }
     @Override
