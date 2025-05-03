@@ -140,8 +140,8 @@ public class StockActivity extends AppCompatActivity {
         return intent;
     }
 
-    public static List<Food> getFoodForTomorrow(Context context) {
-        List<Food> foodForTomorrow = new ArrayList<>();
+    public static List<String> getFoodForTomorrow(Context context) {
+        List<String> foodForTomorrow = new ArrayList<>();
         new Thread(() -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(context);
             String username = context.getSharedPreferences("user_session", Context.MODE_PRIVATE)
@@ -152,7 +152,7 @@ public class StockActivity extends AppCompatActivity {
             List<Food> foodList = stockDatabase.foodDAO().getFoodByUser(user.getId());
             for (Food food : foodList) {
                 if(food.getDatePeremption() != null && food.getDatePeremption().isEqual(java.time.LocalDate.now().plusDays(1))){
-                    foodForTomorrow.add(food);
+                    foodForTomorrow.add(food.getName());
                 }
 
             }

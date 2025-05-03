@@ -1,5 +1,9 @@
 package com.suchet.smartFridge.Recipie;
 
+import static com.suchet.smartFridge.stocks.StockActivity.getFoodForTomorrow;
+
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +16,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.database.entities.Recipe;
 
+import org.junit.runner.manipulation.Ordering;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapteur extends RecyclerView.Adapter<RecipeAdapteur.RecipeViewHolder> {
 
+    public List<String> foodForTomorrow = new ArrayList<>();
+
     private List<Recipe> recipes = new ArrayList<>();
+    Context context = null;
     private OnRecipeClickListener listener;
+
+    public void setFoodForTomorrow(List<String> foodForTomorrow) {
+        this.foodForTomorrow = foodForTomorrow;
+        notifyDataSetChanged();
+    }
 
     public interface OnRecipeClickListener {
         void onRecipeClick(Recipe recipe);
@@ -34,13 +48,23 @@ public class RecipeAdapteur extends RecyclerView.Adapter<RecipeAdapteur.RecipeVi
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
         TextView name, description;
 
+
         public RecipeViewHolder(View itemView) {
             super(itemView);
+
             name = itemView.findViewById(R.id.recipie_name);
             description = itemView.findViewById(R.id.recipie_description);
         }
 
-        public void bind(Recipe recipe) {
+        public void bind(Recipe recipe, List<String> foodForTomorrow) {
+
+            //TODO check context
+            for (String s:recipe.ingredientList.keySet()){
+                if (foodForTomorrow.contains(s)){
+                    name.setTextColor(Color.RED);
+                    description.setTextColor(Color.RED);
+                }
+            }
             name.setText(recipe.getName());
             description.setText(recipe.getDescription());
         }
@@ -49,6 +73,7 @@ public class RecipeAdapteur extends RecyclerView.Adapter<RecipeAdapteur.RecipeVi
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_recipie, parent, false);
         return new RecipeViewHolder(itemView);
@@ -57,7 +82,7 @@ public class RecipeAdapteur extends RecyclerView.Adapter<RecipeAdapteur.RecipeVi
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = recipes.get(position);
-        holder.bind(recipe);
+        holder.bind(recipe, foodForTomorrow);
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
