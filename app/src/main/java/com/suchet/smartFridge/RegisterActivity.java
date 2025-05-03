@@ -6,39 +6,35 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import com.suchet.smartFridge.database.SmartFridgeRepository;
+import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private SmartFridgeRepository repository;
-    private ActivityRegisterBinding binding;
 
+    private ActivityRegisterBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        signInButton();
+        createAccountButton();
+        logoutButton();
     }
 
-    private void signInButton() {
+    private void createAccountButton() {
         binding.SignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { verifyUser(); }
-        });
-    }
-
-    private void loginButton() {
-        binding.loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
-                loginActivity();
+                registerUser();
             }
         });
     }
@@ -52,12 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void loginActivity() {
-        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-    }
-
-
-    private void verifyUser() {
+    private void registerUser() {
         String username = binding.userNameRegisterEditText.getText().toString();
         String password = binding.passwordRegisterEditText.getText().toString();
         String confirmPassword = binding.ConfirmPasswordRegisterEditText.getText().toString();
@@ -73,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(password.equals(confirmPassword)){
             repository.addUser(username, password);
-            toastMaker("Added user to repository.");
             LiveData<User> userObserver = repository.getUserByUsername(username);
             userObserver.observe(this, user -> {
                 startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext(), user.getId()));
@@ -86,10 +76,12 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-
-
     private void toastMaker(String format) {
         Toast.makeText(this, format, Toast.LENGTH_SHORT).show();
+    }
+
+    private void loginActivity() {
+        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
 
     static Intent RegisterIntentFactory(Context context) {
