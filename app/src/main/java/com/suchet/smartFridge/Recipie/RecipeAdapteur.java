@@ -1,5 +1,9 @@
 package com.suchet.smartFridge.Recipie;
 
+import static com.suchet.smartFridge.stocks.StockActivity.getFoodForTomorrow;
+
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.database.entities.Recipe;
+
+import org.junit.runner.manipulation.Ordering;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +47,13 @@ public class RecipeAdapteur extends RecyclerView.Adapter<RecipeAdapteur.RecipeVi
         }
 
         public void bind(Recipe recipe) {
+            //TODO check context
+            for (String s:recipe.ingredientList.keySet()){
+            //    if (getFoodForTomorrow().contains(s)){
+                    name.setTextColor(Color.RED);
+                    description.setTextColor(Color.RED);
+            //    }
+            }
             name.setText(recipe.getName());
             description.setText(recipe.getDescription());
         }

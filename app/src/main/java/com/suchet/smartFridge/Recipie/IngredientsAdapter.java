@@ -39,6 +39,7 @@
         }
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
             holder.ingredientName.setText("");
             holder.ingredientQuantity.setText("");
 
