@@ -55,5 +55,6 @@
     <string name="ingredient_list">Ingredient list</string>
     <string name="descriptiontext">DescriptionText</string>
     <string name="unknow_recipe">Unknow Recipe</string>
+    <string name="api_search">Api Search</string>
 
 </resources>

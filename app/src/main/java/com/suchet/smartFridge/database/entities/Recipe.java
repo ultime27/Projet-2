@@ -86,9 +86,9 @@ public class Recipe {
 
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("(the quantities are in ml for liquid and g for solid)\n\n");
+        stringBuilder.append("(the quantities are for one person)\n\n");
         for (String elm: ingredientList.keySet()) {
-            stringBuilder.append(elm).append(" : ").append(ingredientList.get(elm)).append("  (g or ml)\n");
+            stringBuilder.append(elm).append(" : ").append(String.format("%.2f",ingredientList.get(elm))).append("  g \n");
         }
         return stringBuilder.toString();
     }
