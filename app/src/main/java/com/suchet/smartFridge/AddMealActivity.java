@@ -1,21 +1,20 @@
 package com.suchet.smartFridge;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.suchet.smartFridge.database.SmartFridgeDatabase;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Meal;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityAddMealBinding;
-
+import com.suchet.smartFridge.Recipie.RecipeAdapteur;
+import com.suchet.smartFridge.Recipie.RecipeViewModel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +26,8 @@ public class AddMealActivity extends AppCompatActivity {
     private List<Food> ingredients = new ArrayList<>();
     private String name;
     private LocalDate selectedDate = null;
+    private RecipeViewModel recipeViewModel;
+    private RecipeAdapteur recipeAdapteur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +35,47 @@ public class AddMealActivity extends AppCompatActivity {
         binding = ActivityAddMealBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
+
+        recipeAdapteur = new RecipeAdapteur();
+        binding.recipiesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.recipiesRecyclerView.setAdapter(recipeAdapteur);
+
         setupDatePicker();
         setupAddIngredient();
         setupAddMeal();
         setupBackButton();
+
+        binding.mealNameEditText.addTextChangedListener(new android.text.TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String query = s.toString().trim();
+                if (!query.isEmpty()) {
+                    recipeViewModel.searchRecipes(query).observe(AddMealActivity.this, recipes -> {
+                        if (recipes != null && !recipes.isEmpty()) {
+                            recipeAdapteur.setRecipes(recipes);
+                            binding.recipiesRecyclerView.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.recipiesRecyclerView.setVisibility(View.GONE);
+                        }
+                    });
+                } else {
+                    binding.recipiesRecyclerView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override public void afterTextChanged(android.text.Editable s) {}
+        });
     }
 
     private void setupDatePicker() {
         binding.selectDateButton.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
+            android.app.DatePickerDialog datePickerDialog = new android.app.DatePickerDialog(
                     AddMealActivity.this,
-                    (DatePicker view, int year, int month, int dayOfMonth) -> {
+                    (view, year, month, dayOfMonth) -> {
                         selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
                         binding.selectedDateTextView.setText("Date du repas : " + selectedDate.toString());
                     },
@@ -81,7 +111,6 @@ public class AddMealActivity extends AppCompatActivity {
 
             updateIngredientsList();
 
-            // Nettoyer les champs
             binding.ingredientNameEditText.setText("");
             binding.ingredientQuantityEditText.setText("");
         });
