@@ -62,5 +62,6 @@
 
     <string name="unknow_recipe">Unknow Recipe</string>
     <string name="api_search">Api Search</string>
+    <string name="default_web_client_id">72900674551-qd17uv0p0fu8ujttig5m7243nd4p0oae.apps.googleusercontent.com</string>
 
 </resources>
