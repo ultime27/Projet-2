@@ -1,51 +1,40 @@
 package com.suchet.smartFridge;
 
-import static com.suchet.smartFridge.MainActivity.TAG;
-import static com.suchet.smartFridge.Recipie.SuggestionPageActivity.suggestionPageActivityIntentFactory;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import com.suchet.smartFridge.database.SmartFridgeRepository;
+import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private SmartFridgeRepository repository;
-    private ActivityRegisterBinding binding;
 
+    private ActivityRegisterBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        repository = SmartFridgeRepository.getRepository(getApplication());
-
-        signInButton();
+        createAccountButton();
         logoutButton();
     }
 
-    private void signInButton() {
+    private void createAccountButton() {
         binding.SignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { verifyUser(); }
-        });
-    }
-
-    private void loginButton() {
-        binding.loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
-                loginActivity();
+                registerUser();
             }
         });
     }
@@ -59,72 +48,40 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void loginActivity() {
-        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-    }
-
-
-    private void verifyUser() {
+    private void registerUser() {
         String username = binding.userNameRegisterEditText.getText().toString();
         String password = binding.passwordRegisterEditText.getText().toString();
         String confirmPassword = binding.ConfirmPasswordRegisterEditText.getText().toString();
 
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-//                        }
-//                    }
-//                });
-//
-
         if(username.isEmpty()){
             toastMaker("Username may not be blank");
             return;
-        } else {
-            Log.d(TAG, "username: " + username);
         }
         if(password.isEmpty() || confirmPassword.isEmpty()) {
             toastMaker("Password may not be blank");
-
             return;
-        } else {
-            Log.d(TAG, "password: " + password);
         }
 
         if(password.equals(confirmPassword)){
-            if(username == null || password == null) {
-                Log.d(TAG, " is null");
-            } else {
-                Log.d(TAG, "good to");
-            }
-            repository.insert(username, password);
+            repository.addUser(username, password);
             LiveData<User> userObserver = repository.getUserByUsername(username);
             userObserver.observe(this, user -> {
-                startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext(),user.getId()));
+                startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext(), user.getId()));
             });
         } else {
-            Log.d(TAG, "Passwords do not match.");
+            toastMaker("Passwords do not match.");
             binding.passwordRegisterEditText.setSelection(0);
         }
     }
 
 
 
-
-
     private void toastMaker(String format) {
         Toast.makeText(this, format, Toast.LENGTH_SHORT).show();
+    }
+
+    private void loginActivity() {
+        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
 
     static Intent RegisterIntentFactory(Context context) {
