@@ -1,7 +1,7 @@
 package com.suchet.smartFridge.Recipie.APISearch;
 
-import com.suchet.smartFridge.Recipie.Recipe;
+import com.suchet.smartFridge.Recipie.APISearch.RecipeFromApi;
 
 public class Hit {
-    public Recipe recipe;
+    public RecipeFromApi recipe;
 }

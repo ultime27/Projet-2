@@ -15,11 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.suchet.smartFridge.R;
+import com.suchet.smartFridge.Recipie.APISearch.ApiClient;
+import com.suchet.smartFridge.Recipie.APISearch.EdamamApi;
+import com.suchet.smartFridge.Recipie.APISearch.Hit;
+import com.suchet.smartFridge.Recipie.APISearch.RecipeFromApi;
+import com.suchet.smartFridge.Recipie.APISearch.RecipeResponse;
 import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.entities.Recipe;
 import com.suchet.smartFridge.databinding.ActivitySuggestionPageBinding;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SuggestionPageActivity extends AppCompatActivity {
     private RecipeAdapteur adapter;
@@ -112,10 +121,34 @@ public class SuggestionPageActivity extends AppCompatActivity {
     }
 
     private boolean searchFromApiAndInsert(String query) {
-        //TODO
+        EdamamApi api = ApiClient.getRetrofit().create(EdamamApi.class);
+        Call<RecipeResponse> call = api.searchRecipes("public", query, "appid", "appkey");//TODO: app id/key
+
+        call.enqueue(new Callback<RecipeResponse>() {
+            @Override
+            public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    for (Hit hit : response.body().hits) {
+                        RecipeFromApi recipe = hit.recipe;
+                        addRecipieToDatabase(recipe);
+
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<RecipeResponse> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(SuggestionPageActivity.this, "Failure in searchFromApi", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
         return true;
     }
 
+    private void addRecipieToDatabase(RecipeFromApi recipe) {
+
+    }
 
 
     public static Intent suggestionPageActivityIntentFactory(Context context) {
