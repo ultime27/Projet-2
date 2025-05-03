@@ -29,7 +29,7 @@ public abstract class SmartFridgeDatabase extends RoomDatabase {
     public static final String MEAL_TABLE = "meal_table";
 
     private static final String DATABASE_NAME="SmartFridge_Database";
-    private static volatile SmartFridgeDatabase INSTANCE;
+    public static volatile SmartFridgeDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS=4;
     static final ExecutorService dataBaseWriteExecutor= Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
@@ -67,6 +67,5 @@ public abstract class SmartFridgeDatabase extends RoomDatabase {
     };
     public abstract UserDAO userDAO();
     public abstract FoodDAO foodDAO();
-
     public abstract MealDAO mealDAO();
 }
