@@ -3,6 +3,7 @@ package com.suchet.smartFridge.Recipie;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -18,8 +19,10 @@ import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.Recipie.APISearch.ApiClient;
 import com.suchet.smartFridge.Recipie.APISearch.EdamamApi;
 import com.suchet.smartFridge.Recipie.APISearch.Hit;
+import com.suchet.smartFridge.Recipie.APISearch.Ingredient;
 import com.suchet.smartFridge.Recipie.APISearch.RecipeFromApi;
 import com.suchet.smartFridge.Recipie.APISearch.RecipeResponse;
+import com.suchet.smartFridge.database.RecipeDAO;
 import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.entities.Recipe;
 import com.suchet.smartFridge.databinding.ActivitySuggestionPageBinding;
@@ -65,7 +68,7 @@ public class SuggestionPageActivity extends AppCompatActivity {
 
 
 
-        SearchView searchView = findViewById(R.id.search_view);
+        SearchView searchView = binding.searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -90,13 +93,9 @@ public class SuggestionPageActivity extends AppCompatActivity {
         binding.ApiSearchRecipieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String recipieName = binding.searchView.toString();
-                boolean res = searchFromApiAndInsert(recipieName);
-                if (res){
-                    Toast.makeText(SuggestionPageActivity.this, "Recipe added to the database", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SuggestionPageActivity.this, "Sorry we didn't find recipe for "+recipieName+" but you can create it!", Toast.LENGTH_SHORT).show();
-                }
+                String recipieName = binding.searchView.getQuery().toString();
+                searchFromApi(recipieName);
+
 
             }
         });
@@ -114,25 +113,36 @@ public class SuggestionPageActivity extends AppCompatActivity {
         recipeViewModel.searchRecipes(query).observe(this, localResults -> {
             if (localResults != null && !localResults.isEmpty()) {
                 adapter.setRecipes(localResults);
-            } else {
-                searchFromApiAndInsert(query);
             }
         });
     }
 
-    private boolean searchFromApiAndInsert(String query) {
+    private void searchFromApi(String query) {
+        Log.d("test", "test: " + query);
+
         EdamamApi api = ApiClient.getRetrofit().create(EdamamApi.class);
-        Call<RecipeResponse> call = api.searchRecipes("public", query, "appid", "appkey");//TODO: app id/key
+        Call<RecipeResponse> call = api.searchRecipes("public", query, "a72dde41", "03ae47d25bd6afa248281143ce30b14d", "a72dde41");
 
         call.enqueue(new Callback<RecipeResponse>() {
             @Override
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    Log.d("API_RESPONSE", "Response successful: " + response.isSuccessful() + ", body: " + response.body());
+                    if (response.body() != null) {
+                        Log.d("API_RESPONSE", "Hits size: " + response.body().hits.size());
+                    }
+                    Log.d("API_RESPONSE", response.toString());
                     for (Hit hit : response.body().hits) {
                         RecipeFromApi recipe = hit.recipe;
                         addRecipieToDatabase(recipe);
 
+
+
                     }
+                    Toast.makeText(SuggestionPageActivity.this,
+                            "Recipe/s added to the database", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SuggestionPageActivity.this, "Sorry we didn't find recipe for "+query+" but you can create it!", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -143,10 +153,18 @@ public class SuggestionPageActivity extends AppCompatActivity {
 
         });
 
-        return true;
+
     }
 
-    private void addRecipieToDatabase(RecipeFromApi recipe) {
+    private void addRecipieToDatabase(RecipeFromApi recipeApi) {
+        Recipe recipe = new Recipe(recipeApi.label,"from API", recipeApi.url);
+        for (Ingredient ingredient: recipeApi.ingredients) {
+            recipe.ingredientList.put(ingredient.food, ingredient.quantity);
+
+        }
+        new Thread(() -> RecipeDatabase.getDatabase(getApplicationContext())
+                .recipeDAO()
+                .insert(recipe)).start();
 
     }
 

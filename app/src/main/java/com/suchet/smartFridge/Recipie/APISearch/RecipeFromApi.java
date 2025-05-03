@@ -1,9 +1,12 @@
 package com.suchet.smartFridge.Recipie.APISearch;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class RecipeFromApi {
-    public String name;
+    @SerializedName("label")
+    public String label;
     public String source;
     public String url;
     public List<String> ingredientLines;

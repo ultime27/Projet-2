@@ -6,7 +6,7 @@ public class ApiClient {
 
     private static Retrofit.Builder builder=
             new Retrofit.Builder()
-                    .baseUrl("https://api.edamam.com")
+                    .baseUrl("https://api.edamam.com/")
                     .addConverterFactory(GsonConverterFactory.create());
     private static Retrofit retrofit = builder.build();
 
