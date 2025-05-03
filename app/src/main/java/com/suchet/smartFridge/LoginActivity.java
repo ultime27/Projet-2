@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private SmartFridgeRepository repository;
+    private GoogleSignInActivity googleSignInActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
