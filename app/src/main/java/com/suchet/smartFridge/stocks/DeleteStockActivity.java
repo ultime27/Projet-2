@@ -26,6 +26,7 @@ public class DeleteStockActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("delete", "onCreate: DeleteStockActivity");
         super.onCreate(savedInstanceState);
         binding = ActivityDeleteStockBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -31,7 +31,9 @@
         <activity
             android:name=".stocks.StockActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".stocks.DeleteStockActivity"
+            android:exported="false" />
         <activity
             android:name=".Recipie.SuggestionPageActivity"
             android:exported="false" />
