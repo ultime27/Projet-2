@@ -48,7 +48,7 @@ public class SettingActivity extends AppCompatActivity {
         ChangePassword();
         DeleteAccount();
         showAdminButton();
-        GoToAdmin();
+
     }
 
     private void LightMode() {
@@ -89,12 +89,6 @@ public class SettingActivity extends AppCompatActivity {
 
     private void gotoLogin() {
         startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-    }
-
-    private void GoToAdmin() {
-        /*binding.AdminButton.setOnClickListener(v -> {
-            startActivity(AdminActivity.adminIntentFactory(getApplicationContext()));
-        });*/
     }
 
     private void showAdminButton() {
