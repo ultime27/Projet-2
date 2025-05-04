@@ -22,8 +22,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-
 public class UserDatabaseTest {
     private SmartFridgeDatabase db;
     private UserDAO dao;
