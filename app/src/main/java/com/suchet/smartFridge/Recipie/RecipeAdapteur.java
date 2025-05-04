@@ -15,9 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.database.entities.Recipe;
-
-import org.junit.runner.manipulation.Ordering;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,13 +79,10 @@ public class RecipeAdapteur extends RecyclerView.Adapter<RecipeAdapteur.RecipeVi
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = recipes.get(position);
-        holder.bind(recipe, foodForTomorrow);
-
+        holder.bind(recipe,foodForTomorrow);
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onRecipeClick(recipe);
-            } else {
-                Toast.makeText(v.getContext(), "Click on: " + recipe.getName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
