@@ -175,7 +175,7 @@ public class AddMealActivity extends AppCompatActivity {
         });
     }
 
-    private void checkAndHandleStock(String name, int neededQty) {
+    private boolean checkAndHandleStock(String name, int neededQty) {
         new Thread(() -> {
             SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
             String usern = getSharedPreferences("user_session", MODE_PRIVATE)
@@ -189,7 +189,9 @@ public class AddMealActivity extends AppCompatActivity {
             } else if (stock.getQuantity() < neededQty) {
                 runOnUiThread(() -> showIncreaseStockDialog(stock, neededQty - stock.getQuantity()));
             }
+
         }).start();
+        return true;
     }
 
     private void showAddToStockDialog(String name, int qty, int userId) {
@@ -211,6 +213,7 @@ public class AddMealActivity extends AppCompatActivity {
                     newF.setQuantity(add);
                     newF.setUserId(userId);
                     new Thread(() -> db.foodDAO().insert(newF)).start();
+
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
@@ -226,6 +229,7 @@ public class AddMealActivity extends AppCompatActivity {
                         SmartFridgeDatabase.getDatabase(getApplicationContext())
                                 .foodDAO().update(stock);
                     }).start();
+
                 })
                 .setNegativeButton("Ignore", null)
                 .show();
