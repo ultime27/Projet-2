@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.suchet.smartFridge.database.SmartFridgeDatabase;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Meal;
+import com.suchet.smartFridge.database.entities.Recipe;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityAddMealBinding;
 import com.suchet.smartFridge.Recipie.RecipeAdapteur;
@@ -23,6 +24,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class AddMealActivity extends AppCompatActivity {
 
@@ -53,6 +55,7 @@ public class AddMealActivity extends AppCompatActivity {
     private void setupRecipeSuggestions() {
         binding.mealNameEditText.addTextChangedListener(new android.text.TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String q = s.toString().trim();
@@ -69,8 +72,75 @@ public class AddMealActivity extends AppCompatActivity {
                     binding.recipiesRecyclerView.setVisibility(android.view.View.GONE);
                 }
             }
+
             @Override public void afterTextChanged(android.text.Editable s) {}
         });
+
+        recipeAdapteur.setOnRecipeClickListener(new RecipeAdapteur.OnRecipeClickListener() {
+            @Override
+            public void onRecipeClick(Recipe recipe) {
+                new android.app.AlertDialog.Builder(AddMealActivity.this)
+                        .setTitle("Add Recipe to Meal")
+                        .setMessage("Do you want to add the recipe \"" + recipe.getName() + "\" to your meal?")
+                        .setPositiveButton("Yes", (dialog, which) -> addRecipeToMeal(recipe))
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
+    }
+
+    private void addRecipeToMeal(Recipe recipe) {
+        List<Food> recipeIngredients = new ArrayList<>();
+
+        for (Map.Entry<String, Double> entry : recipe.getIngredientList().entrySet()) {
+            Food food = new Food(entry.getKey());
+            food.setQuantity(entry.getValue());
+            recipeIngredients.add(food);
+        }
+
+        getUserIdFromSharedPrefs(userId -> {
+            if (userId == -1) {
+                Toast.makeText(AddMealActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String mealName = recipe.getName();
+            if (selectedDate == null){
+                selectedDate = LocalDate.now();
+            }
+            new Thread(() -> {
+                SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
+                Meal newMeal = new Meal(mealName, selectedDate, recipeIngredients, userId);
+                db.mealDAO().insert(newMeal);
+                runOnUiThread(() -> {
+                    Toast.makeText(AddMealActivity.this, "Recipe added to your meals!", Toast.LENGTH_SHORT).show();
+                    startActivity(MealActivity.MealIntentFactory(AddMealActivity.this));
+                    finish();
+                });
+            }).start();
+        });
+    }
+
+    private void getUserIdFromSharedPrefs(final UserIdCallback callback) {
+        String username = getSharedPreferences("user_session", MODE_PRIVATE)
+                .getString("current_username", null);
+        if (username == null) {
+            callback.onUserIdFetched(-1);
+            return;
+        }
+
+        new Thread(() -> {
+            SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
+            User user = db.userDAO().getUserByUsernameSync(username);
+            int userId;
+            if (user != null) userId = user.getId();
+            else userId = -1;
+            runOnUiThread(() -> callback.onUserIdFetched(userId));
+        }).start();
+    }
+
+    public interface UserIdCallback {
+        void onUserIdFetched(int userId);
     }
 
     private void setupDatePicker() {
@@ -164,9 +234,15 @@ public class AddMealActivity extends AppCompatActivity {
     private void setupAddMeal() {
         binding.addMealButton.setOnClickListener(v -> {
             String m = binding.mealNameEditText.getText().toString().trim();
-            if (m.isEmpty() || selectedDate == null || ingredients.isEmpty()) {
-                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+            if (m.isEmpty()) {
+                Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
                 return;
+            }
+            if(selectedDate == null){
+                selectedDate = LocalDate.now() ;
+            }
+            if(ingredients.isEmpty()){
+                ingredients = new ArrayList<>();
             }
             new Thread(() -> {
                 SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
@@ -185,15 +261,13 @@ public class AddMealActivity extends AppCompatActivity {
             }).start();
         });
     }
-
     private void setupBackButton() {
         binding.backButton.setOnClickListener(v -> finish());
     }
-
     private void updateIngredientsList() {
         StringBuilder sb = new StringBuilder("Ingredients:\n");
         for (Food f : ingredients) {
-            sb.append("- ").append(f.getName()).append(" : ").append(f.getQuantity()).append("\n");
+            sb.append("- ").append(f.getName()).append(" : ").append(f.getQuantity()).append(" g\n");
         }
         binding.ingredientsListTextView.setText(sb.toString());
     }
