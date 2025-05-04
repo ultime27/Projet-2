@@ -6,6 +6,7 @@ import static com.suchet.smartFridge.stocks.StockActivity.StockIntentFactory;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -135,11 +136,7 @@ public class MealActivity extends AppCompatActivity implements MealAdapter.OnMea
         });
     }
 
-    private void backToLanding() {
-        binding.backButton.setOnClickListener(v -> {
-            startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext()));
-        });
-    }
+
 
     @Override
     protected void onResume() {
