@@ -17,14 +17,20 @@ import java.util.List;
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
     private List<Meal> mealList;
     private OnMealDeletedListener onMealDeletedListener;
+    private OnMealValidatedListener onMealValidatedListener;
 
     public interface OnMealDeletedListener {
         void onMealDeleted(Meal meal);
     }
 
-    public MealAdapter(List<Meal> mealList, OnMealDeletedListener listener) {
+    public interface OnMealValidatedListener {
+        void onMealValidated(Meal meal);
+    }
+
+    public MealAdapter(List<Meal> mealList, OnMealDeletedListener deletedListener, OnMealValidatedListener validatedListener) {
         this.mealList = mealList;
-        this.onMealDeletedListener = listener;
+        this.onMealDeletedListener = deletedListener;
+        this.onMealValidatedListener = validatedListener;
     }
 
     public void updateMealList(List<Meal> newList) {
@@ -39,6 +45,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         TextView mealDate;
         TextView ingredientsTextView;
         Button deleteMealButton;
+        Button validateMealButton;
 
         public MealViewHolder(View itemView) {
             super(itemView);
@@ -46,13 +53,13 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
             mealDate = itemView.findViewById(R.id.mealDateTextView);
             ingredientsTextView = itemView.findViewById(R.id.ingredientsTextView);
             deleteMealButton = itemView.findViewById(R.id.deleteMealButton);
+            validateMealButton = itemView.findViewById(R.id.validateMealButton);
         }
 
-        public void bind(Meal meal, OnMealDeletedListener listener) {
+        public void bind(Meal meal, OnMealDeletedListener deleteListener, OnMealValidatedListener validateListener) {
             mealName.setText(meal.getName());
             mealDate.setText(String.valueOf(meal.getDate()));
 
-            // Affichage des ingrédients
             StringBuilder builder = new StringBuilder("Ingrédients :\n");
             for (Food food : meal.getFoodList()) {
                 builder.append("- ").append(food.getName())
@@ -61,10 +68,8 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
             }
             ingredientsTextView.setText(builder.toString());
 
-            // Gestion du bouton de suppression
-            deleteMealButton.setOnClickListener(v -> {
-                listener.onMealDeleted(meal);
-            });
+            deleteMealButton.setOnClickListener(v -> deleteListener.onMealDeleted(meal));
+            validateMealButton.setOnClickListener(v -> validateListener.onMealValidated(meal));
         }
     }
 
@@ -77,7 +82,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
 
     @Override
     public void onBindViewHolder(MealViewHolder holder, int position) {
-        holder.bind(mealList.get(position), onMealDeletedListener); // Passer le listener ici
+        holder.bind(mealList.get(position), onMealDeletedListener, onMealValidatedListener);
     }
 
     @Override
