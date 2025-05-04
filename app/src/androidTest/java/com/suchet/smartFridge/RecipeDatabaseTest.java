@@ -60,6 +60,7 @@ public class RecipeDatabaseTest {
         HashMap<String, Double> ingredients = new HashMap<>();
         ingredients.put("tomato", 100.0);
 
+
         Recipe recipe = new Recipe("pizza", ingredients, "description", "instruction");
         dao.insert(recipe);
 
