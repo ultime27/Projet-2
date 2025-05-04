@@ -17,6 +17,14 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="24sp"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/displayStock"
+        android:layout_width="412dp"
+        android:layout_height="400dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ChangePasswordButton" />
+
     <Button
         android:id="@+id/AdminButton"
         android:layout_width="140dp"
@@ -46,28 +54,28 @@
         android:text="@string/confirm"
         app:layout_constraintStart_toEndOf="@+id/ChangePasswordEditText"
         app:layout_constraintTop_toTopOf="@+id/ChangePasswordEditText"
-/>
+        />
 
     <Button
         android:id="@+id/DarkModeButton"
         android:layout_width="140dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:text="@string/switch_to_dark_mode"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmNewPasswordButton"/>
 
     <Button
         android:id="@+id/LightModeButton"
         android:layout_width="140dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:text="@string/switch_to_light_mode"
         app:layout_constraintStart_toEndOf="@+id/DarkModeButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmNewPasswordButton"/>
 
     <Button
         android:id="@+id/ChangePasswordButton"
@@ -77,7 +85,6 @@
         android:layout_marginTop="28dp"
         android:text="@string/change_password"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LightModeButton" />
 
