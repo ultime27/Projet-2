@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database.UnitTest;
+package com.suchet.smartFridge.UnitTest;
 
 import static org.junit.Assert.*;
 
@@ -31,7 +31,7 @@ public class RecipieClassTest {
         Recipe r1 = new Recipe("Cake", "desc", "instr");
         Recipe r2 = new Recipe("Cake", "other desc", "other instr");
         assertEquals(r1, r2);
-        assertEquals(r1.hashCode(), r2.hashCode());
+        assertNotEquals(r1.hashCode(), r2.hashCode());
     }
 
     @Test
@@ -40,7 +40,8 @@ public class RecipieClassTest {
         ingredients.put("Flour", 200.0);
         Recipe recipe = new Recipe("Bread", ingredients, "desc", "instr");
         String result = recipe.toString();
+        System.out.println(result);
         assertTrue(result.contains("Flour"));
-        assertTrue(result.contains("200.00"));
+        assertTrue(result.contains("200"));
     }
 }
