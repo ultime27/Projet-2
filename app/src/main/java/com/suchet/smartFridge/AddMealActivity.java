@@ -175,7 +175,7 @@ public class AddMealActivity extends AppCompatActivity {
         });
     }
 
-    private boolean checkAndHandleStock(String name, int neededQty) {
+    private void checkAndHandleStock(String name, int neededQty) {
         new Thread(() -> {
             SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
             String usern = getSharedPreferences("user_session", MODE_PRIVATE)
@@ -191,7 +191,6 @@ public class AddMealActivity extends AppCompatActivity {
             }
 
         }).start();
-        return true;
     }
 
     private void showAddToStockDialog(String name, int qty, int userId) {
