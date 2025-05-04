@@ -26,6 +26,9 @@ public interface UserDAO {
     @Query("DELETE FROM "+ SmartFridgeDatabase.USER_TABLE)
     void deleteAll();
 
+    @Query("DELETE FROM "+SmartFridgeDatabase.USER_TABLE+"  WHERE username == :username")
+    void deleteByUsername(String username);
+
     @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE username == :username")
     LiveData<User> getUserByUsername(String username);
 
