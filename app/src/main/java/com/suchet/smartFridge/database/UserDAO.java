@@ -34,7 +34,11 @@ public interface UserDAO {
 
     @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE username == :username LIMIT 1")
     User getUserByUsernameSync(String username);
+
     @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE id == :userId LIMIT 1")
     User getUserByUserIdSync(int userId);
+
+    @Query("DELETE FROM user_table WHERE name = :name")
+    void deletebyName(String name);
 
 }

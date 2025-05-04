@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.suchet.smartFridge.database.entities.Food;
+
+import java.time.LocalDate;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *

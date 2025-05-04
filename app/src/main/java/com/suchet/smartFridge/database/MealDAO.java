@@ -10,6 +10,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.suchet.smartFridge.database.entities.Meal;
+import com.suchet.smartFridge.database.entities.User;
 
 import java.util.List;
 
@@ -25,5 +26,11 @@ public interface MealDAO {
 
     @Delete
     void delete(Meal meal);
+
+    @Query("SELECT * FROM " + SmartFridgeDatabase.MEAL_TABLE + " WHERE name == :mealName LIMIT 1")
+    Meal getMealByName(String mealName);
+
+    @Query("DELETE FROM meal_table WHERE name = :name")
+    void deletebyName(String name);
 }
 
