@@ -6,27 +6,23 @@ import static com.suchet.smartFridge.stocks.StockActivity.StockIntentFactory;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
-import com.suchet.smartFridge.AddMealActivity;
-import com.suchet.smartFridge.LandingPage;
+
 import com.suchet.smartFridge.database.MealAdapter;
 import com.suchet.smartFridge.database.SmartFridgeDatabase;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Meal;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityMealBinding;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealActivity extends AppCompatActivity implements MealAdapter.OnMealDeletedListener {
+public class MealActivity extends AppCompatActivity implements MealAdapter.OnMealDeletedListener, MealAdapter.OnMealValidatedListener {
     private ActivityMealBinding binding;
     private MealAdapter mealAdapter;
 
@@ -36,9 +32,10 @@ public class MealActivity extends AppCompatActivity implements MealAdapter.OnMea
         binding = ActivityMealBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mealAdapter = new MealAdapter(new ArrayList<>(), this);
+        mealAdapter = new MealAdapter(new ArrayList<>(), this, this);  // Ajout du listener pour la validation
         binding.displayStock.setAdapter(mealAdapter);
         binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
+
         displayStock();
         GoToAddStockActivity();
 
@@ -79,7 +76,6 @@ public class MealActivity extends AppCompatActivity implements MealAdapter.OnMea
             SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
             db.mealDAO().delete(meal);
 
-
             List<Meal> meals = db.mealDAO().getMealsByUser(meal.getUserId());
 
             runOnUiThread(() -> {
@@ -88,25 +84,34 @@ public class MealActivity extends AppCompatActivity implements MealAdapter.OnMea
         }).start();
     }
 
-    private void getMeals() {
+
+    @Override
+    public void onMealValidated(Meal meal) {
         new Thread(() -> {
             SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
-            String username = getSharedPreferences("user_session", MODE_PRIVATE)
-                    .getString("current_username", null);
 
-            if (username == null) return;
+            for (Food food : meal.getFoodList()) {
+                Food foodInStock = db.foodDAO().getFoodByName(food.getName(), meal.getUserId());
 
-            User user = db.userDAO().getUserByUsernameSync(username);
-            if (user == null) return;
+                if (foodInStock != null) {
+                    double newQuantity = foodInStock.getQuantity() - food.getQuantity();
+                    if (newQuantity <= 0) {
+                        db.foodDAO().delete(foodInStock);
+                    } else {
+                        foodInStock.setQuantity(newQuantity);
+                        db.foodDAO().update(foodInStock);
+                    }
+                }
+            }
 
-            List<Meal> meals = db.mealDAO().getMealsByUser(user.getId());
+            db.mealDAO().delete(meal);
+            List<Meal> meals = db.mealDAO().getMealsByUser(meal.getUserId());
 
             runOnUiThread(() -> {
                 mealAdapter.updateMealList(meals);
             });
         }).start();
     }
-
 
 
     private void displayStock() {
@@ -126,13 +131,13 @@ public class MealActivity extends AppCompatActivity implements MealAdapter.OnMea
     }
 
     private void GoToAddStockActivity() {
-        binding.addFoodInStockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(AddMealActivity.AddMealIntentFactory(getApplicationContext()));
-             }
+        binding.addFoodInStockButton.setOnClickListener(v -> {
+            startActivity(AddMealActivity.AddMealIntentFactory(getApplicationContext()));
         });
     }
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
