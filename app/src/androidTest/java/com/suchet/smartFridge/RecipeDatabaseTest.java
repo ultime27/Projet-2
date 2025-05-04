@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database.UnitTest;
+package com.suchet.smartFridge;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -60,6 +60,7 @@ public class RecipeDatabaseTest {
         HashMap<String, Double> ingredients = new HashMap<>();
         ingredients.put("tomato", 100.0);
 
+
         Recipe recipe = new Recipe("pizza", ingredients, "description", "instruction");
         dao.insert(recipe);
 
@@ -70,7 +71,8 @@ public class RecipeDatabaseTest {
         assertEquals("description", result.description);
 
 
-        recipe = new Recipe("pizza", ingredients, "desc2", "instruction");
+        recipe = dao.searchByName("pizza");
+        recipe.description= "desc2";
         dao.insert(recipe);
 
         result = dao.searchByName("pizza");
@@ -86,7 +88,7 @@ public class RecipeDatabaseTest {
         HashMap<String, Double> ingredients = new HashMap<>();
         ingredients.put("tomato", 100.0);
 
-        Recipe recipe = new Recipe("pizza", ingredients, "Test description", "instruction");
+        Recipe recipe = new Recipe("pizza", ingredients, "description", "instruction");
         dao.insert(recipe);
 
         Recipe result = dao.searchByName("pizza");

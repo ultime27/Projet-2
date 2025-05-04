@@ -39,10 +39,11 @@ public class Food {
         quantity+=_quantity;
     }
     public boolean remove(double _quantity){
-        if (_quantity<quantity){
+        if (_quantity>quantity){
+            quantity=0;
             return false;
         }
-        double temp =_quantity;
+        quantity-=_quantity;
         return true;
     }
 

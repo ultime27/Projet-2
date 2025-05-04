@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="75dp"
     tools:context=".stocks.StockActivity">
     <TextView
         android:id="@+id/stock_title"
@@ -18,8 +19,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/displayStock"
-        android:layout_width="412dp"
-        android:layout_height="450dp"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
         android:layout_marginTop="168dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,14 +47,6 @@
         app:layout_constraintTop_toBottomOf="@+id/displayStock"
         />
 
-    <Button
-        android:id="@+id/backToLandingFromStockStockButton"
-        android:layout_width="140dp"
-        android:layout_height="54dp"
-        android:text="@string/back"
-        app:layout_constraintStart_toEndOf="@+id/addFoodInStockButton"
-        app:layout_constraintTop_toBottomOf="@+id/deleteFoodInStockButton"
-        />
 
     <Button
         android:id="@+id/ShoppingListStockButton"
@@ -63,6 +56,40 @@
         app:layout_constraintTop_toBottomOf="@+id/displayStock"
         app:layout_constraintStart_toEndOf="@id/deleteFoodInStockButton"
         />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="@color/material_dynamic_neutral70"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/HomeButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="Home"/>
+
+        <Button
+            android:id="@+id/CalandarButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:text="Calandar"/>
+
+        <Button
+            android:id="@+id/StockButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:text="Stock"/>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
