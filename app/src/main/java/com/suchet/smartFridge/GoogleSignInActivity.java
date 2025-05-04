@@ -16,6 +16,7 @@
 
 package com.suchet.smartFridge;
 
+
 import static com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL;
 
 import android.os.Bundle;
@@ -182,4 +183,5 @@ public class GoogleSignInActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
 
     }
+
 }
