@@ -1,5 +1,8 @@
 package com.suchet.smartFridge.Recipie;
 
+import static com.suchet.smartFridge.MealActivity.MealIntentFactory;
+import static com.suchet.smartFridge.stocks.StockActivity.StockIntentFactory;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -102,6 +105,31 @@ public class SuggestionPageActivity extends AppCompatActivity {
                 String recipieName = binding.searchView.getQuery().toString();
                 searchFromApi(recipieName);
 
+
+            }
+        });
+
+        binding.HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(suggestionPageActivityIntentFactory(getApplicationContext()));
+            }
+        });
+
+
+        binding.CalandarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(MealIntentFactory(getApplicationContext()));
+
+            }
+        });
+
+
+        binding.StockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(StockIntentFactory(getApplicationContext()));
 
             }
         });
