@@ -105,10 +105,12 @@ public class AddMealActivity extends AppCompatActivity {
             }
 
             String mealName = recipe.getName();
-            LocalDate currentDate = LocalDate.now();
+            if (selectedDate == null){
+                selectedDate = LocalDate.now();
+            }
             new Thread(() -> {
                 SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
-                Meal newMeal = new Meal(mealName, currentDate, recipeIngredients, userId);
+                Meal newMeal = new Meal(mealName, selectedDate, recipeIngredients, userId);
                 db.mealDAO().insert(newMeal);
                 runOnUiThread(() -> {
                     Toast.makeText(AddMealActivity.this, "Recipe added to your meals!", Toast.LENGTH_SHORT).show();
@@ -130,7 +132,9 @@ public class AddMealActivity extends AppCompatActivity {
         new Thread(() -> {
             SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
             User user = db.userDAO().getUserByUsernameSync(username);
-            int userId = (user != null) ? user.getId() : -1;
+            int userId;
+            if (user != null) userId = user.getId();
+            else userId = -1;
             runOnUiThread(() -> callback.onUserIdFetched(userId));
         }).start();
     }
@@ -230,9 +234,15 @@ public class AddMealActivity extends AppCompatActivity {
     private void setupAddMeal() {
         binding.addMealButton.setOnClickListener(v -> {
             String m = binding.mealNameEditText.getText().toString().trim();
-            if (m.isEmpty() || selectedDate == null || ingredients.isEmpty()) {
-                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+            if (m.isEmpty()) {
+                Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show();
                 return;
+            }
+            if(selectedDate == null){
+                selectedDate = LocalDate.now() ;
+            }
+            if(ingredients.isEmpty()){
+                ingredients = new ArrayList<>();
             }
             new Thread(() -> {
                 SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
