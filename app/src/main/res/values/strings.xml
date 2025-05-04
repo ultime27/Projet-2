@@ -47,13 +47,19 @@
     <string name="quantity">Quantity (g or ml)</string>
     <string name="ingredient">Ingredient</string>
     <string name="create_recipie">Create Recipie</string>
-    <string name="recipy_name">recipy Name</string>
-    <string name="ingredients">Ingredients:</string>
-    <string name="instruction_Static">Instruction:</string>
-    <string name="finished_recipe">Finished Recipe</string>
-    <string name="instruction_text">Instruction</string>
-    <string name="ingredient_list">Ingredient list</string>
+
+    <string name="recipy_name">Nom de la recette</string>
     <string name="descriptiontext">DescriptionText</string>
+
+    <string name="ingredients">Ingrédients</string>
+    <string name="ingredient_list">Liste des ingrédients</string>
+    <string name="instruction_Static">Instructions</string>
+    <string name="instruction_text">Texte de l’instruction</string>
+    <string name="finished_recipe">Recette terminée</string>
+    <string name="shopping_list">Shopping list</string>
+    <string name="bought">bought</string>
+    <string name="welcome_to_the_shopping_list">welcome to the shopping list</string>
+
     <string name="unknow_recipe">Unknow Recipe</string>
     <string name="api_search">Api Search</string>
 
