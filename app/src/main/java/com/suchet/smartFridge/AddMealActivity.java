@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.suchet.smartFridge.database.SmartFridgeDatabase;
 import com.suchet.smartFridge.database.entities.Food;
 import com.suchet.smartFridge.database.entities.Meal;
+import com.suchet.smartFridge.database.entities.Recipe;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityAddMealBinding;
 import com.suchet.smartFridge.Recipie.RecipeAdapteur;
@@ -23,6 +24,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class AddMealActivity extends AppCompatActivity {
 
@@ -53,6 +55,7 @@ public class AddMealActivity extends AppCompatActivity {
     private void setupRecipeSuggestions() {
         binding.mealNameEditText.addTextChangedListener(new android.text.TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String q = s.toString().trim();
@@ -69,8 +72,80 @@ public class AddMealActivity extends AppCompatActivity {
                     binding.recipiesRecyclerView.setVisibility(android.view.View.GONE);
                 }
             }
+
             @Override public void afterTextChanged(android.text.Editable s) {}
         });
+
+        // Gestion du clic sur une recette suggérée
+        recipeAdapteur.setOnRecipeClickListener(new RecipeAdapteur.OnRecipeClickListener() {
+            @Override
+            public void onRecipeClick(Recipe recipe) {
+                new android.app.AlertDialog.Builder(AddMealActivity.this)
+                        .setTitle("Add Recipe to Meal")
+                        .setMessage("Do you want to add the recipe \"" + recipe.getName() + "\" to your meal?")
+                        .setPositiveButton("Yes", (dialog, which) -> addRecipeToMeal(recipe))
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
+    }
+
+    private void addRecipeToMeal(Recipe recipe) {
+        List<Food> recipeIngredients = new ArrayList<>();
+
+        // Convertir les ingrédients de la recette en objets Food
+        for (Map.Entry<String, Double> entry : recipe.getIngredientList().entrySet()) {
+            Food food = new Food(entry.getKey());
+            food.setQuantity(entry.getValue());
+            recipeIngredients.add(food);
+        }
+
+        // Utiliser le callback pour obtenir l'ID utilisateur de manière asynchrone
+        getUserIdFromSharedPrefs(userId -> {
+            if (userId == -1) {
+                Toast.makeText(AddMealActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Créer un repas avec la recette
+            String mealName = recipe.getName(); // Utiliser le nom de la recette comme nom du repas
+            LocalDate currentDate = LocalDate.now(); // Utiliser la date actuelle
+
+            // Insérer le repas dans la base de données
+            new Thread(() -> {
+                SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
+                Meal newMeal = new Meal(mealName, currentDate, recipeIngredients, userId);
+                db.mealDAO().insert(newMeal); // Exécution sur un thread en arrière-plan
+                runOnUiThread(() -> {
+                    Toast.makeText(AddMealActivity.this, "Recipe added to your meals!", Toast.LENGTH_SHORT).show();
+                    // Retourner à la vue des repas après ajout
+                    startActivity(MealActivity.MealIntentFactory(AddMealActivity.this));
+                    finish();
+                });
+            }).start();
+        });
+    }
+
+    private void getUserIdFromSharedPrefs(final UserIdCallback callback) {
+        String username = getSharedPreferences("user_session", MODE_PRIVATE)
+                .getString("current_username", null);
+        if (username == null) {
+            callback.onUserIdFetched(-1);
+            return;
+        }
+
+        // Exécuter la requête dans un thread de fond
+        new Thread(() -> {
+            SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
+            User user = db.userDAO().getUserByUsernameSync(username); // Cette requête se fait sur un thread de fond
+            int userId = (user != null) ? user.getId() : -1;
+            runOnUiThread(() -> callback.onUserIdFetched(userId));
+        }).start();
+    }
+
+    // Interface de retour pour récupérer l'ID utilisateur
+    public interface UserIdCallback {
+        void onUserIdFetched(int userId);
     }
 
     private void setupDatePicker() {
