@@ -84,6 +84,6 @@
             android:text="Stock"/>
 
     </LinearLayout>
-
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>

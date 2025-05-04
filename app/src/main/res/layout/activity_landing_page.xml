@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".LandingPage">
 
-    <!-- Titre -->
     <TextView
         android:id="@+id/HelloWordTextView"
         android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
 
 
 
-    <!-- Bouton Admin (invisible par défaut) -->
     <Button
         android:id="@+id/ButtonAdmin"
         android:layout_width="wrap_content"
@@ -37,9 +35,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp" />
 
-    <!-- Bouton Admin (invisible par défaut) -->
-
-    <!-- Bouton Logout -->
     <Button
         android:id="@+id/test_lucas_Button"
         android:layout_width="wrap_content"
@@ -79,4 +74,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/GoToSettingActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        app:layout_constraintStart_toStartOf="@+id/GoToStockActivity"
+        app:layout_constraintTop_toBottomOf="@+id/GoToStockActivity" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

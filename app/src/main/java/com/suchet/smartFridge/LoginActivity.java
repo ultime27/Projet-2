@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, format, Toast.LENGTH_SHORT).show();
     }
 
-    static Intent loginIntentFactory(Context context) {
+    public static Intent loginIntentFactory(Context context) {
         return new Intent(context, LoginActivity.class);
     }
     private void logoutButton(){

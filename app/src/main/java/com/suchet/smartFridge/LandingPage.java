@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import com.suchet.smartFridge.Recipie.SuggestionPageActivity;
+import com.suchet.smartFridge.Settings.SettingActivity;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.MealActivity;
@@ -54,6 +55,7 @@ public class LandingPage extends AppCompatActivity {
         logoutButton();
         goToCalendarButton();
         goToStockButton();
+        goToSettingButton();
         startActivity(SuggestionPageActivity.suggestionPageActivityIntentFactory(getApplicationContext()));
     }
 
@@ -186,6 +188,15 @@ public class LandingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(StockActivity.StockIntentFactory(getApplicationContext()));
+            }
+        });
+    }
+
+    private void goToSettingButton(){
+        binding.GoToSettingActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(SettingActivity.SettingIntentFactory(getApplicationContext()));
             }
         });
     }

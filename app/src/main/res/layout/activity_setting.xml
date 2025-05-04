@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings.SettingActivity">
+
+    <TextView
+        android:id="@+id/hello"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:text="@string/settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="24sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/displayStock"
+        android:layout_width="412dp"
+        android:layout_height="400dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ChangePasswordButton" />
+
+    <Button
+        android:id="@+id/AdminButton"
+        android:layout_width="140dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/admin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hello"
+        />
+
+    <EditText
+        android:id="@+id/ChangePasswordEditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="136dp"
+        android:hint="@string/new_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ConfirmNewPasswordButton"
+        android:layout_width="100dp"
+        android:layout_height="54dp"
+        android:textSize="15sp"
+        android:text="@string/confirm"
+        app:layout_constraintStart_toEndOf="@+id/ChangePasswordEditText"
+        app:layout_constraintTop_toTopOf="@+id/ChangePasswordEditText"
+        />
+
+    <Button
+        android:id="@+id/DarkModeButton"
+        android:layout_width="140dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/switch_to_dark_mode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmNewPasswordButton"/>
+
+    <Button
+        android:id="@+id/LightModeButton"
+        android:layout_width="140dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/switch_to_light_mode"
+        app:layout_constraintStart_toEndOf="@+id/DarkModeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmNewPasswordButton"/>
+
+    <Button
+        android:id="@+id/ChangePasswordButton"
+        android:layout_width="140dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/change_password"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LightModeButton" />
+
+    <Button
+        android:id="@+id/backToLandingFromSettingButton"
+        android:layout_width="140dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/DeleteAccountButton"
+        android:layout_width="140dp"
+        android:layout_height="54dp"
+        android:text="@string/delete_account"
+
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="@+id/LightModeButton"
+        app:layout_constraintTop_toBottomOf="@+id/LightModeButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

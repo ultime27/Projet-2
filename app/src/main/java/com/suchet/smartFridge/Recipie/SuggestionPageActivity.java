@@ -25,6 +25,7 @@ import com.suchet.smartFridge.Recipie.APISearch.Hit;
 import com.suchet.smartFridge.Recipie.APISearch.Ingredient;
 import com.suchet.smartFridge.Recipie.APISearch.RecipeFromApi;
 import com.suchet.smartFridge.Recipie.APISearch.RecipeResponse;
+import com.suchet.smartFridge.Settings.SettingActivity;
 import com.suchet.smartFridge.database.RecipeDAO;
 import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.entities.Recipe;
