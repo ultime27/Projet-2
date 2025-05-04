@@ -76,7 +76,6 @@ public class AddMealActivity extends AppCompatActivity {
             @Override public void afterTextChanged(android.text.Editable s) {}
         });
 
-        // Gestion du clic sur une recette suggérée
         recipeAdapteur.setOnRecipeClickListener(new RecipeAdapteur.OnRecipeClickListener() {
             @Override
             public void onRecipeClick(Recipe recipe) {
@@ -93,32 +92,26 @@ public class AddMealActivity extends AppCompatActivity {
     private void addRecipeToMeal(Recipe recipe) {
         List<Food> recipeIngredients = new ArrayList<>();
 
-        // Convertir les ingrédients de la recette en objets Food
         for (Map.Entry<String, Double> entry : recipe.getIngredientList().entrySet()) {
             Food food = new Food(entry.getKey());
             food.setQuantity(entry.getValue());
             recipeIngredients.add(food);
         }
 
-        // Utiliser le callback pour obtenir l'ID utilisateur de manière asynchrone
         getUserIdFromSharedPrefs(userId -> {
             if (userId == -1) {
                 Toast.makeText(AddMealActivity.this, "User not found", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Créer un repas avec la recette
-            String mealName = recipe.getName(); // Utiliser le nom de la recette comme nom du repas
-            LocalDate currentDate = LocalDate.now(); // Utiliser la date actuelle
-
-            // Insérer le repas dans la base de données
+            String mealName = recipe.getName();
+            LocalDate currentDate = LocalDate.now();
             new Thread(() -> {
                 SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
                 Meal newMeal = new Meal(mealName, currentDate, recipeIngredients, userId);
-                db.mealDAO().insert(newMeal); // Exécution sur un thread en arrière-plan
+                db.mealDAO().insert(newMeal);
                 runOnUiThread(() -> {
                     Toast.makeText(AddMealActivity.this, "Recipe added to your meals!", Toast.LENGTH_SHORT).show();
-                    // Retourner à la vue des repas après ajout
                     startActivity(MealActivity.MealIntentFactory(AddMealActivity.this));
                     finish();
                 });
@@ -134,16 +127,14 @@ public class AddMealActivity extends AppCompatActivity {
             return;
         }
 
-        // Exécuter la requête dans un thread de fond
         new Thread(() -> {
             SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
-            User user = db.userDAO().getUserByUsernameSync(username); // Cette requête se fait sur un thread de fond
+            User user = db.userDAO().getUserByUsernameSync(username);
             int userId = (user != null) ? user.getId() : -1;
             runOnUiThread(() -> callback.onUserIdFetched(userId));
         }).start();
     }
 
-    // Interface de retour pour récupérer l'ID utilisateur
     public interface UserIdCallback {
         void onUserIdFetched(int userId);
     }
