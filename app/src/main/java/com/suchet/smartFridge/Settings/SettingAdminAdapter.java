@@ -23,7 +23,7 @@ public class SettingAdminAdapter extends RecyclerView.Adapter<SettingAdminAdapte
 
     public void updateUserList(List<User> newUserList) {
         this.userList = newUserList;
-        notifyDataSetChanged(); // refresh l'affichage
+        notifyDataSetChanged();
     }
 
     @NonNull
