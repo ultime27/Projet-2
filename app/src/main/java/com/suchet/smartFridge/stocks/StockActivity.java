@@ -1,5 +1,8 @@
 package com.suchet.smartFridge.stocks;
 
+import static com.suchet.smartFridge.MealActivity.MealIntentFactory;
+import static com.suchet.smartFridge.Recipie.SuggestionPageActivity.suggestionPageActivityIntentFactory;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,18 +40,39 @@ public class StockActivity extends AppCompatActivity {
         displayStock();
         GoToAddStockActivity();
         GoToDeleteStockActivity();
-        backToLanding();
         GoToShoppingListActivity();
-    }
 
-    private void backToLanding() {
-        binding.backToLandingFromStockStockButton.setOnClickListener(new View.OnClickListener() {
+
+        binding.HomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext()));
+            public void onClick(View view) {
+                startActivity(suggestionPageActivityIntentFactory(getApplicationContext()));
             }
         });
+
+
+        binding.CalandarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(MealIntentFactory(getApplicationContext()));
+
+            }
+        });
+
+
+        binding.StockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(StockIntentFactory(getApplicationContext()));
+
+            }
+        });
+
+
+
     }
+
+
 
     private void displayStock() {
         new Thread(() -> {

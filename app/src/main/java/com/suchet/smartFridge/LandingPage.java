@@ -56,6 +56,7 @@ public class LandingPage extends AppCompatActivity {
         goToCalendarButton();
         goToStockButton();
         goToSettingButton();
+        startActivity(SuggestionPageActivity.suggestionPageActivityIntentFactory(getApplicationContext()));
     }
 
     private void loginUser(Bundle savedInstanceState) {
