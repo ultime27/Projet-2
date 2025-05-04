@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database.UnitTest;
+package com.suchet.smartFridge.UnitTest;
 
 import static org.junit.Assert.*;
 
