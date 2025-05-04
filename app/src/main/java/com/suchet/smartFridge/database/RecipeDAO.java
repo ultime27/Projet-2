@@ -2,6 +2,7 @@ package com.suchet.smartFridge.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -18,6 +19,9 @@ public interface RecipeDAO {
     @Query("DELETE FROM recipe_table")
     void deleteAll();
 
+    @Delete
+    void delete(Recipe recipe);
+
     @Query("DELETE FROM recipe_table WHERE name = :name")
     void deletebyName(String name);
 
@@ -26,9 +30,15 @@ public interface RecipeDAO {
 
     @Query("SELECT * FROM recipe_table WHERE name LIKE '%' || :name || '%'")
     LiveData<List<Recipe>> searchByNameLive(String name);
+
     @Query("SELECT * FROM recipe_table WHERE name = :name")
     Recipe searchByName(String name);
 
+    @Query("SELECT * FROM " + RecipeDatabase.RECIPE_TABLE + " WHERE recipeId = :recipeId")
+    LiveData<Recipe> getRecipeByRecipeId(long recipeId);
+
+    @Query("DELETE FROM " + RecipeDatabase.RECIPE_TABLE + " WHERE recipeId = :recipeId")
+    void deleteRecipeByRecipeId(long recipeId);
+
 
 }
-
