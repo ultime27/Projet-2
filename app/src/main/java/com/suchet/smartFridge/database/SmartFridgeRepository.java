@@ -55,8 +55,8 @@ public class SmartFridgeRepository {
     }
 
     public void addUser(String username, String password) {
-        User tempUser = new User(username, password);
-        userDAO.insert(tempUser);
+        User tmpUser = new User(username, password);
+        userDAO.insert(tmpUser);
     }
 
 }
