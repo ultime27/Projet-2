@@ -42,7 +42,6 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         binding.ChangePasswordEditText.setVisibility(View.INVISIBLE);
         binding.ConfirmNewPasswordButton.setVisibility(View.INVISIBLE);
-        binding.displayStock.setVisibility(View.INVISIBLE);
         LightMode();
         DarkMode();
         GoToLandingPage();
@@ -50,7 +49,6 @@ public class SettingActivity extends AppCompatActivity {
         DeleteAccount();
         showAdminButton();
         GoToAdmin();
-        display();
     }
 
     private void LightMode() {
@@ -73,30 +71,20 @@ public class SettingActivity extends AppCompatActivity {
 
         binding.ConfirmNewPasswordButton.setOnClickListener(v -> {
             String newPassword = binding.ChangePasswordEditText.getText().toString();
-            if (newPassword.isEmpty()) return;
-            startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-            finish();
+            if (newPassword.isEmpty()) {
+                return;
+            }
+            SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
             String username = getSharedPreferences("user_session", MODE_PRIVATE).getString("current_username", null);
             if (username == null) return;
-
-            new Thread(() -> {
-                SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
-                User user = stockDatabase.userDAO().getUserByUsernameSync(username);
-                if (user != null) {
-                    user.setPassword(newPassword);
-                    stockDatabase.userDAO().insert(user);
-
-
-                    runOnUiThread(() -> {
-                        binding.ChangePasswordEditText.setVisibility(View.INVISIBLE);
-                        binding.ConfirmNewPasswordButton.setVisibility(View.INVISIBLE);
-                        getSharedPreferences("user_session", MODE_PRIVATE).edit().clear().apply();
-                        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-                        finish();
-                    });
-                }
-            }).start();
+            user = stockDatabase.userDAO().getUserByUsernameSync(username);
+            user.setPassword(newPassword);
+            Log.d("SettingActivity", "Changing password for user: " + user.getUsername());
+            stockDatabase.userDAO().insert(user);
+            binding.ChangePasswordEditText.setVisibility(View.INVISIBLE);
+            binding.ConfirmNewPasswordButton.setVisibility(View.INVISIBLE);
         });
+        gotoLogin();
     }
 
     private void gotoLogin() {
@@ -104,9 +92,9 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void GoToAdmin() {
-       binding.AdminButton.setOnClickListener(v -> {
-           binding.displayStock.setVisibility(View.VISIBLE);
-        });
+        /*binding.AdminButton.setOnClickListener(v -> {
+            startActivity(AdminActivity.adminIntentFactory(getApplicationContext()));
+        });*/
     }
 
     private void showAdminButton() {
@@ -121,11 +109,18 @@ public class SettingActivity extends AppCompatActivity {
                     if (user != null && user.isAdmin()) {
                         binding.AdminButton.setVisibility(View.VISIBLE);
                         binding.displayStock.setVisibility(View.VISIBLE);
-
                         settingAdminAdapter = new SettingAdminAdapter(new ArrayList<>());
-                        binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
                         binding.displayStock.setAdapter(settingAdminAdapter);
+                        binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
 
+                        new Thread(() -> {
+                            List<User> userList = stockDatabase.userDAO().getAllUsers().getValue();
+                            runOnUiThread(() -> {
+                                if (userList != null) {
+                                    settingAdminAdapter.updateUserList(userList);
+                                }
+                            });
+                        }).start();
                     } else {
                         binding.AdminButton.setVisibility(View.INVISIBLE);
                         binding.displayStock.setVisibility(View.INVISIBLE);
@@ -137,43 +132,13 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    private void display() {
-        binding.AdminButton.setOnClickListener(v -> {
+
+    private void DeleteAccount() {
+        binding.DeleteAccountButton.setOnClickListener(v -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
-
-            new Thread(() -> {
-                List<User> userList = stockDatabase.userDAO().getAllUsersList();
-
-                runOnUiThread(() -> {
-                    binding.displayStock.setVisibility(View.VISIBLE);
-
-                    if (settingAdminAdapter == null) {
-                        settingAdminAdapter = new SettingAdminAdapter(userList);
-                        binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
-                        binding.displayStock.setAdapter(settingAdminAdapter);
-                    } else {
-                        settingAdminAdapter.updateUserList(userList);
-                    }
-                });
-            }).start();
-        });
-    }
-
-    private void DeleteAccount(){
-        binding.AdminButton.setOnClickListener(v -> {
             String username = getSharedPreferences("user_session", MODE_PRIVATE).getString("current_username", null);
-            if (username == null) return;
-
-            new Thread(() -> {
-                SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
-                stockDatabase.userDAO().deleteByUsername(username);
-
-                runOnUiThread(() -> {
-                    getSharedPreferences("user_session", MODE_PRIVATE).edit().clear().apply();
-                    startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-                    finish();
-                });
-            }).start();
+            stockDatabase.userDAO().deleteByUsername(username);
+            startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
         });
     }
 
