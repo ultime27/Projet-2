@@ -23,6 +23,9 @@ public interface UserDAO {
     @Query("SELECT * FROM "+ SmartFridgeDatabase.USER_TABLE+ " ORDER BY username")
     LiveData<List<User>> getAllUsers();
 
+    @Query("SELECT * FROM "+ SmartFridgeDatabase.USER_TABLE+ " ORDER BY username")
+    List<User> getAllUsersList();
+
     @Query("DELETE FROM "+ SmartFridgeDatabase.USER_TABLE)
     void deleteAll();
 
