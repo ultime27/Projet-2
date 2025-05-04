@@ -96,8 +96,7 @@ public class SuggestionPageActivity extends AppCompatActivity {
         binding.CreateRecipieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(SettingActivity.SettingIntentFactory(getApplicationContext()));
-                //startActivity(createRecipieActivity.createRecipieActivityIntentFactory(getApplicationContext()));
+                startActivity(createRecipieActivity.createRecipieActivityIntentFactory(getApplicationContext()));
             }
         });
 
