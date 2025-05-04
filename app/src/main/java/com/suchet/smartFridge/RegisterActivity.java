@@ -22,7 +22,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         loginButton();
     }
-
     private void loginButton() {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
     private void logoutButton(){
         binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,9 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
     private void loginActivity() {
         startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }

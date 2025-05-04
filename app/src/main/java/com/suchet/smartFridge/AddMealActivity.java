@@ -185,15 +185,13 @@ public class AddMealActivity extends AppCompatActivity {
             }).start();
         });
     }
-
     private void setupBackButton() {
         binding.backButton.setOnClickListener(v -> finish());
     }
-
     private void updateIngredientsList() {
         StringBuilder sb = new StringBuilder("Ingredients:\n");
         for (Food f : ingredients) {
-            sb.append("- ").append(f.getName()).append(" : ").append(f.getQuantity()).append("\n");
+            sb.append("- ").append(f.getName()).append(" : ").append(f.getQuantity()).append(" g\n");
         }
         binding.ingredientsListTextView.setText(sb.toString());
     }
