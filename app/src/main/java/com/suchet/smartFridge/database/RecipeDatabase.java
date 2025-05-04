@@ -17,10 +17,10 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Recipe.class},version = 1,exportSchema = false)
+@Database(entities = {Recipe.class},version = 4,exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class RecipeDatabase extends RoomDatabase {
-
+    public static final String RECIPE_TABLE = "recipe_table";
     private static final String DATABASE_NAME = "Recipe_database";
     private static volatile RecipeDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
