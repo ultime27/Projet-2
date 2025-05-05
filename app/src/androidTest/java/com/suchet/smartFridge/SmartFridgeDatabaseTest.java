@@ -132,6 +132,7 @@ public class SmartFridgeDatabaseTest {
     }
 
 
+
     @Test
     public void testInsertUser() {
         User user = new User("testuser", "password");
