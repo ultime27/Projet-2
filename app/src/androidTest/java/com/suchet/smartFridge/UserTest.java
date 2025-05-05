@@ -55,6 +55,26 @@ public class UserTest {
     }
 
     @Test
+    public void updateTest() {
+        User user = new User("testuser0", "abcde");
+        dao.insert(user);
+        User copy = dao.getUserByUsernameSync("testuser0");
+
+        assertNotNull(copy);
+        assertEquals(user.getUsername(), copy.getUsername());
+        assertEquals(user.getPassword(), copy.getPassword());
+
+        user = new User("testuser0", "fghij");
+        dao.insert(user);
+
+        copy = dao.getUserByUsernameSync("testuser0");
+
+        assertNotNull(copy);
+        assertEquals(user.getUsername(), copy.getUsername());
+        assertEquals(user.getPassword(), copy.getPassword());
+    }
+
+    @Test
     public void DeleteTest() {
         User user = new User("testuser0", "abcde");
         dao.insert(user);
