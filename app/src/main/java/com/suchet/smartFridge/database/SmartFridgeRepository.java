@@ -47,7 +47,7 @@ public class SmartFridgeRepository {
     }
 
     public LiveData<User> getUserByUsername(String username) {
-        return userDAO.getUserByUsername(username);
+        return userDAO.getUserByUsernameLive(username);
     }
 
     public LiveData<User> getUserByUserId(int userId) {
