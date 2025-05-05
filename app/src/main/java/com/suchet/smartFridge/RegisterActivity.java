@@ -22,8 +22,6 @@ import com.suchet.smartFridge.databinding.ActivityRegisterBinding;
 public class RegisterActivity extends AppCompatActivity {
 
     private SmartFridgeRepository repository;
-    private SmartFridgeDatabase db;
-    private UserDAO userDAO= db.userDAO();
 
     private ActivityRegisterBinding binding;
 
@@ -61,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),-1));
+                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
             }
         });
     }
