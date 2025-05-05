@@ -1,6 +1,9 @@
 package com.suchet.smartFridge.database;
 
+import static com.suchet.smartFridge.MainActivity.TAG;
+
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -11,6 +14,8 @@ import com.suchet.smartFridge.database.entities.User;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
+import okhttp3.Call;
 
 public class SmartFridgeRepository {
     private UserDAO userDAO;
@@ -41,9 +46,22 @@ public class SmartFridgeRepository {
         try{
             return future.get();
         } catch (InterruptedException | ExecutionException e){
-            Log.d(MainActivity.TAG,"Problem getting GymLogRepository, thread error.");
+            Log.d(TAG,"Problem getting GymLogRepository, thread error.");
         }
         return null;
+    }
+
+    public void insert(String username, String password) {
+        Future<SmartFridgeRepository> future = SmartFridgeDatabase.dataBaseWriteExecutor.submit(
+                new Callable<SmartFridgeRepository>() {
+                    @Override
+                    public SmartFridgeRepository call() throws Exception {
+                        User tmpUser = new User(username, password);
+                        userDAO.insert(tmpUser);
+                        return repository;
+                    }
+                }
+        );
     }
 
     public LiveData<User> getUserByUsername(String username) {
