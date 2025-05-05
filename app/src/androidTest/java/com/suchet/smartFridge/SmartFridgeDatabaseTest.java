@@ -131,6 +131,7 @@ public class SmartFridgeDatabaseTest {
         assertTrue(afterDelete.isEmpty());
     }
 
+
     @Test
     public void testInsertUser() {
         User user = new User("testuser", "password");
