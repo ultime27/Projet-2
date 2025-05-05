@@ -137,8 +137,17 @@ public class SuggestionPageActivity extends AppCompatActivity {
         });
 
 
+        goToSettings();
 
+    }
 
+    private void goToSettings() {
+        binding.SettingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(SettingActivity.SettingIntentFactory(getApplicationContext()));
+            }
+        });
     }
     private void observeFilteredResults(String query) {
         if (query.isEmpty()) {

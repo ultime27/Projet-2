@@ -83,8 +83,9 @@ public class SettingActivity extends AppCompatActivity {
             stockDatabase.userDAO().insert(user);
             binding.ChangePasswordEditText.setVisibility(View.INVISIBLE);
             binding.ConfirmNewPasswordButton.setVisibility(View.INVISIBLE);
+            gotoLogin();
         });
-        gotoLogin();
+
     }
 
     private void gotoLogin() {
