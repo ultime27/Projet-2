@@ -63,7 +63,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
             StringBuilder builder = new StringBuilder("Ingrédients :\n");
             for (Food food : meal.getFoodList()) {
                 builder.append("- ").append(food.getName())
-                        .append(" : ").append(food.getQuantity())
+                        .append(" : ").append(String.format("%.0f",food.getQuantity()))
                         .append("\n");
             }
             ingredientsTextView.setText(builder.toString());

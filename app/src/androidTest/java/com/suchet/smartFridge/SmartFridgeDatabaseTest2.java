@@ -194,9 +194,9 @@ public class SmartFridgeDatabaseTest2 {
 
         assertNotNull(daoMeal.getMealsByUser(userId).get(0));
 
-        assertEquals("pasta o pesto",daoMeal.getMealsByUser(userId).get(0).getName());
+        assertEquals("pasta o pesto", daoMeal.getMealsByUser(userId).get(0).getName());
 
-        assertEquals("pasta",daoMeal.getMealsByUser(userId).get(0).getFoodList().get(0).getName());
+        assertEquals("pasta", daoMeal.getMealsByUser(userId).get(0).getFoodList().get(0).getName());
 
         daoMeal.delete(meal);
 
