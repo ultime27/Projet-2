@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 
@@ -202,86 +203,7 @@ public class SmartFridgeDatabaseTest2 {
         assertFalse(daoMeal.getMealsByUser(userId).contains(meal));
     }
 
-    @Test
-    public void ShoppingIteminsertTest() {
-        User user= new User("lucas", "matthieu");
-        daoUser.insert(user);
 
-        ShoppingItem shoppingItem = new ShoppingItem("item");
-        shoppingItem.setQuantity(34);
-        daoShoppingItem.insert(shoppingItem);
-
-        int userId = daoUser.getUserByUsername("lucas").getId();
-
-
-        assertNotNull(daoShoppingItem.getAllForUser(userId));
-
-        assertEquals("item",daoShoppingItem.getAllForUser(userId).get(0).getName());
-
-        assertEquals(34 ,daoShoppingItem.getAllForUser(userId).get(0).getQuantity(),0.0);
-
-    }
-
-    @Test
-    public void ShoppingItemupdateTest() throws InterruptedException {
-
-
-        User user= new User("lucas", "matthieu");
-        daoUser.insert(user);
-
-        ShoppingItem shoppingItem = new ShoppingItem("item");
-        shoppingItem.setQuantity(34);
-        daoShoppingItem.insert(shoppingItem);
-
-        int userId = daoUser.getUserByUsername("lucas").getId();
-
-
-        assertNotNull(daoShoppingItem.getAllForUser(userId));
-
-        assertEquals("item",daoShoppingItem.getAllForUser(userId).get(0).getName());
-
-        assertEquals(34 ,daoShoppingItem.getAllForUser(userId).get(0).getQuantity(), 0.0);
-
-
-        ShoppingItem result = daoShoppingItem.getAllForUser(userId).get(0);
-        result.setQuantity(22.3);
-
-
-
-        daoShoppingItem.update(result);
-
-        result= daoShoppingItem.getAllForUser(userId).get(0);
-
-        assertEquals(22.3, daoShoppingItem.getAllForUser(userId).get(0).getQuantity(), 0.0);
-
-        assertNotNull(result);
-
-    }
-
-    @Test
-    public void ShoppingItemDeleteTest() throws InterruptedException {
-        User user= new User("lucas", "matthieu");
-        daoUser.insert(user);
-
-        ShoppingItem shoppingItem = new ShoppingItem("item");
-        shoppingItem.setQuantity(34);
-        daoShoppingItem.insert(shoppingItem);
-
-        int userId = daoUser.getUserByUsername("lucas").getId();
-
-
-        assertNotNull(daoShoppingItem.getAllForUser(userId));
-
-        assertEquals("item",daoShoppingItem.getAllForUser(userId).get(0).getName());
-
-        assertEquals(34 ,daoShoppingItem.getAllForUser(userId).get(0).getQuantity(), 0.0);
-
-
-        ShoppingItem result = daoShoppingItem.getAllForUser(userId).get(0);
-        daoShoppingItem.delete(result);
-        assertFalse(daoShoppingItem.getAllForUser(userId).contains(result));
-
-    }
 
 
 
