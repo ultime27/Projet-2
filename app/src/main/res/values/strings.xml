@@ -31,9 +31,9 @@
     <string name="enter_the_amount">Enter the amount</string>
     <string name="back">Back</string>
 
-    <string name="start_recipie">Start Recipie</string>
+    <string name="start_recipie">Start Recipe</string>
     <string name="see_more">See more</string>
-    <string name="schedule_recipie">schedule recipie</string>
+    <string name="schedule_recipie">schedule recipe</string>
     <string name="test_lucas">test Lucas</string>
     <string name="foodlist">FoodList</string>
     <string name="date">Date</string>
@@ -42,11 +42,11 @@
     <string name="add_an_ingredient">Add an Ingredient</string>
     <string name="instruction">Instruction</string>
     <string name="description">Description</string>
-    <string name="name_of_the_recipie">Name of the Recipie</string>
-    <string name="save_recipie">Save Recipie</string>
+    <string name="name_of_the_recipie">Name of the Recipe</string>
+    <string name="save_recipie">Save Recipe</string>
     <string name="quantity">Quantity (g or ml)</string>
     <string name="ingredient">Ingredient</string>
-    <string name="create_recipie">Create Recipie</string>
+    <string name="create_recipie">Create Recipe</string>
 
     <string name="recipy_name">Recipe Name</string>
     <string name="descriptiontext">DescriptionText</string>
