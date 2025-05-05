@@ -75,9 +75,6 @@ public class SuggestionPageActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         });
-
-
-
         SearchView searchView = binding.searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
