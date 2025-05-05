@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.suchet.smartFridge.LandingPage;
 import com.suchet.smartFridge.LoginActivity;
+import com.suchet.smartFridge.MainActivity;
 import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.database.SmartFridgeDatabase;
 import com.suchet.smartFridge.database.entities.Food;
@@ -48,7 +49,7 @@ public class SettingActivity extends AppCompatActivity {
         ChangePassword();
         DeleteAccount();
         showAdminButton();
-
+        logout();
     }
 
     private void LightMode() {
@@ -63,6 +64,11 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
+    private void logout(){
+        binding.LogoutButton.setOnClickListener(v -> {
+            gotoLogin();
+        });
+    }
     private void ChangePassword() {
         binding.ChangePasswordButton.setOnClickListener(v -> {
             binding.ChangePasswordEditText.setVisibility(View.VISIBLE);

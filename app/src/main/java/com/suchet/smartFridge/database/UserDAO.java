@@ -33,7 +33,11 @@ public interface UserDAO {
     void deleteByUsername(String username);
 
     @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE username == :username")
-    LiveData<User> getUserByUsername(String username);
+    LiveData<User> getUserByUsernameLive(String username);
+
+    @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE username == :username")
+    User getUserByUsername(String username);
+
 
     @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE id == :userId")
     LiveData<User> getUserByUserId(int userId);
