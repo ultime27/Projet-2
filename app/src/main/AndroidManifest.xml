@@ -24,7 +24,7 @@
             android:name=".MealActivity"
             android:exported="false" />
         <activity
-            android:name=".Recipie.createRecipieActivity"
+            android:name=".Recipie.CreateRecipeActivity"
             android:exported="false" />
         <activity
             android:name=".AddMealActivity"
