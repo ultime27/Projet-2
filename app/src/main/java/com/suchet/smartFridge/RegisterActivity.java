@@ -13,13 +13,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
+import com.suchet.smartFridge.database.SmartFridgeDatabase;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
+import com.suchet.smartFridge.database.UserDAO;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private SmartFridgeRepository repository;
+
     private ActivityRegisterBinding binding;
 
     @Override
@@ -37,7 +40,9 @@ public class RegisterActivity extends AppCompatActivity {
     private void signInButton() {
         binding.SignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { verifyUser(); }
+            public void onClick(View view) {
+
+                verifyUser(); }
         });
     }
 
@@ -54,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding.LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),-1));
+                startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
             }
         });
     }
