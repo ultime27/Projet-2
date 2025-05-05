@@ -40,7 +40,7 @@ public class RecipeFragment extends Fragment {
 
     private LocalDate selectedDate;
 
-    private ExecutorService executorService = Executors.newSingleThreadExecutor(); // Executor pour gérer les threads en arrière-plan
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static RecipeFragment newInstance(String name, String description, String instruction) {
         RecipeFragment fragment = new RecipeFragment();
