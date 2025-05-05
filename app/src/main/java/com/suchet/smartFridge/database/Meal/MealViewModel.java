@@ -1,4 +1,4 @@
-package com.suchet.smartFridge.database;
+package com.suchet.smartFridge.database.Meal;
 
 import android.app.Application;
 
@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.suchet.smartFridge.database.MealDAO;
+import com.suchet.smartFridge.database.MealDatabase;
 import com.suchet.smartFridge.database.entities.Meal;
 
 import java.util.List;
@@ -19,11 +21,10 @@ public class MealViewModel extends AndroidViewModel {
         super(application);
         MealDatabase db = MealDatabase.getDatabase(application);
         mealDao = db.mealDao();
-        allMeals = mealDao.getAllMeals();
     }
 
-    public LiveData<List<Meal>> getAllMeals() {
-        return allMeals;
+    public LiveData<List<Meal>> getMealsForUser(int userId) {
+        return mealDao.getMealsByUserId(userId);
     }
 
     public void insert(Meal meal) {

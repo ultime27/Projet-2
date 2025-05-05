@@ -13,7 +13,7 @@ import com.suchet.smartFridge.database.TypeConverter.TypeLocalDateConverter;
 import com.suchet.smartFridge.database.entities.Meal;
 
 
-@Database(entities = {Meal.class}, version = 4)
+@Database(entities = {Meal.class}, version = 1)
 @TypeConverters({TypeLocalDateConverter.class, ListFoodConverter.class})
 public abstract class MealDatabase extends RoomDatabase {
     private static volatile MealDatabase INSTANCE;
