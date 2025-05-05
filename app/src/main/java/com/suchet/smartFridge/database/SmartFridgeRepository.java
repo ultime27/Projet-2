@@ -51,6 +51,7 @@ public class SmartFridgeRepository {
         return null;
     }
 
+    //Prevent thread problem
     public void insert(String username, String password) {
         Future<SmartFridgeRepository> future = SmartFridgeDatabase.dataBaseWriteExecutor.submit(
                 new Callable<SmartFridgeRepository>() {
