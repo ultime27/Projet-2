@@ -69,45 +69,16 @@ public class RegisterActivity extends AppCompatActivity {
         String password = binding.passwordRegisterEditText.getText().toString();
         String confirmPassword = binding.ConfirmPasswordRegisterEditText.getText().toString();
 
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-//                        }
-//                    }
-//                });
-//
-
         if(username.isEmpty()){
             toastMaker("Username may not be blank");
             return;
-        } else {
-            Log.d(TAG, "username: " + username);
         }
         if(password.isEmpty() || confirmPassword.isEmpty()) {
             toastMaker("Password may not be blank");
-
             return;
-        } else {
-            Log.d(TAG, "password: " + password);
         }
 
         if(password.equals(confirmPassword)){
-            if(username == null || password == null) {
-                Log.d(TAG, " is null");
-            } else {
-                Log.d(TAG, "good to");
-            }
             repository.insert(username, password);
             LiveData<User> userObserver = repository.getUserByUsername(username);
             userObserver.observe(this, user -> {
@@ -118,10 +89,6 @@ public class RegisterActivity extends AppCompatActivity {
             binding.passwordRegisterEditText.setSelection(0);
         }
     }
-
-
-
-
 
     private void toastMaker(String format) {
         Toast.makeText(this, format, Toast.LENGTH_SHORT).show();
