@@ -13,6 +13,7 @@ public class Recipe {
     @PrimaryKey(autoGenerate = true)
     public long recipeId;
 
+
     public String name;
     public String description;
     public String instruction;
