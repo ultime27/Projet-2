@@ -148,7 +148,7 @@ public class SmartFridgeDatabaseTest {
 
         User inserted = userDAO.getUserByUsernameSync("toUpdate");
         inserted.setPassword("updatedPassword");
-        userDAO.insert(inserted); // Remplace car insert est REPLACE
+        userDAO.insert(inserted);
 
         User updated = userDAO.getUserByUsernameSync("toUpdate");
         assertEquals("updatedPassword", updated.getPassword());
