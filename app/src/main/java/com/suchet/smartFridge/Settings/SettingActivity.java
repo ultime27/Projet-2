@@ -50,6 +50,7 @@ public class SettingActivity extends AppCompatActivity {
         DeleteAccount();
         showAdminButton();
         logout();
+        //isAdmin();
     }
 
     private void LightMode() {
@@ -67,6 +68,7 @@ public class SettingActivity extends AppCompatActivity {
     private void logout(){
         binding.LogoutButton.setOnClickListener(v -> {
             gotoLogin();
+            finish();
         });
     }
     private void ChangePassword() {
@@ -93,7 +95,17 @@ public class SettingActivity extends AppCompatActivity {
         });
 
     }
+    private void isAdmin(){
+        if (user.isAdmin()){
+            binding.AdminButton.setVisibility(View.VISIBLE);
+            binding.displayStock.setVisibility(View.VISIBLE);
 
+        }
+        else {
+            binding.AdminButton.setVisibility(View.INVISIBLE);
+            binding.displayStock.setVisibility(View.INVISIBLE);
+        }
+    }
     private void gotoLogin() {
         startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
@@ -107,7 +119,12 @@ public class SettingActivity extends AppCompatActivity {
                 user = stockDatabase.userDAO().getUserByUsernameSync(username);
 
                 runOnUiThread(() -> {
-                    if (user != null && user.isAdmin()) {
+                    if (user == null) {
+                        Log.e("SettingActivity", "User not found in DB");
+                        return;
+                    }
+
+                    if (user.isAdmin()) {
                         binding.AdminButton.setVisibility(View.VISIBLE);
                         binding.displayStock.setVisibility(View.VISIBLE);
                         settingAdminAdapter = new SettingAdminAdapter(new ArrayList<>());
@@ -115,7 +132,7 @@ public class SettingActivity extends AppCompatActivity {
                         binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
 
                         new Thread(() -> {
-                            List<User> userList = stockDatabase.userDAO().getAllUsers().getValue();
+                            List<User> userList = stockDatabase.userDAO().getAllUsersSync();
                             runOnUiThread(() -> {
                                 if (userList != null) {
                                     settingAdminAdapter.updateUserList(userList);
@@ -133,15 +150,23 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-
     private void DeleteAccount() {
         binding.DeleteAccountButton.setOnClickListener(v -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
             String username = getSharedPreferences("user_session", MODE_PRIVATE).getString("current_username", null);
-            stockDatabase.userDAO().deleteByUsername(username);
-            startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+            if (username == null) return;
+            user = stockDatabase.userDAO().getUserByUsernameSync(username);
+            gotoLogin();
+            stockDatabase.userDAO().delete(user);
         });
     }
+
+
+
+
+
+
+    
 
     private void GoToLandingPage() {
         binding.backToLandingFromSettingButton.setOnClickListener(v -> {
