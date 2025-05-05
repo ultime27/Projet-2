@@ -68,8 +68,8 @@ public class RecipeFragment extends Fragment {
 
         Button StartButton = view.findViewById(R.id.start_recipie_button);
         StartButton.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), MealActivity.class);
-            startActivity(intent);
+                    Intent intent = StartRecipieActivity.StartRecipieActivityFactory(requireContext(), getArguments() != null ? getArguments().getString(ARG_NAME) : null);
+                    startActivity(intent);
         });
 
         Button scheduleButton = view.findViewById(R.id.recipie_schedule_button);

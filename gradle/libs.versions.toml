@@ -1,5 +1,5 @@
 [versions]
-agp = "8.8.0"
+agp = "8.9.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -30,6 +30,7 @@ okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-intercepto
 archcoreTesting = { module = "androidx.arch.core:core-testing", version = "2.1.0" }
 androidxTestCore = { module = "androidx.test:core", version = "1.5.0" }
 roomTesting = { module = "androidx.room:room-testing", version = "2.6.1" }
+
 
 
 [plugins]

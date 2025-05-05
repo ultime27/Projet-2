@@ -52,5 +52,4 @@ dependencies {
     implementation(libs.archcoreTesting)
     implementation(libs.androidxTestCore)
     implementation(libs.roomTesting)
-
 }
