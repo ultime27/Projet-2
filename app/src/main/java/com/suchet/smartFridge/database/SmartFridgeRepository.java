@@ -73,9 +73,4 @@ public class SmartFridgeRepository {
         return userDAO.getUserByUserId(userId);
     }
 
-    public void addUser(String username, String password) {
-        User tmpUser = new User(username, password);
-        userDAO.insert(tmpUser);
-    }
-
 }

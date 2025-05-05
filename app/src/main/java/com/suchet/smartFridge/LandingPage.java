@@ -1,13 +1,10 @@
 package com.suchet.smartFridge;
 
-import static com.suchet.smartFridge.MainActivity.TAG;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -63,8 +60,6 @@ public class LandingPage extends AppCompatActivity {
     }
 
     private void loginUser(Bundle savedInstanceState) {
-
-        Log.d(TAG, "Saving to shared PREFS NIGGA!");
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key),
                 Context.MODE_PRIVATE);
