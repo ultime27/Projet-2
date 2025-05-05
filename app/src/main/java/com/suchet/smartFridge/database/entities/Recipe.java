@@ -4,7 +4,6 @@ package com.suchet.smartFridge.database.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.suchet.smartFridge.database.MealDatabase;
 import com.suchet.smartFridge.database.RecipeDatabase;
 
 import java.util.HashMap;
