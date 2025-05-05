@@ -6,14 +6,23 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.room.Room;
 
 import androidx.test.core.app.ApplicationProvider;
 
+import com.suchet.smartFridge.Recipie.CreateRecipeActivity;
+import com.suchet.smartFridge.Recipie.StartRecipieActivity;
+import com.suchet.smartFridge.Recipie.SuggestionPageActivity;
+import com.suchet.smartFridge.Settings.SettingActivity;
 import com.suchet.smartFridge.database.RecipeDAO;
 import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.entities.Recipe;
+import com.suchet.smartFridge.stocks.AddStockActivity;
+import com.suchet.smartFridge.stocks.DeleteStockActivity;
+import com.suchet.smartFridge.stocks.ShoppingListActivity;
+import com.suchet.smartFridge.stocks.StockActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -100,7 +109,5 @@ public class RecipeDatabaseTest {
         result = dao.searchByName("pizza");
         assertNull(result);
     }
-
-
 
 }
