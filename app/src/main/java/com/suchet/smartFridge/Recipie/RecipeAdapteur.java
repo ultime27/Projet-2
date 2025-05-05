@@ -54,8 +54,6 @@ public class RecipeAdapteur extends RecyclerView.Adapter<RecipeAdapteur.RecipeVi
         }
 
         public void bind(Recipe recipe, List<String> foodForTomorrow) {
-
-            //TODO check context
             for (String s:recipe.ingredientList.keySet()){
                 if (foodForTomorrow.contains(s)){
                     name.setTextColor(Color.RED);
