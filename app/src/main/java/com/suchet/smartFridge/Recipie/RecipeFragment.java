@@ -112,6 +112,8 @@ public class RecipeFragment extends Fragment {
                         }
 
                         Meal newMeal = new Meal(mealName, selectedDate, recipeIngredients, userId);
+
+
                         executorService.execute(() -> db.mealDAO().insert(newMeal));
 
                         requireActivity().runOnUiThread(() -> {
