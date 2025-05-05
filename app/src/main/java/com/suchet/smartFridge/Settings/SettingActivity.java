@@ -150,9 +150,6 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-
-
-
     private void DeleteAccount() {
         binding.DeleteAccountButton.setOnClickListener(v -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
@@ -163,6 +160,13 @@ public class SettingActivity extends AppCompatActivity {
             stockDatabase.userDAO().delete(user);
         });
     }
+
+
+
+
+
+
+    
 
     private void GoToLandingPage() {
         binding.backToLandingFromSettingButton.setOnClickListener(v -> {
