@@ -21,6 +21,9 @@ public class Recipe {
 
 
 
+
+
+
     // Room stockera cette map en JSON grâce au converter ci-dessous
     public HashMap<String, Double> ingredientList;
 
