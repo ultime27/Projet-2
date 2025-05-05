@@ -13,10 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.suchet.smartFridge.R;
 import com.suchet.smartFridge.Recipie.APISearch.ApiClient;
@@ -26,7 +24,6 @@ import com.suchet.smartFridge.Recipie.APISearch.Ingredient;
 import com.suchet.smartFridge.Recipie.APISearch.RecipeFromApi;
 import com.suchet.smartFridge.Recipie.APISearch.RecipeResponse;
 import com.suchet.smartFridge.Settings.SettingActivity;
-import com.suchet.smartFridge.database.RecipeDAO;
 import com.suchet.smartFridge.database.RecipeDatabase;
 import com.suchet.smartFridge.database.entities.Recipe;
 import com.suchet.smartFridge.databinding.ActivitySuggestionPageBinding;
@@ -75,9 +72,6 @@ public class SuggestionPageActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         });
-
-
-
         SearchView searchView = binding.searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -97,7 +91,7 @@ public class SuggestionPageActivity extends AppCompatActivity {
         binding.CreateRecipieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(createRecipieActivity.createRecipieActivityIntentFactory(getApplicationContext()));
+                startActivity(CreateRecipeActivity.createRecipieActivityIntentFactory(getApplicationContext()));
             }
         });
 

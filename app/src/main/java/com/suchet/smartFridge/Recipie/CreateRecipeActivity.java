@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class createRecipieActivity extends AppCompatActivity {
+public class CreateRecipeActivity extends AppCompatActivity {
 
     private ActivityAddRecipieBinding binding;
     private IngredientsAdapter ingredientsAdapter;
@@ -61,7 +61,7 @@ public class createRecipieActivity extends AppCompatActivity {
     }
 
     public static Intent createRecipieActivityIntentFactory(Context context) {
-        return new Intent(context, createRecipieActivity.class);
+        return new Intent(context, CreateRecipeActivity.class);
     }
 
 }
