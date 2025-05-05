@@ -60,20 +60,15 @@ public class UserTest {
         dao.insert(user);
         User copy = dao.getUserByUsernameSync("testuser0");
 
-        Log.d(TAG, copy.getUsername() + " " + copy.getPassword());
-        Log.d(TAG, user.getUsername() + " " + user.getPassword());
-
         assertNotNull(copy);
         assertEquals(user.getUsername(), copy.getUsername());
         assertEquals(user.getPassword(), copy.getPassword());
 
-        user = new User("testuser0", "fghij");
-        dao.insert(user);
+        dao.delete(user);
+        User newUser = new User("testuser0", "fghij");
+        dao.insert(newUser);
 
-        copy.setPassword(dao.getUserByUsernameSync("testuser0").getPassword());
-
-        Log.d(TAG, copy.getUsername() + " " + copy.getPassword());
-        Log.d(TAG, user.getUsername() + " " + user.getPassword());
+        copy = dao.getUserByUsernameSync("testuser0");
 
         assertNotNull(copy);
         assertEquals(user.getUsername(), copy.getUsername());
