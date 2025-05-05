@@ -1,8 +1,12 @@
 package com.suchet.smartFridge;
 
+import static com.suchet.smartFridge.MainActivity.TAG;
+import static com.suchet.smartFridge.Recipie.SuggestionPageActivity.suggestionPageActivityIntentFactory;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,7 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        repository = SmartFridgeRepository.getRepository(getApplication());
+
         signInButton();
+        logoutButton();
     }
 
     private void signInButton() {
@@ -62,24 +69,52 @@ public class RegisterActivity extends AppCompatActivity {
         String password = binding.passwordRegisterEditText.getText().toString();
         String confirmPassword = binding.ConfirmPasswordRegisterEditText.getText().toString();
 
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d(TAG, "createUserWithEmail:success");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            updateUI(user);
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+//                            updateUI(null);
+//                        }
+//                    }
+//                });
+//
+
         if(username.isEmpty()){
             toastMaker("Username may not be blank");
             return;
+        } else {
+            Log.d(TAG, "username: " + username);
         }
         if(password.isEmpty() || confirmPassword.isEmpty()) {
             toastMaker("Password may not be blank");
+
             return;
+        } else {
+            Log.d(TAG, "password: " + password);
         }
 
         if(password.equals(confirmPassword)){
-            repository.addUser(username, password);
-            toastMaker("Added user to repository.");
+            if(username == null || password == null) {
+                Log.d(TAG, " is null");
+            } else {
+                Log.d(TAG, "good to");
+            }
+            repository.insert(username, password);
             LiveData<User> userObserver = repository.getUserByUsername(username);
             userObserver.observe(this, user -> {
-                startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext(), user.getId()));
+                startActivity(LandingPage.landingPageActivityIntentFactory(getApplicationContext(),user.getId()));
             });
         } else {
-            toastMaker("Passwords do not match.");
+            Log.d(TAG, "Passwords do not match.");
             binding.passwordRegisterEditText.setSelection(0);
         }
     }

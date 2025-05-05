@@ -11,6 +11,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
+import com.google.firebase.Firebase;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityLoginBinding;
@@ -20,7 +25,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private SmartFridgeRepository repository;
-    private GoogleSignInActivity googleSignInActivity;
+
+    //    private GoogleSignInActivity googleSignInActivity;
+    FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +38,20 @@ public class LoginActivity extends AppCompatActivity {
 
         repository = SmartFridgeRepository.getRepository(getApplication());
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            toastMaker("Firebase logged in.");
+            //reload();
+        } else {
+            toastMaker("Firebase not logged in.");
+        }
+
         SignInButton();
         CreateAccountButton();
         logoutButton();
-
     }
+
     private void CreateAccountButton() {
         binding.CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void verifyUser() {
+
         String username = binding.userNameLoginEditText.getText().toString();
         if(username.isEmpty()){
             toastMaker("Username may not be blank");
