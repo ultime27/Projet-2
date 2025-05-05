@@ -47,4 +47,7 @@ public interface UserDAO {
     @Query("SELECT * FROM " + SmartFridgeDatabase.USER_TABLE + " WHERE id == :userId LIMIT 1")
     User getUserByUserIdSync(int userId);
 
+    @Query("SELECT * FROM user_table")
+    List<User> getAllUsersSync();
+
 }
