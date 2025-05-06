@@ -14,7 +14,7 @@ import androidx.lifecycle.LiveData;
 import com.suchet.smartFridge.database.SmartFridgeRepository;
 import com.suchet.smartFridge.database.entities.User;
 import com.suchet.smartFridge.databinding.ActivityLoginBinding;
-import com.suchet.smartFridge.stocks.StockActivity;
+
 
 public class LoginActivity extends AppCompatActivity {
 

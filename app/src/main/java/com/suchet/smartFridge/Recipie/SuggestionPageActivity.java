@@ -61,8 +61,6 @@ public class SuggestionPageActivity extends AppCompatActivity {
             adapter.setRecipes(recipes);
         });
         adapter.setOnRecipeClickListener(recipe -> {
-            Toast.makeText(this, "Clicked: " + recipe.getName(), Toast.LENGTH_SHORT).show();
-
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, RecipeFragment.newInstance(
                             recipe.getName(),

@@ -25,7 +25,6 @@ public class StartRecipieActivity extends AppCompatActivity {
         binding = ActivityStartRecipieBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         String recipeName = getIntent().getStringExtra("recipeName");
-        Toast.makeText(this, "toastpass: "+recipeName, Toast.LENGTH_SHORT).show();
         new Thread(() -> {
             Recipe recipe = RecipeDatabase.getDatabase(getApplicationContext()).recipeDAO().searchByName(recipeName);
 
