@@ -38,7 +38,7 @@ public class SettingAdminAdapter extends RecyclerView.Adapter<SettingAdminAdapte
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
         holder.usernameTextView.setText(user.getUsername());
-        holder.PasswordTextView.setText(user.isAdmin() ? "Admin" : "Utilisateur");
+        holder.PasswordTextView.setText(user.getPassword());
     }
 
     @Override

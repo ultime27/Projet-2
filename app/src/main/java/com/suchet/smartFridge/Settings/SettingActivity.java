@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,19 +91,38 @@ public class SettingActivity extends AppCompatActivity {
         binding.ConfirmNewPasswordButton.setOnClickListener(v -> {
             String newPassword = binding.ChangePasswordEditText.getText().toString();
             if (newPassword.isEmpty()) {
+                Toast.makeText(this, "empty password", Toast.LENGTH_SHORT).show();
                 return;
             }
-            SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
-            String username = getSharedPreferences("user_session", MODE_PRIVATE).getString("current_username", null);
-            if (username == null) return;
-            user = stockDatabase.userDAO().getUserByUsernameSync(username);
-            user.setPassword(newPassword);
-            Log.d("SettingActivity", "Changing password for user: " + user.getUsername());
-            stockDatabase.userDAO().insert(user);
-            binding.ChangePasswordEditText.setVisibility(View.INVISIBLE);
-            binding.ConfirmNewPasswordButton.setVisibility(View.INVISIBLE);
-            gotoLogin();
+            String username = getSharedPreferences("user_session", MODE_PRIVATE)
+                    .getString("current_username", null);
+            if (username == null) {
+                Toast.makeText(this, "no user found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            new Thread(() -> {
+                SmartFridgeDatabase db = SmartFridgeDatabase.getDatabase(getApplicationContext());
+                User user = db.userDAO().getUserByUsernameSync(username);
+
+                if (user == null) {
+                    Log.e("SettingActivity", "no user found");
+                    runOnUiThread(() -> Toast.makeText(this, "no user found", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+
+                user.setPassword(newPassword);
+                db.userDAO().insert(user);
+
+                runOnUiThread(() -> {
+                    Log.d("SettingActivity", "Mot de passe modifié pour " + user.getUsername() + " mdp  :"+user.getPassword());
+                    binding.ChangePasswordEditText.setVisibility(View.INVISIBLE);
+                    binding.ConfirmNewPasswordButton.setVisibility(View.INVISIBLE);
+                    gotoLogin();
+                });
+            }).start();
         });
+
 
     }
     private void isAdmin(){
@@ -117,7 +137,9 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
     private void gotoLogin() {
-        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+        updateSharedPreference();
+        getIntent().putExtra(LANDING_ACTIVITY_USER_ID,-1);
+        startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),-1));
     }
 
     private void showAdminButton() {
