@@ -2,6 +2,7 @@ package com.suchet.smartFridge.Settings;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,7 @@ import java.util.List;
 public class SettingActivity extends AppCompatActivity {
     private ActivitySettingBinding binding;
     private User user;
+    private static final String LANDING_ACTIVITY_USER_ID = "com.suchet.smartFridge.MAIN_ACTIVITY_USER_ID";
 
     private SettingAdminAdapter settingAdminAdapter;
     @Override
@@ -64,12 +66,20 @@ public class SettingActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         });
     }
-
+    private void updateSharedPreference() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPrefEditor= sharedPreferences.edit();
+        sharedPrefEditor.putInt(getString(R.string.preference_userId_key),-1);
+        sharedPrefEditor.apply();
+    }
     private void logout(){
         binding.LogoutButton.setOnClickListener(v -> {
-            gotoLogin();
-            finish();
+            updateSharedPreference();
+            getIntent().putExtra(LANDING_ACTIVITY_USER_ID,-1);
+            startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),-1));
         });
+
     }
     private void ChangePassword() {
         binding.ChangePasswordButton.setOnClickListener(v -> {
@@ -126,19 +136,22 @@ public class SettingActivity extends AppCompatActivity {
 
                     if (user.isAdmin()) {
                         binding.AdminButton.setVisibility(View.VISIBLE);
-                        binding.displayStock.setVisibility(View.VISIBLE);
-                        settingAdminAdapter = new SettingAdminAdapter(new ArrayList<>());
-                        binding.displayStock.setAdapter(settingAdminAdapter);
-                        binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
+                        binding.AdminButton.setOnClickListener(v -> {
+                            binding.displayStock.setVisibility(View.VISIBLE);
+                            settingAdminAdapter = new SettingAdminAdapter(new ArrayList<>());
+                            binding.displayStock.setAdapter(settingAdminAdapter);
+                            binding.displayStock.setLayoutManager(new LinearLayoutManager(this));
 
-                        new Thread(() -> {
-                            List<User> userList = stockDatabase.userDAO().getAllUsersSync();
-                            runOnUiThread(() -> {
-                                if (userList != null) {
-                                    settingAdminAdapter.updateUserList(userList);
-                                }
-                            });
-                        }).start();
+                            new Thread(() -> {
+                                List<User> userList = stockDatabase.userDAO().getAllUsersSync();
+                                runOnUiThread(() -> {
+                                    if (userList != null) {
+                                        settingAdminAdapter.updateUserList(userList);
+                                    }
+                                });
+                            }).start();
+                        });
+
                     } else {
                         binding.AdminButton.setVisibility(View.INVISIBLE);
                         binding.displayStock.setVisibility(View.INVISIBLE);
@@ -166,7 +179,7 @@ public class SettingActivity extends AppCompatActivity {
 
 
 
-    
+
 
     private void GoToLandingPage() {
         binding.backToLandingFromSettingButton.setOnClickListener(v -> {

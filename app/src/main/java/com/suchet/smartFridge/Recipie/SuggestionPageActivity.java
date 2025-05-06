@@ -83,6 +83,7 @@ public class SuggestionPageActivity extends AppCompatActivity {
                 observeFilteredResults(newText);
                 return true;
             }
+
         });
 
         binding.CreateRecipieButton.setOnClickListener(new View.OnClickListener() {
