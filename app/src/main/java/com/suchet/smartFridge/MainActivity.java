@@ -54,10 +54,7 @@ public class  MainActivity extends AppCompatActivity {
         loginUser(savedInstanceState);
 
 
-        if(loggedInUserId != LOGGED_OUT){
-            Intent intent = LandingPage.landingPageActivityIntentFactory(getApplicationContext(),loggedInUserId);
-            startActivity(intent);
-        }
+
         updateSharedPreference();
         loginButton();
         SignupButton();
