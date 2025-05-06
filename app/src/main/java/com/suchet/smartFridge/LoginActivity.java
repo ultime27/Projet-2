@@ -29,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
 
         repository = SmartFridgeRepository.getRepository(getApplication());
 
+
+
         SignInButton();
         CreateAccountButton();
         logoutButton();
