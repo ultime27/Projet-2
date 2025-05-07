@@ -29,21 +29,18 @@
         android:id="@+id/AdminButton"
         android:layout_width="140dp"
         android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="28dp"
         android:text="@string/admin"
-       app:layout_constraintEnd_toStartOf="@+id/LogoutButton"
-        app:layout_constraintTop_toBottomOf="@+id/hello" />
+        app:layout_constraintStart_toStartOf="@+id/LightModeButton"
+        app:layout_constraintTop_toBottomOf="@+id/LightModeButton" />
 
     <Button
         android:id="@+id/LogoutButton"
         android:layout_width="140dp"
         android:layout_height="54dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
         android:text="log out"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.807"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hello" />
 
@@ -108,13 +105,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <Button
-        android:id="@+id/DeleteAccountButton"
-        android:layout_width="140dp"
-        android:layout_height="54dp"
-        android:text="@string/delete_account"
-        android:layout_marginTop="28dp"
-        app:layout_constraintStart_toStartOf="@+id/LightModeButton"
-        app:layout_constraintTop_toBottomOf="@+id/LightModeButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,7 +50,7 @@ public class SettingActivity extends AppCompatActivity {
         DarkMode();
         GoToLandingPage();
         ChangePassword();
-        DeleteAccount();
+        //DeleteAccount();
         showAdminButton();
         logout();
         //isAdmin();
@@ -185,7 +185,7 @@ public class SettingActivity extends AppCompatActivity {
         }
     }
 
-    private void DeleteAccount() {
+    /*private void DeleteAccount() {
         binding.DeleteAccountButton.setOnClickListener(v -> {
             SmartFridgeDatabase stockDatabase = SmartFridgeDatabase.getDatabase(getApplicationContext());
             String username = getSharedPreferences("user_session", MODE_PRIVATE).getString("current_username", null);
@@ -194,7 +194,7 @@ public class SettingActivity extends AppCompatActivity {
             gotoLogin();
             stockDatabase.userDAO().delete(user);
         });
-    }
+    }*/
 
 
 
