@@ -51,7 +51,7 @@
     <string name="recipy_name">Recipe Name</string>
     <string name="descriptiontext">DescriptionText</string>
 
-    <string name="ingredients">Ingrédients</string>
+    <string name="ingredients">Ingredients</string>
     <string name="ingredient_list">Liste des ingrédients</string>
     <string name="instruction_Static">Instructions</string>
     <string name="instruction_text">Texte de l’instruction</string>
